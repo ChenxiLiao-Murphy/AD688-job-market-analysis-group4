@@ -8,5 +8,14 @@ format:
     theme: journal
     toc: true
 ---
-# Hello, World!  
-Welcome to my Quarto website.  
+
+# Topic: Geographic and Remote Work Analysis
+1. Which cities or states have the highest job growth for AI vs. non-AI careers?
+2. Are remote jobs increasing or decreasing across industries?
+3. Do tech hubs (e.g., Silicon Valley, Austin, Boston) still dominate hiring, or are other locations emerging?
+4. How do urban vs. rural job markets differ for AI and non-AI careers?
+
+# Introduction
+
+
+
