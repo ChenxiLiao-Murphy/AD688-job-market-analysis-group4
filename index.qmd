@@ -5,7 +5,6 @@ author: "Chenxi Liao; Xiangwen Wang; Eugenia Tseng"
 date: "2025/05/29"
 format:
   html:
-    theme: journal
     toc: true
 ---
 

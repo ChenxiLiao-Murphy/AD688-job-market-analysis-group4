@@ -1,1 +1,111 @@
 /* css styles */
+/* apa_journal.css */
+
+/* Base body text */
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000000;
+    margin: 1in;
+}
+
+/* Remove default padding/margin for headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* APA style: All headings are left-aligned, bold, title case */
+h1 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+h2 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+h3 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+h4 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+h5 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+h6 {
+    font-size: 12pt;
+    text-align: left;
+}
+
+/* Paragraphs */
+p {
+    text-align: left;
+    text-indent: 0.5in;
+    margin-top: 0;
+    margin-bottom: 12pt;
+}
+
+/* Lists (no indentation like in APA) */
+ul, ol {
+    margin-left: 0.5in;
+    padding-left: 0;
+    font-size: 12pt;
+}
+
+/* Table styling (basic APA style) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12pt;
+}
+
+th, td {
+    border: 1px solid #000000;
+    padding: 6pt;
+    text-align: left;
+}
+
+caption {
+    caption-side: bottom;
+    font-size: 12pt;
+    text-align: center;
+}
+
+/* Blockquotes (APA style: double spaced, no indent) */
+blockquote {
+    margin-left: 0.5in;
+    margin-right: 0.5in;
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+/* References section (APA style) */
+.references {
+    text-align: left;
+    font-size: 12pt;
+    hanging-punctuation: first;
+}
+
+.references p {
+    text-indent: -0.5in;
+    margin-left: 0.5in;
+}
+
+/* Figure captions (centered APA style) */
+figure figcaption {
+    text-align: center;
+    font-size: 12pt;
+    margin-top: 6pt;
+}
