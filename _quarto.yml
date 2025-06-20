@@ -9,7 +9,7 @@ website:
         text: Home
       - href: about.qmd
         text: About
-      - href: Introduction.ipynb
+      - href: data_analysis.qmd
         text: Data Analysis
 
 format:
