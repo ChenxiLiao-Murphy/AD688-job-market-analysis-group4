@@ -2,12 +2,13 @@ project:
   type: website
 
 website:
-  title: "AD688 Summer25 Group Project - Job Market Analysis - Group 4"
+  title: "AD688 Summer25 Group Project – Job Market Analysis – Group 4"
   navbar:
     left:
       - href: index.qmd
         text: Home
-        about.qmd
+      - href: about.qmd
+        text: About
       - href: Introduction.ipynb
         text: Data Analysis
 
@@ -18,6 +19,7 @@ format:
       - brand
     css: styles.css
     toc: true
+
 
 
 

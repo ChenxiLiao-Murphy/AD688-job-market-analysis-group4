@@ -15,7 +15,7 @@ format:
 3. Do tech hubs (e.g., Silicon Valley, Austin, Boston) still dominate hiring, or are other locations emerging?
 4. How do urban vs. rural job markets differ for AI and non-AI careers?
 
-# Introduction
+
 
 
 
