@@ -1,0 +1,9 @@
+---
+title: "ML Methods"
+---
+
+# ML Methods
+
+This page describes the machine learning methods applied to analyze the job market data.
+
+_Content will be added here._

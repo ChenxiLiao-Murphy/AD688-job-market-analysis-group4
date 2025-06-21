@@ -1,0 +1,9 @@
+---
+title: "Exploratory Data Analysis"
+---
+
+# Exploratory Data Analysis
+
+This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.
+
+_Content will be added here._

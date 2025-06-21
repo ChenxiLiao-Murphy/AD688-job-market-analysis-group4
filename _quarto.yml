@@ -2,23 +2,31 @@ project:
   type: website
 
 website:
-  title: "AD688 Summer25 Group Project – Job Market Analysis – Group 4"
+  title: "Job Market Analysis 2024"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: data_analysis.qmd
-        text: Data Analysis
-
+        text: "Home"
+      - href: introduction.qmd
+        text: "Introduction"
+      - href: data_cleaning.qmd
+        text: "Data Cleaning & Exploration"
+      - href: eda.qmd
+        text: "Exploratory Data Analysis"
+      - href: skill_gap_analysis.qmd
+        text: "Skill Gap Analysis"
+      - href: ml_methods.qmd
+        text: "ML Methods"
+      - href: nlp_methods.qmd
+        text: "NLP Methods"
 format:
   html:
     theme:
       - minty
     css: styles.css
     toc: true
-
-
-
+execute:
+  echo: true
+  eval: true
+  code-fold: true
 
