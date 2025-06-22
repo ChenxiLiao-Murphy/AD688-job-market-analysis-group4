@@ -1,7 +1,8 @@
 ---
 title: "Data Cleaning"
 subtitle: "Data Preparation and Exploratory Insights for Geographic and Remote Work Trends"
-
+execute:
+  freeze: auto
 bibliography: references.bib
 csl: csl/econometrica.csl
 format: 
