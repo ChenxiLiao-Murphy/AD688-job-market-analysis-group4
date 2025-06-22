@@ -29,5 +29,7 @@ execute:
   echo: true
   eval: true
   code-fold: true
-  execute-dir: project
+    execute-dir: project
+  engine: python
+  engine-path: "./.venv/bin/python"
 
