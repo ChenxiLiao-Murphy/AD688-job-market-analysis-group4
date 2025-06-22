@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>introduction – AD688 Summer25 Group Project – Job Market Analysis – Group 4</title>
+<title>Introduction – Geographic and Remote Work Job Market Analysis - Summ25</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -115,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">AD688 Summer25 Group Project – Job Market Analysis – Group 4</span>
+    <span class="navbar-title">Geographic and Remote Work Job Market Analysis - Summ25</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -129,12 +94,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link active" href="./introduction.html" aria-current="page"> 
+<span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data_analysis.html"> 
-<span class="menu-text">Data Analysis</span></a>
+    <a class="nav-link" href="./data_cleaning.html"> 
+<span class="menu-text">Data Cleaning &amp; Exploration</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./eda.html"> 
+<span class="menu-text">Exploratory Data Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./skill_gap_analysis.html"> 
+<span class="menu-text">Skill Gap Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ml_methods.html"> 
+<span class="menu-text">ML Methods</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./nlp_methods.html"> 
+<span class="menu-text">NLP Methods</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -151,93 +132,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<div id="3776c1a4" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#start a spark SeSslon</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>spark <span class="op">=</span> SparkSession.builder.appName(<span class="st">"JobPostingsAnalysis"</span>).getOrCreate()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Load the CSV file into a Spark DataFrame</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> spark.read.option (<span class="st">"header"</span>,<span class="st">"true"</span>).option(<span class="st">"inferSchema"</span>, <span class="st">"true"</span>).option(<span class="st">"multiline"</span>,<span class="st">"true"</span>).option(<span class="st">"escape"</span>, <span class="st">"</span><span class="ch">\"</span><span class="st">"</span>).csv(<span class="st">"./data/lightcast_job_postings.csv"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#show schema</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df.show(<span class="dv">5</span>, truncast<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The operation couldn’t be completed. Unable to locate a Java Runtime.
-Please visit http://www.java.com for information on installing Java.
-
-/Users/rosawxw/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/bin/spark-class: line 97: CMD: bad array subscript
-head: illegal line count -- -1</code></pre>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction</h1>
 </div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">PySparkRuntimeError</span>                       Traceback (most recent call last)
-Cell <span class="ansi-green-fg">In[1], line 6</span>
-<span class="ansi-green-fg ansi-bold">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,0,255)">pyspark</span><span style="font-weight:bold;color:rgb(0,0,255)">.</span><span style="font-weight:bold;color:rgb(0,0,255)">sql</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> SparkSession
-<span class="ansi-green-fg ansi-bold">      5</span> <span style="font-style:italic;color:rgb(95,135,135)">#start a spark SeSslon</span>
-<span class="ansi-green-fg">----&gt; 6</span> spark <span style="color:rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">SparkSession</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">builder</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">appName</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">JobPostingsAnalysis</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">getOrCreate</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">      8</span> <span style="font-style:italic;color:rgb(95,135,135)">#Load the CSV file into a Spark DataFrame</span>
-<span class="ansi-green-fg ansi-bold">      9</span> df <span style="color:rgb(98,98,98)">=</span> spark<span style="color:rgb(98,98,98)">.</span>read<span style="color:rgb(98,98,98)">.</span>option (<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">header</span><span style="color:rgb(175,0,0)">"</span>,<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">true</span><span style="color:rgb(175,0,0)">"</span>)<span style="color:rgb(98,98,98)">.</span>option(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">inferSchema</span><span style="color:rgb(175,0,0)">"</span>, <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">true</span><span style="color:rgb(175,0,0)">"</span>)<span style="color:rgb(98,98,98)">.</span>option(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">multiline</span><span style="color:rgb(175,0,0)">"</span>,<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">true</span><span style="color:rgb(175,0,0)">"</span>)<span style="color:rgb(98,98,98)">.</span>option(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">escape</span><span style="color:rgb(175,0,0)">"</span>, <span style="color:rgb(175,0,0)">"</span><span style="font-weight:bold;color:rgb(175,95,0)">\"</span><span style="color:rgb(175,0,0)">"</span>)<span style="color:rgb(98,98,98)">.</span>csv(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">./data/lightcast_job_postings.csv</span><span style="color:rgb(175,0,0)">"</span>)
 
-File <span class="ansi-green-fg">~/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/sql/session.py:556</span>, in <span class="ansi-cyan-fg">SparkSession.Builder.getOrCreate</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-fg ansi-bold">    554</span>     sparkConf<span style="color:rgb(98,98,98)">.</span>set(key, value)
-<span class="ansi-green-fg ansi-bold">    555</span> <span style="font-style:italic;color:rgb(95,135,135)"># This SparkContext may be an existing one.</span>
-<span class="ansi-green-fg">--&gt; 556</span> sc <span style="color:rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">SparkContext</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">getOrCreate</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sparkConf</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">    557</span> <span style="font-style:italic;color:rgb(95,135,135)"># Do not update `SparkConf` for existing `SparkContext`, as it's shared</span>
-<span class="ansi-green-fg ansi-bold">    558</span> <span style="font-style:italic;color:rgb(95,135,135)"># by all sessions.</span>
-<span class="ansi-green-fg ansi-bold">    559</span> session <span style="color:rgb(98,98,98)">=</span> SparkSession(sc, options<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(0,135,0)">self</span><span style="color:rgb(98,98,98)">.</span>_options)
 
-File <span class="ansi-green-fg">~/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/core/context.py:523</span>, in <span class="ansi-cyan-fg">SparkContext.getOrCreate</span><span class="ansi-blue-fg">(cls, conf)</span>
-<span class="ansi-green-fg ansi-bold">    521</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_lock:
-<span class="ansi-green-fg ansi-bold">    522</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_active_spark_context <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">--&gt; 523</span>         <span class="ansi-yellow-bg">SparkContext</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">conf</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">conf</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">or</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">SparkConf</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">    524</span>     <span style="font-weight:bold;color:rgb(0,135,0)">assert</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_active_spark_context <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
-<span class="ansi-green-fg ansi-bold">    525</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_active_spark_context
 
-File <span class="ansi-green-fg">~/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/core/context.py:205</span>, in <span class="ansi-cyan-fg">SparkContext.__init__</span><span class="ansi-blue-fg">(self, master, appName, sparkHome, pyFiles, environment, batchSize, serializer, conf, gateway, jsc, profiler_cls, udf_profiler_cls, memory_profiler_cls)</span>
-<span class="ansi-green-fg ansi-bold">    199</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> gateway <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span> <span style="font-weight:bold;color:rgb(175,0,255)">and</span> gateway<span style="color:rgb(98,98,98)">.</span>gateway_parameters<span style="color:rgb(98,98,98)">.</span>auth_token <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg ansi-bold">    200</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>(
-<span class="ansi-green-fg ansi-bold">    201</span>         <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">You are trying to pass an insecure Py4j gateway to Spark. This</span><span style="color:rgb(175,0,0)">"</span>
-<span class="ansi-green-fg ansi-bold">    202</span>         <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)"> is not allowed as it is a security risk.</span><span style="color:rgb(175,0,0)">"</span>
-<span class="ansi-green-fg ansi-bold">    203</span>     )
-<span class="ansi-green-fg">--&gt; 205</span> <span class="ansi-yellow-bg">SparkContext</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_ensure_initialized</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">gateway</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">gateway</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">conf</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">conf</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">    206</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg ansi-bold">    207</span>     <span style="color:rgb(0,135,0)">self</span><span style="color:rgb(98,98,98)">.</span>_do_init(
-<span class="ansi-green-fg ansi-bold">    208</span>         master,
-<span class="ansi-green-fg ansi-bold">    209</span>         appName,
-<span class="ansi-green-fg">   (...)</span>
-<span class="ansi-green-fg ansi-bold">    219</span>         memory_profiler_cls,
-<span class="ansi-green-fg ansi-bold">    220</span>     )
+<div class="quarto-title-meta">
 
-File <span class="ansi-green-fg">~/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/core/context.py:444</span>, in <span class="ansi-cyan-fg">SparkContext._ensure_initialized</span><span class="ansi-blue-fg">(cls, instance, gateway, conf)</span>
-<span class="ansi-green-fg ansi-bold">    442</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_lock:
-<span class="ansi-green-fg ansi-bold">    443</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_gateway:
-<span class="ansi-green-fg">--&gt; 444</span>         SparkContext<span style="color:rgb(98,98,98)">.</span>_gateway <span style="color:rgb(98,98,98)">=</span> gateway <span style="font-weight:bold;color:rgb(175,0,255)">or</span> <span class="ansi-yellow-bg">launch_gateway</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">conf</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">    445</span>         SparkContext<span style="color:rgb(98,98,98)">.</span>_jvm <span style="color:rgb(98,98,98)">=</span> SparkContext<span style="color:rgb(98,98,98)">.</span>_gateway<span style="color:rgb(98,98,98)">.</span>jvm
-<span class="ansi-green-fg ansi-bold">    447</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> instance:
+    
+  
+    
+  </div>
+  
 
-File <span class="ansi-green-fg">~/AD688 Group Project/AD688-job-market-analysis-group4/.venv/lib/python3.9/site-packages/pyspark/java_gateway.py:111</span>, in <span class="ansi-cyan-fg">launch_gateway</span><span class="ansi-blue-fg">(conf, popen_kwargs)</span>
-<span class="ansi-green-fg ansi-bold">    108</span>     time<span style="color:rgb(98,98,98)">.</span>sleep(<span style="color:rgb(98,98,98)">0.1</span>)
-<span class="ansi-green-fg ansi-bold">    110</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> os<span style="color:rgb(98,98,98)">.</span>path<span style="color:rgb(98,98,98)">.</span>isfile(conn_info_file):
-<span class="ansi-green-fg">--&gt; 111</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> PySparkRuntimeError(
-<span class="ansi-green-fg ansi-bold">    112</span>         errorClass<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">JAVA_GATEWAY_EXITED</span><span style="color:rgb(175,0,0)">"</span>,
-<span class="ansi-green-fg ansi-bold">    113</span>         messageParameters<span style="color:rgb(98,98,98)">=</span>{},
-<span class="ansi-green-fg ansi-bold">    114</span>     )
-<span class="ansi-green-fg ansi-bold">    116</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> <span style="color:rgb(0,135,0)">open</span>(conn_info_file, <span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">rb</span><span style="color:rgb(175,0,0)">"</span>) <span style="font-weight:bold;color:rgb(0,135,0)">as</span> info:
-<span class="ansi-green-fg ansi-bold">    117</span>     gateway_port <span style="color:rgb(98,98,98)">=</span> read_int(info)
 
-<span class="ansi-red-fg">PySparkRuntimeError</span>: [JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.</pre>
-</div>
-</div>
-</div>
+</header>
+
+
 
 
 
