@@ -18,7 +18,6 @@ This page provides an overview of the data cleaning and initial exploration proc
 
 _Content will be added here._
 
-
 ## 1. Lode Dataset
 ```{python}
 #| echo: false
