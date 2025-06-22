@@ -266,7 +266,7 @@ plt.show()
 #| lable: "Top 10 states"
 #| fig-align: center
 #| fig-cap: "Remote type distribution"
-#| future warning
+
 
 import os
 import pandas as pd
