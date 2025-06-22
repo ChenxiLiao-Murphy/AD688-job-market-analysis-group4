@@ -77,6 +77,13 @@
     "text": "2.1 Remote Type distribution\n\n\nCode\nremote_counts = df1[\"REMOTE_TYPE_NAME\"].value_counts()\n\nplt.figure(figsize=(10,6))\nax = sns.barplot(\n    x=remote_counts.index, \n    y=remote_counts.values, \n    hue=remote_counts.index,          \n    palette=\"Set2\"                   \n)\n           \n\nplt.title(\"Distribution of Remote Work Types\", fontsize=14)\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Remote Type\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/remote_type_distribution.png\", dpi=300)\nplt.show()"
   },
   {
+    "objectID": "data_cleaning.html#top-10-states-by-job-postings",
+    "href": "data_cleaning.html#top-10-states-by-job-postings",
+    "title": "Data Cleaning",
+    "section": "2.2 Top 10 states by job postings",
+    "text": "2.2 Top 10 states by job postings\n\n\nCode\nimport os\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\ndf1 = pd.read_csv(\"data/lightcast_job_postings.csv\")\n\ncity_counts = df1[\"CITY_NAME\"].dropna().value_counts().head(10)\n\nplt.figure(figsize=(10,5))\nsns.barplot(x=city_counts.index, y=city_counts.values, palette=\"Accent\")\nplt.title(\"Top 10 Cities by Job Postings\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"City\")\nplt.xticks(rotation=30)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/top_cities_job_postings.png\", dpi=300)\nplt.show()"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "AD688 Summer25 Group Project - Job Market Analysis - Group 4",
