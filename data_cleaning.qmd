@@ -447,6 +447,7 @@ print(df1["Urban_Rural"].value_counts())
 #| echo: true
 #| eval: false
 #| code-fold: true
+#| results: hide
 #| fig-align: center
 #| fig-cap: "Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"
 
@@ -483,15 +484,12 @@ else:
 
 
 
-
-
-
-
 ### Pie Chart
 ```{python}
 #| echo: true
 #| eval: false
 #| code-fold: true
+#| results: hide
 #| fig-align: center
 #| fig-cap: "Urban and Rural Regions: AI vs Non-AI Job Postings (Pie Charts Side by Side)"
 
