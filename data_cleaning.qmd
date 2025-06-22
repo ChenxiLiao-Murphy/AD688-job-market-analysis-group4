@@ -58,7 +58,7 @@ print(df1.columns.tolist())
 ```{python}
 #| echo: true
 #| eval: false 
-#| code-fold: true
+#| code-fold: false 
 #| results: hide
 
 # Define columns that are irrelevant or redundant for our analysis
@@ -94,8 +94,8 @@ df1.head()
 ```
 
 
-##  Handling Missing Values
 
+##  Handling Missing Values
 ```{python}
 #| echo: true
 #| eval: false  
@@ -131,10 +131,13 @@ plt.show()
 ![](figureswxw/missing_values_heatmap.png){width=100% fig-align='center'}
 
 
+
+
 ```{python}
 #| echo: true
 #| eval: false  
 #| code-fold: true
+#| results: show
 
 # Drop columns with >50% missing values
 df1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)
@@ -160,7 +163,7 @@ df1.info()
 ```{python}
 #| echo: true
 #| eval: false  
-#| code-fold: true
+#| code-fold: false
 #| results: hide
 
 
@@ -176,7 +179,7 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts(dropna=False)
 #| echo: true
 #| eval: false  
 #| code-fold: true
-#| results: hide
+#| results: show
 
 #improve
 
@@ -189,38 +192,6 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 
 ```
 
-```{python}
-#| echo: true
-#| eval: false 
-#| code-fold: true
-
-
-#double check
-
-import pandas as pd
-
-categorical_columns = [
-    "EMPLOYMENT_TYPE_NAME",
-    "REMOTE_TYPE_NAME",
-    "COMPANY_NAME",
-    "STATE_NAME",
-    "CITY_NAME",
-    "MAX_EDULEVELS_NAME"
-]
-
-tables = []
-
-for col in categorical_columns:
-    if col in df1.columns:
-        vc = df1[col].value_counts(dropna=False).rename("count").to_frame()
-        vc.index.name = col
-        tables.append(vc)
-
-pd.concat(tables, keys=[t.index.name for t in tables])
-
-```
-
-
 
 
 # Exploratory Data Analysis
@@ -231,7 +202,7 @@ pd.concat(tables, keys=[t.index.name for t in tables])
 #| echo: true
 #| eval: false  
 #| code-fold: true
-#| lable: "Remote type distribution Graph"
+#| lable: "EDA"
 #| fig-align: center
 #| fig-cap: "Remote type distribution"
 
@@ -239,38 +210,30 @@ pd.concat(tables, keys=[t.index.name for t in tables])
 remote_counts = df1["REMOTE_TYPE_NAME"].value_counts()
 
 plt.figure(figsize=(10,6))
-ax = sns.barplot(
+sns.barplot(
     x=remote_counts.index, 
     y=remote_counts.values, 
-    hue=remote_counts.index,          
-    palette="Set2"                   
+    palette="Set2"
 )
-           
-
-plt.title("Distribution of Remote Work Types", fontsize=14)
+plt.title("Remote Type Distribution")
 plt.ylabel("Number of Job Postings")
 plt.xlabel("Remote Type")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.savefig("figureswxw/remote_type_distribution.png", dpi=300)
 plt.show()
+
 ```
 
 ![](figureswxw/remote_type_distribution.png){width=100% fig-align='center'}
 
 
 
-
-
-
-##  Top 10 states by job postings
 ```{python}
 #| echo: true
 #| eval: false  
 #| code-fold: true
-#| lable: "Top 10 states"
-#| fig-align: center
-#| fig-cap: "Remote type distribution"
+#| results: hide
 
 
 import os
@@ -278,21 +241,249 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df1 = pd.read_csv("data/lightcast_job_postings.csv")
+df1["IS_AI"] = df1["NAICS_2022_6_NAME"].fillna("").str.contains("AI|Artificial Intelligence", case=False) | \
+               df1["LOT_OCCUPATION"].fillna("").str.contains("AI|Artificial Intelligence", case=False)
 
-city_counts = df1["CITY_NAME"].dropna().value_counts().head(10)
+df1["IS_AI"] = df1["IS_AI"].map({True: "AI", False: "Non-AI"})
 
-plt.figure(figsize=(10,5))
-sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
-plt.title("Top 10 Cities by Job Postings")
+
+
+```
+
+
+##  Top 10 states : AI vs Non-AI Job Postings
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Top 10 states: AI vs Non-AI Job Postings"
+
+
+top_states = df1["STATE_NAME"].value_counts().head(10).index
+df_top_states = df1[df1["STATE_NAME"].isin(top_states)]
+
+pivot_states = df_top_states.groupby(["STATE_NAME", "IS_AI"]).size().unstack(fill_value=0)
+
+pivot_states.plot(kind="bar", stacked=True, figsize=(12,6), colormap="Set3")
+plt.title("Top 10 States: AI vs Non-AI Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("State")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_states_ai_nonai.png", dpi=300)
+plt.show()
+
+```
+
+![](figureswxw/top_states_ai_nonai.png){width=100% fig-align='center'}
+
+
+
+##  Top 10 cities: AI vs Non-AI Job Postings 
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Top 10 cities: AI vs Non-AI Job Postings"
+
+
+top_cities = df1["CITY_NAME"].value_counts().head(10).index
+df_top_cities = df1[df1["CITY_NAME"].isin(top_cities)]
+
+pivot_cities = df_top_cities.groupby(["CITY_NAME", "IS_AI"]).size().unstack(fill_value=0)
+
+pivot_cities.plot(kind="bar", stacked=True, figsize=(12,6), colormap="Set1")
+plt.title("Top 10 Cities: AI vs Non-AI Job Postings")
 plt.ylabel("Number of Job Postings")
 plt.xlabel("City")
 plt.xticks(rotation=30)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+plt.savefig("figureswxw/top_cities_ai_nonai.png", dpi=300)
 plt.show()
 ```
 
+![](figureswxw/top_cities_ai_nonai.png){width=100% fig-align='center'}
 
-![](figureswxw/top_cities_job_postings.png){width=100% fig-align='center'}
+
+##  Time Trend of Remote Work Types
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Time Trend of Remote Work Types"
+
+
+if "POSTED" in df1.columns:
+    df1["POSTED_DATE"] = pd.to_datetime(df1["POSTED"], errors='coerce')
+    df1 = df1.dropna(subset=["POSTED_DATE"])
+    df1["POSTED_MONTH"] = df1["POSTED_DATE"].dt.to_period("M")
+    
+    trend = df1.groupby(["POSTED_MONTH", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
+    
+    trend.plot(figsize=(14,7))
+    plt.title("Remote Work Trends Over Time", fontsize=14)
+    plt.ylabel("Number of Job Postings")
+    plt.xlabel("Month")
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig("figureswxw/remote_trend_over_time.png", dpi=300)
+    plt.show()
+else:
+    print("POSTED column not found in dataset.")
+
+```
+
+![](figureswxw/remote_trend_over_time.png){width=100% fig-align='center'}
+
+
+
+##  Tech Hubs vs Other Locations Hiring Trends  
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Tech Hubs vs Other Locations Hiring Trends"
+
+
+df1["IS_HUB"] = df1["CITY_NAME"].apply(lambda x: "Hub" if x in ["San Francisco", "Austin", "Boston"] else "Other")
+
+pivot_hub = df1.groupby(["POSTED_MONTH", "IS_HUB"]).size().unstack(fill_value=0)
+
+pivot_hub.plot(figsize=(14,7))
+plt.title("Hiring Trends: Tech Hubs vs Other Locations")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("Month")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/techhub_vs_other_trend.png", dpi=300)
+plt.show()
+
+```
+
+![](figureswxw/techhub_vs_other_trend.png){width=100% fig-align='center'}
+
+
+
+
+##  Remote Job Trend by Industry 
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Remote Job Trends by Industry"
+
+
+top_industries = (
+    df1.groupby("NAICS_2022_6_NAME").size()
+    .sort_values(ascending=False)
+    .head(10)
+    .index
+)
+
+
+df_top_ind = df1[df1["NAICS_2022_6_NAME"].isin(top_industries)]
+
+
+df_top_ind["POSTED_DATE"] = pd.to_datetime(df_top_ind["POSTED"], errors='coerce')
+df_top_ind = df_top_ind.dropna(subset=["POSTED_DATE"])
+df_top_ind["POSTED_MONTH"] = df_top_ind["POSTED_DATE"].dt.to_period("M")
+
+
+pivot = df_top_ind.groupby(["POSTED_MONTH", "NAICS_2022_6_NAME"]).size().unstack(fill_value=0)
+
+pivot.plot(figsize=(14,7))
+plt.title("Remote Job Trends by Top 5 Industries Over Time", fontsize=14)
+plt.ylabel("Number of Job Postings")
+plt.xlabel("Month")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.legend(
+    title="NAICS_2022_6_NAME",
+    loc='upper center',
+    bbox_to_anchor=(0.5, -0.15),  
+    ncol=2,                       
+    frameon=False
+)
+plt.tight_layout()
+plt.savefig("figureswxw/remote_trend_top5_industry.png", dpi=300)
+plt.show()
+
+
+```
+
+![](figureswxw/remote_trend_top5_industry.png){width=100% fig-align='center'}
+
+
+
+## Urban/Rural Region: AI vs Non-AI Job Postings
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| results: show
+urban_cities = [
+    "New York", "Los Angeles", "Chicago", "Houston", "San Francisco",
+    "Austin", "Boston", "Dallas", "Seattle", "Washington", "Atlanta"
+]
+
+df1["CITY_NAME_CLEAN"] = df1["CITY_NAME"].str.split(",").str[0].str.strip().str.title()
+
+df1["Urban_Rural"] = df1["CITY_NAME_CLEAN"].apply(
+    lambda x: "Urban" if x in urban_cities else "Rural"
+)
+
+print(df1["Urban_Rural"].value_counts())
+
+```
+
+
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Urban/Rural Region: AI vs Non-AI Job Postings"
+
+required_columns = ["Urban_Rural", "IS_AI"]
+missing_columns = [col for col in required_columns if col not in df1.columns]
+
+if not missing_columns:
+
+    pivot_urban = df1.groupby(["Urban_Rural", "IS_AI"]).size().unstack(fill_value=0)
+
+    for region in pivot_urban.index:
+        data = pivot_urban.loc[region]
+        plt.figure(figsize=(6,6))
+        plt.pie(
+            data,
+            labels=data.index,
+            autopct='%1.1f%%',
+            startangle=90,
+            colors=["#ff9999","#66b3ff"],
+            wedgeprops={'edgecolor': 'black'}
+        )
+        plt.title(f"{region} - AI vs Non-AI Job Postings")
+        plt.tight_layout()
+        fname = f"figureswxw/{region.lower()}_ai_nonai_pie.png"
+        plt.savefig(fname, dpi=300)
+        plt.show()
+        print(f"Chart saved as {fname}")
+else:
+    print(f"The following required columns are missing: {missing_columns}. Please check your dataset.")
+
+```
+
+![](figureswxw/urban_ai_nonai_pie.png){width=100% fig-align='center' fig-cap="Urban Area: AI vs Non-AI Job Postings"}
+
+![](figureswxw/rural_ai_nonai_pie.png){width=100% fig-align='center' fig-cap="Rural Area: AI vs Non-AI Job Postings"}
+
+
+
+
+
