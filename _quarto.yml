@@ -29,4 +29,5 @@ execute:
   echo: true
   eval: true
   code-fold: true
+  execute-dir: project
 
