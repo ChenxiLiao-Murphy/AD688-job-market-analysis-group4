@@ -24,7 +24,7 @@ _Content will be added here._
 ## 1. Load Dataset
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -34,7 +34,7 @@ df1 = pd.read_csv("./data/lightcast_job_postings.csv")
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -47,7 +47,7 @@ df1.describe()
 ##  Check Columns' Information 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: ture
 #| code-fold: true
 #| results: hide
 df1.columns.tolist()
@@ -57,7 +57,7 @@ print(df1.columns.tolist())
 ##  Dropping Unnecessary Columns
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -98,7 +98,7 @@ df1.head()
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -112,7 +112,7 @@ os.makedirs("figureswxw", exist_ok=True)
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| label: "Missing Value Heatmap"
 #| fig-cap: "Missing values in the dataset"
@@ -134,7 +134,7 @@ plt.show()
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: ture
 #| code-fold: true
 
 # Drop columns with >50% missing values
@@ -160,7 +160,7 @@ df1.info()
 ##  Remove Duplicates
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -175,7 +175,7 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts(dropna=False)
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| results: hide
 
@@ -192,7 +192,7 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| freeze: true
 
@@ -224,7 +224,7 @@ for col in categorical_columns:
 ##   Remote Type distribution
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 #| code-fold: true
 #| lable: "Remote type distribution Graph"
 #| fig-align: center
@@ -266,29 +266,28 @@ plt.show()
 #| lable: "Top 10 states"
 #| fig-align: center
 #| fig-cap: "Remote type distribution"
+#| future warning
 
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-if os.path.exists("data/lightcast_job_postings.csv"):
-    df1 = pd.read_csv("data/lightcast_job_postings.csv")
-    
-    city_counts = df1["CITY_NAME"].dropna().value_counts().head(10)
-    
-    plt.figure(figsize=(10,5))
-    sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
-    plt.title("Top 10 Cities by Job Postings")
-    plt.ylabel("Number of Job Postings")
-    plt.xlabel("City")
-    plt.xticks(rotation=30)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
-    plt.show()
+df1 = pd.read_csv("data/lightcast_job_postings.csv")
 
-else:
-    print("Data file not found. Skipping data load and city barplot.")
+city_counts = df1["CITY_NAME"].dropna().value_counts().head(10)
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
+plt.title("Top 10 Cities by Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("City")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+plt.show()
 ```
 
+
+![](figureswxw/top_cities_job_postings.png){width=100% fig-align='center'}
