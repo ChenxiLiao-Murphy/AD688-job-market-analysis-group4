@@ -1,9 +1,333 @@
 ---
-title: "Data Cleaning & Exploration"
+title: "Data Cleaning"
+subtitle: "Data Preparation and Exploratory Insights for Geographic and Remote Work Trends"
+
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
 ---
+
 
 # Data Cleaning & Exploration
 
 This page provides an overview of the data cleaning and initial exploration process for the job market dataset.
 
 _Content will be added here._
+
+
+## 1. Lode Dataset
+```{python}
+#| echo: false
+import pandas as pd
+df1 = pd.read_csv("data/lightcast_job_postings.csv")
+df1.head()
+df1.info()
+df1.describe()
+```
+
+## 2. Check Columns' Information 
+```{python}
+#| echo: false
+df1.columns.tolist()
+
+```
+
+## 3. Dropping Unnecessary Columns
+```{python}
+#| echo: false
+
+# Define columns that are irrelevant or redundant for our analysis
+columns_to_drop = [
+    # Tracking and metadata
+    "ID", "LAST_UPDATED_DATE", "LAST_UPDATED_TIMESTAMP", "DUPLICATES",
+    "URL", "ACTIVE_URLS", "ACTIVE_SOURCES_INFO", "SOURCE_TYPES", "SOURCES",
+
+    # Company raw info
+    "COMPANY_RAW", "COMPANY_IS_STAFFING",
+
+    # Raw or text-heavy fields
+    "TITLE_RAW", "BODY",
+
+    # Modeled / derived fields
+    "MODELED_EXPIRED", "MODELED_DURATION",
+
+    # Educational levels (redundant versions)
+    "EDUCATION_LEVELS", "EDUCATION_LEVELS_NAME",
+    "MIN_EDULEVELS", "MIN_EDULEVELS_NAME", "MAX_EDULEVELS",
+
+    # Redundant NAICS / SOC codes
+    "NAICS_2022_2", "NAICS_2022_2_NAME",
+    "NAICS_2022_3", "NAICS_2022_3_NAME",
+    "SOC_2", "SOC_3", "SOC_5"
+]
+
+# Drop columns, ignore if a column is missing
+df1.drop(columns=columns_to_drop, inplace=True, errors="ignore")
+
+# Display the first few rows to confirm
+df1.head()
+```
+
+
+## 4. Handling Missing Values
+```{python}
+#| echo: false
+import missingno as msno
+import matplotlib.pyplot as plt
+msno.heatmap(df1)
+plt.title("Missing Values Heatmap")
+plt.show()
+
+```
+
+```{python}
+#| echo: false
+# Drop columns with >50% missing values
+df1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)
+
+# Fill numerical columns with median
+if "SALARY" in df1.columns:
+    df1["SALARY"] = df1["SALARY"].fillna(df1["SALARY"].median())
+
+# You can add more numerical columns if needed
+# e.g. df1["DURATION"] = df1["DURATION"].fillna(df1["DURATION"].median())
+
+# Fill categorical columns with 'Unknown'
+categorical_columns = ["REMOTE_TYPE_NAME", "COMPANY_NAME", "MAX_EDULEVELS_NAME"]
+
+for col in categorical_columns:
+    if col in df1.columns:
+        df1[col] = df1[col].fillna("Unknown")
+
+# Check the result
+df1.info()
+```
+
+
+## 5. Remove Duplicates
+```{python}
+#| echo: false
+df1.drop_duplicates(subset=["TITLE_CLEAN", "COMPANY_NAME", "CITY_NAME", "POSTED"], inplace=True)
+
+df1["REMOTE_TYPE_NAME"].value_counts(dropna=False)
+df1["EMPLOYMENT_TYPE_NAME"].value_counts(dropna=False)
+
+```
+
+
+```{python}
+#| echo: false
+#improve
+
+df1["EMPLOYMENT_TYPE_NAME"] = df1["EMPLOYMENT_TYPE_NAME"].replace({
+    "Part-time (â‰¤ 32 hours)": "Part-time (≤ 32 hours)",
+    "Part-time / full-time": "Part-time / Full-time"
+})
+df1["EMPLOYMENT_TYPE_NAME"] = df1["EMPLOYMENT_TYPE_NAME"].fillna("Unknown")
+df1["EMPLOYMENT_TYPE_NAME"].value_counts()
+
+```
+
+```{python}
+#| echo: false
+#double check
+
+categorical_columns = [
+    "EMPLOYMENT_TYPE_NAME",
+    "REMOTE_TYPE_NAME",
+    "COMPANY_NAME",
+    "STATE_NAME",
+    "CITY_NAME",
+    "MAX_EDULEVELS_NAME"
+]
+
+for col in categorical_columns:
+    if col in df1.columns:
+        print(f"Unique values in {col}:")
+        print(df1[col].value_counts(dropna=False))
+        print("-" * 40)
+
+
+```
+
+
+
+# Exploratory Data Analysis
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+os.makedirs("figures", exist_ok=True)
+
+```
+
+## 1.  Remote Type distribution
+```{python}
+#| echo: false
+remote_counts = df1["REMOTE_TYPE_NAME"].value_counts()
+plt.figure(figsize=(10,6))
+sns.barplot(x=remote_counts.index, y=remote_counts.values, palette="Set2")
+plt.title("Distribution of Remote Work Types", fontsize=14)
+plt.ylabel("Number of Job Postings")
+plt.xlabel("Remote Type")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/remote_type_distribution.png", dpi=300)
+plt.show()
+```
+
+## 2. Top 10 states by job postings
+```{python}
+#| echo: false
+state_counts = df1["STATE_NAME"].value_counts().head(10)
+plt.figure(figsize=(12,7))
+sns.barplot(x=state_counts.index, y=state_counts.values, palette="Set1")
+plt.title("Top 10 States by Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("State")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_states_job_postings.png", dpi=300)
+plt.show()
+```
+
+
+## 3. Top 10 cities by job postings
+```{python}
+#| echo: false
+city_counts = df1["CITY_NAME"].value_counts().head(10)
+plt.figure(figsize=(10,5))
+sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
+plt.title("Top 10 Cities by Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("City")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+plt.show()
+```
+
+
+
+## 4. Remote Type by Top 5 States 
+```{python}
+#| echo: false
+
+
+top_states = df1["STATE_NAME"].value_counts().head(5).index
+df_top = df1[df1["STATE_NAME"].isin(top_states)]
+
+
+pivot = df_top.groupby(["STATE_NAME", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
+
+plt.figure(figsize=(10,6))
+sns.heatmap(pivot, annot=True, fmt="d", cmap="Blues")
+plt.title("Heatmap: Remote Type Count in Top 5 States")
+plt.tight_layout()
+plt.savefig("figureswxw/heatmap_remote_type_top_states.png", dpi=300)
+plt.show()
+
+```
+
+
+
+## 5. Salary by Remote Type
+```{python}
+#| echo: false
+if "SALARY" in df1.columns:
+    plt.figure(figsize=(10,6))
+    sns.boxplot(x="REMOTE_TYPE_NAME", y="SALARY", data=df1, palette="Set2")
+    plt.title("Salary Distribution by Remote Type")
+    plt.ylabel("Salary")
+    plt.xlabel("Remote Type")
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig("figureswxw/salary_by_remote_type.png", dpi=300)
+    plt.show()
+```
+
+
+```{python}
+print(df1.columns.tolist())
+
+```
+
+
+```{python}
+print(df1["SALARY"].describe())
+print(df1["SALARY"].dtype)
+print(df1["SALARY"].isna().sum())
+
+```
+
+
+
+
+# 3. Top 10 cities by job postings
+```{python}
+#| echo: false
+city_counts = df1["CITY_NAME"].value_counts().head(10)
+plt.figure(figsize=(10,5))
+sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
+plt.title("Top 10 Cities by Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("City")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+plt.show()
+```
+
+
+# 3. Top 10 cities by job postings
+```{python}
+#| echo: false
+city_counts = df1["CITY_NAME"].value_counts().head(10)
+plt.figure(figsize=(10,5))
+sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
+plt.title("Top 10 Cities by Job Postings")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("City")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+plt.show()
+```
+
+
+
+
+# 4. Remote Type distribution by state (top 5 states)
+
+```{python}
+#| echo: false
+df_top_states_grouped = df_top_states.groupby(["STATE_NAME", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
+df_top_states_grouped.plot(kind="bar", stacked=True, figsize=(12,8))
+plt.title("Stacked Bar: Remote Type Distribution in Top 5 States")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("State")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figures/stacked_remote_type_top_states.png", dpi=300)
+plt.show()
+
+
+df_pct = df_top_states_grouped.div(df_top_states_grouped.sum(axis=1), axis=0)
+df_pct.plot(kind="bar", stacked=True, figsize=(12,8))
+plt.title("Percentage Stacked Bar: Remote Type in Top 5 States")
+plt.ylabel("Percentage")
+plt.xlabel("State")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figures/percent_stacked_remote_type_top_states.png", dpi=300)
+plt.show()
+
+```
