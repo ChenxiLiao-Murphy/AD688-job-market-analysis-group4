@@ -33,7 +33,7 @@ df1.describe()
 ```{python}
 #| echo: false
 df1.columns.tolist()
-
+print(df1.columns.tolist())
 ```
 
 ## 3. Dropping Unnecessary Columns
@@ -237,97 +237,59 @@ plt.show()
 
 
 
-## 5. Salary by Remote Type
+## 5. Industry Distribution by State
 ```{python}
 #| echo: false
-if "SALARY" in df1.columns:
-    plt.figure(figsize=(10,6))
-    sns.boxplot(x="REMOTE_TYPE_NAME", y="SALARY", data=df1, palette="Set2")
-    plt.title("Salary Distribution by Remote Type")
-    plt.ylabel("Salary")
-    plt.xlabel("Remote Type")
+
+top_industries = df_top["NAICS_2022_6_NAME"].value_counts().head(6).index
+df_top["NAICS_GROUPED"] = df_top["NAICS_2022_6_NAME"].where(df_top["NAICS_2022_6_NAME"].isin(top_industries), "Other")
+
+
+pivot_industry = df_top.groupby(["STATE_NAME", "NAICS_GROUPED"]).size().unstack(fill_value=0)
+
+pivot_industry.plot(kind="bar", stacked=True, figsize=(12,8), colormap="Set1")
+plt.title("Job Postings by Major Industry in Top 5 States")
+plt.ylabel("Number of Job Postings")
+plt.xlabel("State")
+plt.xticks(rotation=0)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+plt.legend(
+    title="NAICS_GROUPED",
+    fontsize=10,
+    title_fontsize=10,
+    loc='upper center',
+    bbox_to_anchor=(0.5, -0.15),  
+    ncol=2,  
+    frameon=False  
+)
+plt.tight_layout()
+plt.savefig("figureswxw/industry_by_state_top_major.png", dpi=300)
+plt.show()
+
+```
+
+## 6. Time Trend of Remote Work Types
+```{python}
+if "POSTED" in df1.columns:
+    df1["POSTED_DATE"] = pd.to_datetime(df1["POSTED"], errors='coerce')
+    df1 = df1.dropna(subset=["POSTED_DATE"])
+    df1["POSTED_MONTH"] = df1["POSTED_DATE"].dt.to_period("M")
+    
+    trend = df1.groupby(["POSTED_MONTH", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
+    
+    trend.plot(figsize=(14,7))
+    plt.title("Remote Work Trends Over Time", fontsize=14)
+    plt.ylabel("Number of Job Postings")
+    plt.xlabel("Month")
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
-    plt.savefig("figureswxw/salary_by_remote_type.png", dpi=300)
+    plt.savefig("figureswxw/remote_trend_over_time.png", dpi=300)
     plt.show()
-```
-
-
-```{python}
-print(df1.columns.tolist())
-
-```
-
-
-```{python}
-print(df1["SALARY"].describe())
-print(df1["SALARY"].dtype)
-print(df1["SALARY"].isna().sum())
+else:
+    print("POSTED column not found in dataset.")
 
 ```
 
 
 
-
-# 3. Top 10 cities by job postings
-```{python}
-#| echo: false
-city_counts = df1["CITY_NAME"].value_counts().head(10)
-plt.figure(figsize=(10,5))
-sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
-plt.title("Top 10 Cities by Job Postings")
-plt.ylabel("Number of Job Postings")
-plt.xlabel("City")
-plt.xticks(rotation=30)
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.tight_layout()
-plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
-plt.show()
-```
-
-
-# 3. Top 10 cities by job postings
-```{python}
-#| echo: false
-city_counts = df1["CITY_NAME"].value_counts().head(10)
-plt.figure(figsize=(10,5))
-sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
-plt.title("Top 10 Cities by Job Postings")
-plt.ylabel("Number of Job Postings")
-plt.xlabel("City")
-plt.xticks(rotation=30)
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.tight_layout()
-plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
-plt.show()
-```
-
-
-
-
-# 4. Remote Type distribution by state (top 5 states)
-
-```{python}
-#| echo: false
-df_top_states_grouped = df_top_states.groupby(["STATE_NAME", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
-df_top_states_grouped.plot(kind="bar", stacked=True, figsize=(12,8))
-plt.title("Stacked Bar: Remote Type Distribution in Top 5 States")
-plt.ylabel("Number of Job Postings")
-plt.xlabel("State")
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.tight_layout()
-plt.savefig("figures/stacked_remote_type_top_states.png", dpi=300)
-plt.show()
-
-
-df_pct = df_top_states_grouped.div(df_top_states_grouped.sum(axis=1), axis=0)
-df_pct.plot(kind="bar", stacked=True, figsize=(12,8))
-plt.title("Percentage Stacked Bar: Remote Type in Top 5 States")
-plt.ylabel("Percentage")
-plt.xlabel("State")
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.tight_layout()
-plt.savefig("figures/percent_stacked_remote_type_top_states.png", dpi=300)
-plt.show()
-
-```
