@@ -77,11 +77,14 @@ df1.head()
 ## 4. Handling Missing Values
 ```{python}
 #| echo: false
-#| eval: false
 import missingno as msno
 import matplotlib.pyplot as plt
 msno.heatmap(df1)
 plt.title("Missing Values Heatmap")
+plt.tight_layout()
+plt.savefig("figureswxw/missing_values_heatmap.png", dpi=300)
+plt.show()
+
 plt.show()
 
 ```
@@ -304,5 +307,6 @@ else:
 
 ```
 
-
+```{python}
+```
 
