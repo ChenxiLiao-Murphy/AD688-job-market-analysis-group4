@@ -24,7 +24,7 @@ _Content will be added here._
 ## 1. Lode Dataset
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 
 import pandas as pd
 df1 = pd.read_csv("./data/lightcast_job_postings.csv")
