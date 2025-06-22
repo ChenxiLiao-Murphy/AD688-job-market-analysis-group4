@@ -31,6 +31,8 @@ df1 = pd.read_csv("./data/lightcast_job_postings.csv")
 ```
 
 ```{python}
+#| echo: true
+#| eval: false
 df1.head()
 df1.info()
 df1.describe()
@@ -39,7 +41,8 @@ df1.describe()
 
 ## 2. Check Columns' Information 
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 df1.columns.tolist()
 print(df1.columns.tolist())
@@ -47,8 +50,8 @@ print(df1.columns.tolist())
 
 ## 3. Dropping Unnecessary Columns
 ```{python}
-#| echo: false
-
+#| echo: true
+#| eval: false
 # Define columns that are irrelevant or redundant for our analysis
 columns_to_drop = [
     # Tracking and metadata
@@ -84,7 +87,8 @@ df1.head()
 
 ## 4. Handling Missing Values
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 import missingno as msno
 import matplotlib.pyplot as plt
 msno.heatmap(df1)
@@ -97,7 +101,8 @@ plt.show()
 ```
 
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 # Drop columns with >50% missing values
 df1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)
@@ -123,7 +128,8 @@ df1.info()
 
 ## 5. Remove Duplicates
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 df1.drop_duplicates(subset=["TITLE_CLEAN", "COMPANY_NAME", "CITY_NAME", "POSTED"], inplace=True)
 
@@ -134,8 +140,8 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts(dropna=False)
 
 
 ```{python}
-#| echo: false
-
+#| echo: true
+#| eval: false
 
 #improve
 
@@ -149,7 +155,8 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 ```
 
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 #double check
 
@@ -176,7 +183,8 @@ for col in categorical_columns:
 # Exploratory Data Analysis
 
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -187,8 +195,8 @@ os.makedirs("figures", exist_ok=True)
 
 ## 1.  Remote Type distribution
 ```{python}
-#| echo: false
-
+#| echo: true
+#| eval: false
 remote_counts = df1["REMOTE_TYPE_NAME"].value_counts()
 plt.figure(figsize=(10,6))
 sns.barplot(x=remote_counts.index, y=remote_counts.values, palette="Set2")
@@ -203,7 +211,8 @@ plt.show()
 
 ## 2. Top 10 states by job postings
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 state_counts = df1["STATE_NAME"].value_counts().head(10)
 plt.figure(figsize=(12,7))
@@ -220,7 +229,8 @@ plt.show()
 
 ## 3. Top 10 cities by job postings
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 city_counts = df1["CITY_NAME"].value_counts().head(10)
 plt.figure(figsize=(10,5))
 sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
@@ -238,7 +248,8 @@ plt.show()
 
 ## 4. Remote Type by Top 5 States 
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 top_states = df1["STATE_NAME"].value_counts().head(5).index
 df_top = df1[df1["STATE_NAME"].isin(top_states)]
 
@@ -258,7 +269,8 @@ plt.show()
 
 ## 5. Industry Distribution by State
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 top_industries = df_top["NAICS_2022_6_NAME"].value_counts().head(6).index
 df_top["NAICS_GROUPED"] = df_top["NAICS_2022_6_NAME"].where(df_top["NAICS_2022_6_NAME"].isin(top_industries), "Other")
@@ -290,7 +302,8 @@ plt.show()
 
 ## 6. Time Trend of Remote Work Types
 ```{python}
-#| echo: false
+#| echo: true
+#| eval: false
 
 if "POSTED" in df1.columns:
     df1["POSTED_DATE"] = pd.to_datetime(df1["POSTED"], errors='coerce')
