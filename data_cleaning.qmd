@@ -171,7 +171,7 @@ for col in categorical_columns:
 # Exploratory Data Analysis
 
 ```{python}
-#| eval: false
+#| echo: false
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -182,7 +182,7 @@ os.makedirs("figures", exist_ok=True)
 
 ## 1.  Remote Type distribution
 ```{python}
-#| eval: false
+#| echo: false
 
 remote_counts = df1["REMOTE_TYPE_NAME"].value_counts()
 plt.figure(figsize=(10,6))
@@ -198,7 +198,7 @@ plt.show()
 
 ## 2. Top 10 states by job postings
 ```{python}
-#| eval: false
+#| echo: false
 
 state_counts = df1["STATE_NAME"].value_counts().head(10)
 plt.figure(figsize=(12,7))
