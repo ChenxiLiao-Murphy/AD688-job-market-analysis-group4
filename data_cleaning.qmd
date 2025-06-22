@@ -129,7 +129,7 @@ plt.show()
 
 ```
 
-![](figureswxw/missing_values_heatmap.png){width=80% fig-align='center'}
+![](figureswxw/missing_values_heatmap.png){width=100% fig-align='center'}
 
 
 ```{python}
@@ -194,6 +194,7 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 #| echo: true
 #| eval: false
 #| code-fold: true
+#| freeze: true
 
 #double check
 
@@ -252,4 +253,42 @@ plt.show()
 
 ![](figureswxw/remote_type_distribution.png){width=100% fig-align='center'}
 
+
+
+
+
+
+##  Top 10 states by job postings
+```{python}
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| lable: "Top 10 states"
+#| fig-align: center
+#| fig-cap: "Remote type distribution"
+
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+if os.path.exists("data/lightcast_job_postings.csv"):
+    df1 = pd.read_csv("data/lightcast_job_postings.csv")
+    
+    city_counts = df1["CITY_NAME"].dropna().value_counts().head(10)
+    
+    plt.figure(figsize=(10,5))
+    sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")
+    plt.title("Top 10 Cities by Job Postings")
+    plt.ylabel("Number of Job Postings")
+    plt.xlabel("City")
+    plt.xticks(rotation=30)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig("figureswxw/top_cities_job_postings.png", dpi=300)
+    plt.show()
+
+else:
+    print("Data file not found. Skipping data load and city barplot.")
+```
 
