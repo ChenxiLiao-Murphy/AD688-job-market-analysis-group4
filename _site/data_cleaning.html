@@ -182,6 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">2</span> Exploratory Data Analysis</a>
   <ul class="collapse">
   <li><a href="#remote-type-distribution" id="toc-remote-type-distribution" class="nav-link" data-scroll-target="#remote-type-distribution"><span class="header-section-number">2.1</span> Remote Type distribution</a></li>
+  <li><a href="#top-10-states-by-job-postings" id="toc-top-10-states-by-job-postings" class="nav-link" data-scroll-target="#top-10-states-by-job-postings"><span class="header-section-number">2.2</span> Top 10 states by job postings</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -215,18 +216,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Content will be added here.</em></p>
 <section id="load-dataset" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="load-dataset"><span class="header-section-number">1.1</span> 1. Load Dataset</h2>
-<div id="0760aec6" class="cell" data-results="hide" data-execution_count="1">
+<div id="68718822" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">"./data/lightcast_job_postings.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/4f/s815nnpx1_15rfdwxj6cwrtr0000gn/T/ipykernel_5616/3038307670.py:2: DtypeWarning: Columns (19,30) have mixed types. Specify dtype option on import or set low_memory=False.
+<pre><code>/var/folders/4f/s815nnpx1_15rfdwxj6cwrtr0000gn/T/ipykernel_8078/3038307670.py:2: DtypeWarning: Columns (19,30) have mixed types. Specify dtype option on import or set low_memory=False.
   df1 = pd.read_csv("./data/lightcast_job_postings.csv")</code></pre>
 </div>
 </div>
-<div id="75a2f811" class="cell" data-results="hide" data-execution_count="2">
+<div id="b79a8b9f" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df1.head()</span>
@@ -240,7 +241,7 @@ Columns: 131 entries, ID to NAICS_2022_6_NAME
 dtypes: float64(38), object(93)
 memory usage: 72.5+ MB</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -474,7 +475,7 @@ memory usage: 72.5+ MB</code></pre>
 </section>
 <section id="check-columns-information" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="check-columns-information"><span class="header-section-number">1.2</span> Check Columns’ Information</h2>
-<div id="82ff020a" class="cell" data-results="hide" data-execution_count="3">
+<div id="6dd03802" class="cell" data-results="hide" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df1.columns.tolist()</span>
@@ -487,7 +488,7 @@ memory usage: 72.5+ MB</code></pre>
 </section>
 <section id="dropping-unnecessary-columns" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="dropping-unnecessary-columns"><span class="header-section-number">1.3</span> Dropping Unnecessary Columns</h2>
-<div id="805b97e4" class="cell" data-results="hide" data-execution_count="4">
+<div id="beb8135d" class="cell" data-results="hide" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define columns that are irrelevant or redundant for our analysis</span></span>
@@ -521,7 +522,7 @@ memory usage: 72.5+ MB</code></pre>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows to confirm</span></span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>df1.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -683,7 +684,7 @@ memory usage: 72.5+ MB</code></pre>
 </section>
 <section id="handling-missing-values" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="handling-missing-values"><span class="header-section-number">1.4</span> Handling Missing Values</h2>
-<div id="3571555e" class="cell" data-results="hide" data-execution_count="5">
+<div id="72c26489" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -715,10 +716,10 @@ memory usage: 72.5+ MB</code></pre>
 <p>:::</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figureswxw/missing_values_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+<p><img src="figureswxw/missing_values_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<div id="dda7fea8" class="cell" data-execution_count="7">
+<div id="d017f986" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop columns with &gt;50% missing values</span></span>
@@ -848,7 +849,7 @@ memory usage: 53.1+ MB</code></pre>
 </section>
 <section id="remove-duplicates" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="remove-duplicates"><span class="header-section-number">1.5</span> Remove Duplicates</h2>
-<div id="e943bbeb" class="cell" data-results="hide" data-execution_count="8">
+<div id="52b942cd" class="cell" data-results="hide" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df1.drop_duplicates(subset<span class="op">=</span>[<span class="st">"TITLE_CLEAN"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"CITY_NAME"</span>, <span class="st">"POSTED"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
@@ -856,7 +857,7 @@ memory usage: 53.1+ MB</code></pre>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>EMPLOYMENT_TYPE_NAME
 Full-time (&gt; 32 hours)      68493
 Part-time (â‰¤ 32 hours)     2278
@@ -865,7 +866,7 @@ NaN                            17
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="3f8070b0" class="cell" data-results="hide" data-execution_count="9">
+<div id="451bd4fb" class="cell" data-results="hide" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#improve</span></span>
@@ -877,7 +878,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>] <span class="op">=</span> df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].fillna(<span class="st">"Unknown"</span>)</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>EMPLOYMENT_TYPE_NAME
 Full-time (&gt; 32 hours)    68493
 Part-time (≤ 32 hours)     2278
@@ -886,130 +887,98 @@ Unknown                      17
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="dcc6f625" class="cell" data-execution_count="10">
+<div id="a213b341" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#double check</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>categorical_columns <span class="op">=</span> [</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"EMPLOYMENT_TYPE_NAME"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"REMOTE_TYPE_NAME"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"COMPANY_NAME"</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"STATE_NAME"</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CITY_NAME"</span>,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MAX_EDULEVELS_NAME"</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical_columns:</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">in</span> df1.columns:</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Unique values in </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">:"</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(df1[col].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>categorical_columns <span class="op">=</span> [</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"EMPLOYMENT_TYPE_NAME"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"REMOTE_TYPE_NAME"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"COMPANY_NAME"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"STATE_NAME"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CITY_NAME"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MAX_EDULEVELS_NAME"</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> []</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical_columns:</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">in</span> df1.columns:</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        vc <span class="op">=</span> df1[col].value_counts(dropna<span class="op">=</span><span class="va">False</span>).rename(<span class="st">"count"</span>).to_frame()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        vc.index.name <span class="op">=</span> col</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        tables.append(vc)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>pd.concat(tables, keys<span class="op">=</span>[t.index.name <span class="cf">for</span> t <span class="kw">in</span> tables])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Unique values in EMPLOYMENT_TYPE_NAME:
-EMPLOYMENT_TYPE_NAME
-Full-time (&gt; 32 hours)    68493
-Part-time (≤ 32 hours)     2278
-Part-time / Full-time       972
-Unknown                      17
-Name: count, dtype: int64
-----------------------------------------
-Unique values in REMOTE_TYPE_NAME:
-REMOTE_TYPE_NAME
-[None]           56017
-Remote           12376
-Hybrid Remote     2237
-Not Remote        1113
-Unknown             17
-Name: count, dtype: int64
-----------------------------------------
-Unique values in COMPANY_NAME:
-COMPANY_NAME
-Unclassified                              3930
-Deloitte                                  2553
-Accenture                                 1498
-PricewaterhouseCoopers                     839
-KPMG                                       451
-                                          ... 
-Native American Technology Corporation       1
-Stonehill College                            1
-Kyrene School District                       1
-Bracco Diagnostics                           1
-Kobie Properties Limited                     1
-Name: count, Length: 12302, dtype: int64
-----------------------------------------
-Unique values in STATE_NAME:
-STATE_NAME
-Texas                                      7999
-California                                 7005
-Florida                                    3609
-Virginia                                   3597
-Illinois                                   3504
-New York                                   3277
-North Carolina                             2719
-Georgia                                    2634
-Ohio                                       2606
-New Jersey                                 2583
-Pennsylvania                               2245
-Massachusetts                              2040
-Michigan                                   1824
-Arizona                                    1630
-Washington                                 1605
-Minnesota                                  1466
-Colorado                                   1442
-Maryland                                   1345
-Tennessee                                  1267
-Missouri                                   1217
-Washington, D.C. (District of Columbia)    1208
-Oregon                                     1084
-Wisconsin                                  1042
-Indiana                                     950
-Connecticut                                 849
-Kansas                                      732
-Alabama                                     682
-South Carolina                              637
-Utah                                        634
-Kentucky                                    630
-Iowa                                        619
-Oklahoma                                    603
-Nevada                                      585
-Arkansas                                    584
-Nebraska                                    536
-Idaho                                       474
-Mississippi                                 469
-Louisiana                                   451
-Rhode Island                                438
-Delaware                                    436
-Maine                                       345
-New Hampshire                               290
-South Dakota                                285
-Hawaii                                      258
-New Mexico                                  252
-Alaska                                      229
-Vermont                                     227
-Montana                                     185
-West Virginia                               159
-North Dakota                                148
-Wyoming                                     108
-NaN                                          17
-Name: count, dtype: int64
-----------------------------------------
-Unique values in CITY_NAME:
-CITY_NAME
-New York, NY      2122
-Chicago, IL       1782
-Atlanta, GA       1688
-Austin, TX        1457
-Houston, TX       1413
-                  ... 
-Bristow, VA          1
-Robbins, NC          1
-Clarksburg, MD       1
-Columbia, IL         1
-Harahan, LA          1
-Name: count, Length: 3842, dtype: int64
-----------------------------------------</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="4" data-quarto-table-cell-role="th" data-valign="top">EMPLOYMENT_TYPE_NAME</td>
+<td data-quarto-table-cell-role="th">Full-time (&gt; 32 hours)</td>
+<td>68493</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Part-time (≤ 32 hours)</td>
+<td>2278</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Part-time / Full-time</td>
+<td>972</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Unknown</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">REMOTE_TYPE_NAME</td>
+<td data-quarto-table-cell-role="th">[None]</td>
+<td>56017</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">CITY_NAME</td>
+<td data-quarto-table-cell-role="th">Bristow, VA</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Robbins, NC</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Clarksburg, MD</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Columbia, IL</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Harahan, LA</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>16205 rows × 1 columns</p>
+</div>
 </div>
 </div>
 </section>
@@ -1018,27 +987,27 @@ Name: count, Length: 3842, dtype: int64
 <h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis</h1>
 <section id="remote-type-distribution" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="remote-type-distribution"><span class="header-section-number">2.1</span> Remote Type distribution</h2>
-<div id="11a51312" class="cell" data-lable="Remote type distribution Graph" data-execution_count="11">
+<div id="04bb908b" class="cell" data-lable="Remote type distribution Graph" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>remote_counts.index, </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>remote_counts.values, </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span>remote_counts.index,          </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>                   </span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Remote Work Types"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Type"</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figureswxw/remote_type_distribution.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>remote_counts.index, </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>remote_counts.values, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span>remote_counts.index,          </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span>                   </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Remote Work Types"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Type"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figureswxw/remote_type_distribution.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1051,7 +1020,56 @@ Name: count, Length: 3842, dtype: int64
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figureswxw/remote_type_distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+<p><img src="figureswxw/remote_type_distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</section>
+<section id="top-10-states-by-job-postings" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="top-10-states-by-job-postings"><span class="header-section-number">2.2</span> Top 10 states by job postings</h2>
+<div id="dadfed70" class="cell" data-lable="Top 10 states" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>city_counts <span class="op">=</span> df1[<span class="st">"CITY_NAME"</span>].dropna().value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>city_counts.index, y<span class="op">=</span>city_counts.values, palette<span class="op">=</span><span class="st">"Accent"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Top 10 Cities by Job Postings"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"City"</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figureswxw/top_cities_job_postings.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/4f/s815nnpx1_15rfdwxj6cwrtr0000gn/T/ipykernel_8078/1316398421.py:6: DtypeWarning: Columns (19,30) have mixed types. Specify dtype option on import or set low_memory=False.
+  df1 = pd.read_csv("data/lightcast_job_postings.csv")
+/var/folders/4f/s815nnpx1_15rfdwxj6cwrtr0000gn/T/ipykernel_8078/1316398421.py:11: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=city_counts.index, y=city_counts.values, palette="Accent")</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-13-output-2.png" width="944" height="470" class="figure-img"></p>
+<figcaption>Remote type distribution</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figureswxw/top_cities_job_postings.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 

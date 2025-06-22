@@ -32,4 +32,5 @@ execute:
   execute-dir: project
   engine: python
   engine-path: "./.venv/bin/python"
+  freeze: auto
 
