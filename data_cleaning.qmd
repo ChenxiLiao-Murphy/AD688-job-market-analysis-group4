@@ -1,0 +1,34 @@
+---
+title: "Data Cleaning"
+subtitle: "Data Preparation and Exploratory Insights for Geographic and Remote Work Trends"
+
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+---
+
+
+# Data Cleaning & Exploration
+
+This page provides an overview of the data cleaning and initial exploration process for the job market dataset.
+
+_Content will be added here._
+
+## 1. Lode Dataset
+```{python}
+#| echo: false
+#| eval: true
+
+import pandas as pd
+df1 = pd.read_csv("data/lightcast_job_postings.csv")
+```
+
+```{python}
+df1.head()
+df1.info()
+df1.describe()
+```
