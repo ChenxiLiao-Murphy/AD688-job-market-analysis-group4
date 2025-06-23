@@ -442,3 +442,45 @@ print(df1["Urban_Rural"].value_counts())
 ```
 
 
+
+
+### Stacked Bar Chart
+```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| results: hide
+#| fig-align: center
+#| fig-cap: "Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"
+
+required_columns = ["Urban_Rural", "IS_AI"]
+missing_columns = [col for col in required_columns if col not in df1.columns]
+
+if not missing_columns:
+    import matplotlib.pyplot as plt
+
+    pivot_urban = df1.groupby(["Urban_Rural", "IS_AI"]).size().unstack(fill_value=0)
+
+
+    pivot_urban.plot(
+        kind="bar",
+        stacked=True,
+        figsize=(8, 5),
+        color=["#ff9999", "#66b3ff"],
+        edgecolor="black"
+    )
+
+    plt.title("Urban and Rural Regions: AI vs Non-AI Job Postings", fontsize=14)
+    plt.ylabel("Number of Job Postings")
+    plt.xlabel("Region Type")
+    plt.xticks(rotation=0)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig("figureswxw/urban_rural_ai_nonai_bar.png", dpi=300)
+    plt.show()
+
+else:
+    print(f"The following required columns are missing: {missing_columns}. Please check your dataset.")
+ ```
+
+![](figureswxw/urban_rural_ai_nonai_bar.png){width=80% fig-align='center' fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"}
