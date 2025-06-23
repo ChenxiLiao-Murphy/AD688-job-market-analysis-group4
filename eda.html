@@ -132,7 +132,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#salary-by-state" id="toc-salary-by-state" class="nav-link" data-scroll-target="#salary-by-state">Salary by State</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -162,8 +165,14 @@ ul.task-list li input[type="checkbox"] {
 <h1>Exploratory Data Analysis</h1>
 <p>This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.</p>
 <p><em>Content will be added here.</em></p>
+<p>import seaborn as sns import matplotlib.pyplot as plt</p>
+<p>plt.figure(figsize=(10,6)) sns.barplot(data=df, x=“STATE_NAME”, y=“Average_Salary”) plt.title(“Average Salary by State”) plt.xticks(rotation=45) plt.tight_layout() plt.savefig(“figures/salary_by_state.png”) plt.show()</p>
+<section id="salary-by-state" class="level3">
+<h3 class="anchored" data-anchor-id="salary-by-state">Salary by State</h3>
+<p><img src="figures/salary_by_state.png" class="img-fluid"></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
