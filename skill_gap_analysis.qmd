@@ -6,4 +6,74 @@ title: "Skill Gap Analysis"
 
 This page presents the skill gap analysis between job requirements and available workforce skills.
 
-_Content will be added here._
+## Step 3： Skill Gap Analysis
+
+### 3.1 Team score DataFrame
+
+Team members' current skills relevant to their selected IT career path：
+
+```{python}
+import pandas as pd
+
+skills_data = {
+    "Name": ["Eugenia", "Chenxi", "Xiangwen"],
+    "Python": [3, 3, 5],
+    "SQL": [4, 2, 3],
+    "Machine Learning": [1, 2, 4],
+    "Cloud Computing": [3, 1, 2],
+    "AWS": [2, 4, 3]
+}
+
+df_skills = pd.DataFrame(skills_data)
+df_skills.set_index("Name", inplace=True)
+df_skills
+
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(df_skills, annot=True, cmap="coolwarm", linewidths=0.5)
+plt.title("Team Skill Levels Heatmap")
+plt.tight_layout()
+plt.savefig("figureswxw/team_skill_heatmap.png")
+plt.show()
+```
+
+
+### 3.2 Compare with top job market skills
+
+```{python}
+from collections import Counter
+
+top_skills = ["Python", "SQL", "Machine Learning", "Cloud Computing", "Docker", "AWS"]
+job_skill_counts = Counter(top_skills)
+
+for skill in top_skills:
+    if skill not in df_skills.columns:
+        df_skills[skill] = 0  # Assume no knowledge in missing skills
+
+df_skills
+
+
+import os
+import matplotlib.pyplot as plt
+
+os.makedirs("figureswxw", exist_ok=True)
+
+team_avg_skills = df_skills.mean()
+
+skills_to_plot = []
+for skill in top_skills:
+    score = team_avg_skills[skill] if skill in team_avg_skills else 0
+    skills_to_plot.append(score)
+
+plt.figure(figsize=(10, 5))
+plt.bar(top_skills, skills_to_plot, color="skyblue")
+plt.title("Average Team Skill Levels vs Top Skills")
+plt.ylabel("Average Score")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("figureswxw/team_vs_industry_skills.png")
+plt.show()
+```
