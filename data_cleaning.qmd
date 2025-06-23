@@ -484,3 +484,58 @@ else:
 
 
 ![](figureswxw/urban_rural_ai_nonai_bar.png){width=80% fig-align='center' fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"}
+
+
+
+
+### Pie Chart
+```{python}
+#| echo: false
+#| eval: false
+#| code-fold: true
+#| results: hide
+#| fig-align: center
+#| fig-cap: "Urban and Rural Regions: AI vs Non-AI Job Postings (Pie Charts Side by Side)"
+
+if not missing_columns:
+
+    pivot_urban = df1.groupby(["Urban_Rural", "IS_AI"]).size().unstack(fill_value=0)
+
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(8, 4))  
+
+    # Urban 
+    data_urban = pivot_urban.loc["Urban"]
+    axes[0].pie(
+        data_urban,
+        labels=data_urban.index,
+        autopct='%1.1f%%',
+        startangle=90,
+        colors=["#ff9999", "#66b3ff"],
+        wedgeprops={'edgecolor': 'black'}
+    )
+    axes[0].set_title("Urban - AI vs Non-AI")
+
+    # Rural 
+    data_rural = pivot_urban.loc["Rural"]
+    axes[1].pie(
+        data_rural,
+        labels=data_rural.index,
+        autopct='%1.1f%%',
+        startangle=90,
+        colors=["#ff9999", "#66b3ff"],
+        wedgeprops={'edgecolor': 'black'}
+    )
+    axes[1].set_title("Rural - AI vs Non-AI")
+
+    plt.tight_layout()
+    plt.savefig("figureswxw/urban_rural_ai_nonai_pie_combined.png", dpi=300)
+    plt.show()
+
+else:
+    print(f"The following required columns are missing: {missing_columns}. Please check your dataset.")
+
+ ```
+
+ ![](figureswxw/urban_rural_ai_nonai_pie_combined.png){width=80% fig-align='center' fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings"}
