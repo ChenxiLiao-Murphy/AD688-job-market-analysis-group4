@@ -222,14 +222,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Content will be added here.</em></p>
 <section id="load-dataset" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="load-dataset"><span class="header-section-number">1.1</span> 1. Load Dataset</h2>
-<div id="8e90efd6" class="cell" data-results="hide" data-execution_count="1">
+<div id="f688cc1f" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">"./data/lightcast_job_postings.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="252d2ab7" class="cell" data-results="hide" data-execution_count="2">
+<div id="14c66b81" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df1.head()</span>
@@ -240,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="check-columns-information" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="check-columns-information"><span class="header-section-number">1.2</span> Check Columns’ Information</h2>
-<div id="05de56f0" class="cell" data-results="hide" data-execution_count="3">
+<div id="a049cdb1" class="cell" data-results="hide" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df1.columns.tolist()</span>
@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dropping-unnecessary-columns" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="dropping-unnecessary-columns"><span class="header-section-number">1.3</span> Dropping Unnecessary Columns</h2>
-<div id="e27d35b5" class="cell" data-results="hide" data-execution_count="4">
+<div id="d2e37221" class="cell" data-results="hide" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define columns that are irrelevant or redundant for our analysis</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tracking and metadata</span></span>
@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="handling-missing-values" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="handling-missing-values"><span class="header-section-number">1.4</span> Handling Missing Values</h2>
-<div id="59728853" class="cell" data-results="hide" data-execution_count="5">
+<div id="fa06bd5c" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"figureswxw"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="420744c8" class="cell" data-execution_count="6">
+<div id="ee3646a9" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> missingno <span class="im">as</span> msno</span>
@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/missing_values_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<div id="be5ff195" class="cell" data-results="show" data-execution_count="7">
+<div id="edd5c723" class="cell" data-results="show" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop columns with &gt;50% missing values</span></span>
@@ -337,13 +337,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="remove-duplicates" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="remove-duplicates"><span class="header-section-number">1.5</span> Remove Duplicates</h2>
-<div id="6deb81ab" class="cell" data-results="hide" data-execution_count="8">
+<div id="0b636db6" class="cell" data-results="hide" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df1.drop_duplicates(subset<span class="op">=</span>[<span class="st">"TITLE_CLEAN"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"CITY_NAME"</span>, <span class="st">"POSTED"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="42276d6f" class="cell" data-results="show" data-execution_count="9">
+<div id="382430fa" class="cell" data-results="show" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#improve</span></span>
@@ -362,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis</h1>
 <section id="remote-type-distribution" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="remote-type-distribution"><span class="header-section-number">2.1</span> Remote Type distribution</h2>
-<div id="381dab76" class="cell" data-execution_count="10">
+<div id="0492061c" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts()</span>
@@ -387,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/remote_type_distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<div id="a32964cb" class="cell" data-results="hide" data-execution_count="11">
+<div id="978d4697" class="cell" data-results="hide" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -404,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="top-10-states-ai-vs-non-ai-job-postings" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="top-10-states-ai-vs-non-ai-job-postings"><span class="header-section-number">2.2</span> Top 10 states : AI vs Non-AI Job Postings</h2>
-<div id="061a498f" class="cell" data-execution_count="12">
+<div id="f495e650" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>top_states <span class="op">=</span> df1[<span class="st">"STATE_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
@@ -431,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="top-10-cities-ai-vs-non-ai-job-postings" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="top-10-cities-ai-vs-non-ai-job-postings"><span class="header-section-number">2.3</span> Top 10 cities: AI vs Non-AI Job Postings</h2>
-<div id="a6120ab3" class="cell" data-execution_count="13">
+<div id="76a9bcd8" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>top_cities <span class="op">=</span> df1[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
@@ -458,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="time-trend-of-remote-work-types" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="time-trend-of-remote-work-types"><span class="header-section-number">2.4</span> Time Trend of Remote Work Types</h2>
-<div id="90c577d7" class="cell" data-execution_count="14">
+<div id="fc1a6740" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"POSTED"</span> <span class="kw">in</span> df1.columns:</span>
@@ -488,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tech-hubs-vs-other-locations-hiring-trends" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="tech-hubs-vs-other-locations-hiring-trends"><span class="header-section-number">2.5</span> Tech Hubs vs Other Locations Hiring Trends</h2>
-<div id="0089b63b" class="cell" data-execution_count="15">
+<div id="0de741f2" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_HUB"</span>] <span class="op">=</span> df1[<span class="st">"CITY_NAME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"Hub"</span> <span class="cf">if</span> x <span class="kw">in</span> [<span class="st">"San Francisco"</span>, <span class="st">"Austin"</span>, <span class="st">"Boston"</span>] <span class="cf">else</span> <span class="st">"Other"</span>)</span>
@@ -513,7 +513,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="remote-job-trend-by-industry" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="remote-job-trend-by-industry"><span class="header-section-number">2.6</span> Remote Job Trend by Industry</h2>
-<div id="fade498c" class="cell" data-execution_count="16">
+<div id="2ad26199" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>top_industries <span class="op">=</span> (</span>
@@ -559,7 +559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="urbanrural-region-ai-vs-non-ai-job-postings" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="urbanrural-region-ai-vs-non-ai-job-postings"><span class="header-section-number">2.7</span> Urban/Rural Region: AI vs Non-AI Job Postings</h2>
-<div id="06802ea7" class="cell" data-results="hide" data-execution_count="17">
+<div id="cbffd649" class="cell" data-results="hide" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>urban_cities <span class="op">=</span> [</span>
@@ -578,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="stacked-bar-chart" class="level3" data-number="2.7.1">
 <h3 data-number="2.7.1" class="anchored" data-anchor-id="stacked-bar-chart"><span class="header-section-number">2.7.1</span> Stacked Bar Chart</h3>
-<div id="2c7084b0" class="cell" data-results="hide" data-execution_count="18">
+<div id="2a4f2ab8" class="cell" data-results="hide" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> {<span class="st">"Urban_Rural"</span>, <span class="st">"IS_AI"</span>}.issubset(df1.columns):</span>
@@ -607,51 +607,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figureswxw/urban_rural_ai_nonai_bar.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"></p>
+<p><img src="figureswxw/urban_rural_ai_nonai_bar.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"></p>
 </figure>
 </div>
 </section>
 <section id="pie-chart" class="level3" data-number="2.7.2">
 <h3 data-number="2.7.2" class="anchored" data-anchor-id="pie-chart"><span class="header-section-number">2.7.2</span> Pie Chart</h3>
-<p>if not missing_columns:</p>
-<pre><code>pivot_urban = df1.groupby(["Urban_Rural", "IS_AI"]).size().unstack(fill_value=0)
-
-import matplotlib.pyplot as plt
-
-fig, axes = plt.subplots(1, 2, figsize=(8, 4))  
-
-# Urban 
-data_urban = pivot_urban.loc["Urban"]
-axes[0].pie(
-    data_urban,
-    labels=data_urban.index,
-    autopct='%1.1f%%',
-    startangle=90,
-    colors=["#ff9999", "#66b3ff"],
-    wedgeprops={'edgecolor': 'black'}
-)
-axes[0].set_title("Urban - AI vs Non-AI")
-
-# Rural 
-data_rural = pivot_urban.loc["Rural"]
-axes[1].pie(
-    data_rural,
-    labels=data_rural.index,
-    autopct='%1.1f%%',
-    startangle=90,
-    colors=["#ff9999", "#66b3ff"],
-    wedgeprops={'edgecolor': 'black'}
-)
-axes[1].set_title("Rural - AI vs Non-AI")
-
-plt.tight_layout()
-plt.savefig("figureswxw/urban_rural_ai_nonai_pie_combined.png", dpi=300)
-plt.show()</code></pre>
-<p>else: print(f”The following required columns are missing: {missing_columns}. Please check your dataset.”)</p>
-<p>```</p>
+<div id="49063c2e" class="cell" data-results="hide" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> {<span class="st">"Urban_Rural"</span>, <span class="st">"IS_AI"</span>}.issubset(df1.columns):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    pivot_urban <span class="op">=</span> df1.groupby([<span class="st">"Urban_Rural"</span>, <span class="st">"IS_AI"</span>]).size().unstack(fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))  </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ax, region <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="st">"Urban"</span>, <span class="st">"Rural"</span>]):</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> pivot_urban.loc[region]</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        ax.pie(</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            data,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>            labels<span class="op">=</span>data.index,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>            autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>            startangle<span class="op">=</span><span class="dv">90</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>            colors<span class="op">=</span>[<span class="st">"#ff9999"</span>, <span class="st">"#66b3ff"</span>],</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>            wedgeprops<span class="op">=</span>{<span class="st">'edgecolor'</span>: <span class="st">'black'</span>}</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="ss">f"</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss"> - AI vs Non-AI"</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">"figureswxw/urban_rural_ai_nonai_pie_combined.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Required columns are missing. Please check your dataset."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figureswxw/urban_rural_ai_nonai_pie_combined.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings"></p>
+<p><img src="figureswxw/urban_rural_ai_nonai_pie_combined.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings"></p>
 </figure>
 </div>
 
