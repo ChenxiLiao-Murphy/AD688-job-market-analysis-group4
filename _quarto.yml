@@ -21,9 +21,7 @@ website:
         text: "NLP Methods"
 format:
   html:
-    theme:
-      - minty
-    css: styles.css
+    theme: cosmo
     toc: true
 execute:
   echo: true
