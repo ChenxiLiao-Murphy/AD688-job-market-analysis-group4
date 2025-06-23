@@ -7,3 +7,17 @@ title: "Exploratory Data Analysis"
 This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.
 
 _Content will be added here._
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10,6))
+sns.barplot(data=df, x="STATE_NAME", y="Average_Salary")
+plt.title("Average Salary by State")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("figures/salary_by_state.png")
+plt.show()
+
+### Salary by State
+![](figures/salary_by_state.png)
