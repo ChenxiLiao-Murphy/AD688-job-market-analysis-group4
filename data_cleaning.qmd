@@ -486,7 +486,7 @@ else:
 
 ### Pie Chart
 ```{python}
-#| echo: true
+#| echo: false
 #| eval: false
 #| code-fold: true
 #| results: hide
