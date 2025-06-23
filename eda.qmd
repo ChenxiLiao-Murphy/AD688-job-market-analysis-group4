@@ -7,3 +7,67 @@ title: "Exploratory Data Analysis"
 This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.
 
 _Content will be added here._
+
+
+## Salary Distribution
+
+We begin by examining the overall distribution of average salaries in the dataset.
+
+```{python}
+import plotly.express as px
+
+fig = px.histogram(df, x="average_salary", nbins=40, title="Salary Distribution")
+fig.update_layout(template="plotly_white")
+fig.show()
+```
+
+This histogram shows how salaries are spread across roles. We observe that most salaries cluster within a specific range, with some high-paying outliers.
+
+---
+
+## Salary by State
+
+Next, we compare salary ranges across U.S. states to reveal geographic trends.
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 6))
+sns.boxplot(data=df, x="state", y="average_salary")
+plt.title("Salary Distribution by State")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+```
+
+Certain states exhibit higher salary medians than others, reflecting regional disparities in job market compensation.
+
+---
+
+## Top Job Titles in Demand
+
+We identify the most common job titles from the dataset.
+
+```{python}
+top_titles = df["job_title"].value_counts().nlargest(10)
+top_titles.plot(kind="barh", title="Top 10 Job Titles")
+```
+
+This bar chart reveals which roles are most frequently advertised, offering a snapshot of in-demand professions.
+
+---
+
+## Remote vs Onsite Salary Comparison
+
+We also analyze how remote work impacts compensation.
+
+```{python}
+import plotly.express as px
+
+fig = px.box(df, x="remote_type", y="average_salary", title="Remote vs Onsite Salary")
+fig.update_layout(template="plotly_white")
+fig.show()
+```
+
+Remote roles may offer competitive pay depending on job type and industry, providing insights for job seekers prioritizing flexibility.
