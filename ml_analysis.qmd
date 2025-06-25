@@ -290,6 +290,7 @@ fig = px.choropleth(
     width=1000,      
     height=600       
 )
+fig.write_image("figuresmurphy/choropleth.png", scale=2)
 
 fig.show()
 ```
