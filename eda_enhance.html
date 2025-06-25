@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-6418cfffe481927547eab2de50c64b6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -198,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="exploratory-data-analysis" class="level1">
 <h1>Exploratory Data Analysis</h1>
-<div id="d01e1810" class="cell" data-results="hide" data-execution_count="1">
+<div id="dd2c87ff" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -208,13 +208,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="1f0073d9" class="cell" data-results="hide" data-execution_count="2">
+<div id="e7990b3f" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, on_bad_lines<span class="op">=</span><span class="st">'skip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="c4566fcb" class="cell" data-execution_count="3">
+<div id="9ed725da" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>industry_counts <span class="op">=</span> df[<span class="st">'NAICS_2022_2_NAME'</span>].value_counts().reset_index()</span>
@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="salary-by-state" class="level3">
 <h3 class="anchored" data-anchor-id="salary-by-state">Salary by State ??</h3>
-<div id="980b3293" class="cell" data-execution_count="4">
+<div id="35e9ff9f" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>job_descriptions <span class="op">=</span> df[<span class="st">'BODY'</span>].dropna().tolist()</span>

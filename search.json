@@ -60,7 +60,35 @@
     "href": "skill_gap_analysis.html",
     "title": "Skill Gap Analysis",
     "section": "",
-    "text": "This section presents the skill gap analysis between job requirements and available workforce skills.\n\n1 Team score DataFrame\nTeam members’ current skills relevant to their selected IT career path：\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom collections import Counter\nimport re\n\n\n\n\nCode\ndf = pd.read_csv(\"data/lightcast_job_postings.csv\", encoding=\"utf-8\", on_bad_lines='skip')\n\n\n\n\nCode\nskills_data = {\n    \"Name\": [\"Eugenia\", \"Chenxi\", \"Xiangwen\"],\n    \"Python\": [3, 3, 5],\n    \"SQL\": [4, 2, 3],\n    \"Machine Learning\": [1, 2, 4],\n    \"Cloud Computing\": [3, 1, 2],\n    \"AWS\": [2, 4, 3]\n}\n\ndf_skills = pd.DataFrame(skills_data)\ndf_skills.set_index(\"Name\", inplace=True)\ndf_skills\n\n\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(8, 6))\nsns.heatmap(df_skills, annot=True, cmap=\"coolwarm\", linewidths=0.5)\nplt.title(\"Team Skill Levels Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_skill_heatmap.png\", dpi=300,  bbox_inches='tight')\nplt.show()\n\n\n\n\n2 Compare with top job market skills\n\n\nCode\nfrom collections import Counter\n\ntop_skills = [\"Python\", \"SQL\", \"Machine Learning\", \"Cloud Computing\", \"Docker\", \"AWS\"]\njob_skill_counts = Counter(top_skills)\n\nfor skill in top_skills:\n    if skill not in df_skills.columns:\n        df_skills[skill] = 0  # Assume no knowledge in missing skills\n\ndf_skills\n\n\nimport os\nimport matplotlib.pyplot as plt\n\nos.makedirs(\"figureswxw\", exist_ok=True)\n\nteam_avg_skills = df_skills.mean()\n\nskills_to_plot = []\nfor skill in top_skills:\n    score = team_avg_skills[skill] if skill in team_avg_skills else 0\n    skills_to_plot.append(score)\n\nplt.figure(figsize=(10, 5))\nplt.bar(top_skills, skills_to_plot, color=\"skyblue\")\nplt.title(\"Average Team Skill Levels vs Top Skills\")\nplt.ylabel(\"Average Score\")\nplt.xticks(rotation=45)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_vs_industry_skills.png\", dpi=300,  bbox_inches='tight')\nplt.show()\n\n\n\n\nCode\njob_descriptions = df[\"BODY\"].dropna().tolist()\nall_text = \" \".join(job_descriptions).lower()\n\nskills_keywords = [\"python\", \"sql\", \"machine learning\", \"cloud\", \"aws\", \"docker\", \"java\", \"excel\", \"r\", \"linux\"]\nskill_counts = Counter()\nfor skill in skills_keywords:\n    matches = re.findall(rf\"\\b{re.escape(skill)}\\b\", all_text)\n    skill_counts[skill] = len(matches)\n\ntop_skills = [skill for skill, count in skill_counts.most_common(5)]"
+    "text": "This section presents the skill gap analysis between job requirements and available workforce skills."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#team-members-current-skill-levels",
+    "href": "skill_gap_analysis.html#team-members-current-skill-levels",
+    "title": "Skill Gap Analysis",
+    "section": "1.1 Team Members’ Current Skill Levels",
+    "text": "1.1 Team Members’ Current Skill Levels\n\nskills_data = {\n    \"Name\": [\"Eugenia\", \"Chenxi\", \"Xiangwen\"],\n    \"Python\": [3, 3, 5],\n    \"SQL\": [4, 2, 3],\n    \"Machine Learning\": [1, 2, 4],\n    \"Cloud Computing\": [3, 1, 2],\n    \"AWS\": [2, 4, 3]\n}\n\n\ndf_skills = pd.DataFrame(skills_data)\ndf_skills.set_index(\"Name\", inplace=True)\ndf_skills"
+  },
+  {
+    "objectID": "skill_gap_analysis.html#current-skill-heatmap",
+    "href": "skill_gap_analysis.html#current-skill-heatmap",
+    "title": "Skill Gap Analysis",
+    "section": "1.2 Current Skill Heatmap",
+    "text": "1.2 Current Skill Heatmap\n\n\nCode\nplt.figure(figsize=(10, 6))\nsns.heatmap(df_skills, annot=True, cmap=\"coolwarm\", linewidths=0.5)\nplt.xlabel(\"Technical Skills\", fontsize=14)       \nplt.ylabel(\"Team Members\", fontsize=14)   \nplt.title(\"Team Skill Levels Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_skill_heatmap.png\", dpi=300,  bbox_inches='tight')\nplt.show()"
+  },
+  {
+    "objectID": "skill_gap_analysis.html#personalized-upskilling-recommendations",
+    "href": "skill_gap_analysis.html#personalized-upskilling-recommendations",
+    "title": "Skill Gap Analysis",
+    "section": "1.3 Personalized Upskilling Recommendations",
+    "text": "1.3 Personalized Upskilling Recommendations\n\n\nCode\nrecommendations = {\n    \"Eugenia\": [\"Machine Learning\", \"AWS\"],\n    \"Chenxi\": [\"Cloud Computing\", \"Python\"],\n    \"Xiangwen\": [\"Docker\", \"Cloud Computing\"]\n}\n\ndf_recommend = pd.DataFrame([\n    {\"Name\": name, \"Recommended Skills to Improve\": \", \".join(skills)}\n    for name, skills in recommendations.items()\n])\ndf_recommend\n\n\nTo close the observed skill gaps, we provide the following individualized upskilling plans:\nEugenia is advised to focus on Machine Learning and AWS to better align with industry expectations.\nChenxi would benefit from strengthening her Cloud Computing and Python skills.\nXiangwen is recommended to enhance his proficiency in Docker and Cloud-related technologies.\nThese suggestions are based on both internal team comparisons and external job market demands, and they aim to improve overall team balance and job readiness."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#compute-average-team-skills-vs-industry-expectations",
+    "href": "skill_gap_analysis.html#compute-average-team-skills-vs-industry-expectations",
+    "title": "Skill Gap Analysis",
+    "section": "2.1 Compute Average Team Skills vs Industry Expectations",
+    "text": "2.1 Compute Average Team Skills vs Industry Expectations\n\n\nCode\ntop_skills = [\"Python\", \"SQL\", \"Machine Learning\", \"Cloud Computing\", \"Docker\", \"AWS\"]\njob_skill_counts = Counter(top_skills)\n\nfor skill in top_skills:\n    if skill not in df_skills.columns:\n        df_skills[skill] = 0  # Assume no knowledge in missing skills\n\ndf_skills\n\n\nos.makedirs(\"figurestyj\", exist_ok=True)\n\nteam_avg_skills = df_skills.mean()\n\nskills_to_plot = []\nfor skill in top_skills:\n    score = team_avg_skills[skill] if skill in team_avg_skills else 0\n    skills_to_plot.append(score)\n\nplt.figure(figsize=(10, 5))\nplt.bar(top_skills, skills_to_plot, color=\"skyblue\")\nplt.title(\"Average Team Skill Levels vs Top Skills\")\nplt.xlabel(\"Technical Skills\", fontsize=14)  \nplt.ylabel(\"Average Score\",fontsize=14 )\nplt.xticks(rotation=45)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_vs_industry_skills.png\", dpi=300,  bbox_inches='tight')\nplt.show()"
   },
   {
     "objectID": "nlp_methods.html",
