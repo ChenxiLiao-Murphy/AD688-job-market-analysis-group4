@@ -15,10 +15,11 @@ website:
         text: "Exploratory Data Analysis (Enhanced)"
       - href: skill_gap_analysis.qmd
         text: "Skill Gap Analysis"
-      - href: ml_analysis.qmd
-        text: "ML Methods"
       - href: nlp_methods.qmd
         text: "NLP Methods"
+      - href: ml_analysis.qmd
+        text: "ML Methods"
+     
 format:
   html:
     theme: yeti

@@ -122,7 +122,7 @@ plt.savefig("figuresmurphy/confusion_matrix_remote_type.png", dpi=300)
 plt.show()
 ```
 
-![](figuresmurphy/confusion_matrix_remote_type.png){width=70% fig-align='center' fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"}
+![](figuresmurphy/confusion_matrix_remote_type.png){width=100% fig-align='center' fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"}
 
 **Interpretation:**
 The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3,  showing a bias toward the most common remote type. Job seekers should clearly state remote preferences,  as nuanced roles may be missed by automated systems.
@@ -180,7 +180,7 @@ plt.savefig("figuresmurphy/actual_vs_predicted_salary.png", dpi=300)
 plt.show()
 ```
 
-![](figuresmurphy/actual_vs_predicted_salary.png){width=70% fig-align='center' fig-cap="Actual vs. Predicted Salary by Random Forest"}
+![](figuresmurphy/actual_vs_predicted_salary.png){width=100% fig-align='center' fig-cap="Actual vs. Predicted Salary by Random Forest"}
 
 **Interpretation:**
 The plot shows a strong alignment between predicted and actual salaries, with most points near the red dashed line—indicating good model performance. Some deviations, especially in higher salary ranges, reflect the difficulty of predicting roles with greater variability in seniority and industry.
@@ -210,7 +210,7 @@ plt.savefig("figuresmurphy/remote_type_by_state.png", dpi=300)
 plt.show()
 ```
 
-![Remote Work Type by State](figuresmurphy/remote_type_by_state.png){width=80% fig-align='center' fig-cap="Distribution of Remote Work Type Across States"}
+![Remote Work Type by State](figuresmurphy/remote_type_by_state.png){width=100% fig-align='center' fig-cap="Distribution of Remote Work Type Across States"}
 
 **Interpretation:**
 The bar chart shows that states like California, New York, and Texas have a high volume of job postings across all remote types. Remote roles are especially common in tech-focused states like California and Washington, while on-site jobs are more prevalent in states with stronger manufacturing industries.
@@ -239,7 +239,7 @@ plt.savefig("figuresmurphy/salary_by_remote_type.png", dpi=300)
 plt.show()
 ```
 
-![Salary by Remote Type](figuresmurphy/salary_by_remote_type.png){width=70% fig-align='center' fig-cap="Boxplot of Salary Distribution Across Remote Work Types"}
+![Salary by Remote Type](figuresmurphy/salary_by_remote_type.png){width=100% fig-align='center' fig-cap="Boxplot of Salary Distribution Across Remote Work Types"}
 
 **Interpretation:**
 Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider,  indicating more salary volatility. On-site jobs show tighter salary ranges,  likely due to standardized pay scales in location-bound industries.
@@ -295,7 +295,7 @@ fig.write_image("figuresmurphy/choropleth.png", scale=2)
 fig.show()
 ```
 
-![](figuresmurphy/choropleth.png){width=80% fig-align='center' fig-cap="Choropleth Map: Proportion of Remote Jobs by State"}
+![](figuresmurphy/choropleth.png){width=100% fig-align='center' fig-cap="Choropleth Map: Proportion of Remote Jobs by State"}
 
 **Interpretation:**
 The map highlights that coastal and urban states like California, New York,  and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings,  likely due to a stronger focus on in-person or manufacturing jobs.
@@ -356,7 +356,7 @@ plt.show()
 
 ```
 
-![](figuresmurphy/logistic_confusion_matrix.png){width=70% fig-align='center' fig-cap="Logistic Regression Confusion Matrix"}
+![](figuresmurphy/logistic_confusion_matrix.png){width=100% fig-align='center' fig-cap="Logistic Regression Confusion Matrix"}
 
 **Interpretation:**
 The model accurately distinguishes remote from non-remote jobs, performing better on non-remote roles. Some misclassifications remain, so job seekers in flexible roles should clearly state their work preferences.
@@ -420,7 +420,7 @@ plt.savefig("figuresmurphy/regression_residuals.png", dpi=300)
 plt.show()
 ```
 
-![](figuresmurphy/regression_actual_vs_predicted.png){width=70% fig-align='center' fig-cap="Actual vs. Predicted Salary by Linear Regression"}
+![](figuresmurphy/regression_actual_vs_predicted.png){width=100% fig-align='center' fig-cap="Actual vs. Predicted Salary by Linear Regression"}
 
 **Interpretation:**
 The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.
