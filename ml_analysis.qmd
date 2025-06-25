@@ -18,9 +18,10 @@ This section presents our machine learning models to analyze geographic and remo
 
 ---
 
-# 1. Unsupervised Learning: KMeans Clustering
+# Unsupervised Learning: KMeans Clustering
 
-We applied KMeans clustering on job postings using `STATE_NAME`, `REMOTE_TYPE_NAME`, and `SOC_2021_4` to group jobs by remote type and geographic similarities.
+To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: `STATE_NAME`, `REMOTE_TYPE_NAME`, and `SOC_2021_4`. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.
+
 
 
 ```{python}
@@ -68,12 +69,17 @@ plt.savefig("figuresmurphy/kmeans_location_remote_pca.png", dpi=300)
 
 plt.show()
 ```
+
 ![](figuresmurphy/kmeans_location_remote_pca.png){width=80% fig-align='center' fig-cap="KMeans Clusters by Location and Remote Type"}
 
+**Interpretation:**
+The PCA scatter plot reveals four distinct clusters of job postings, segmented by location (STATE_NAME),  remote type (REMOTE_TYPE_NAME), and occupation code (SOC_2021_4).
+We see a clear separation among the clusters—three are relatively compact,  while one appears more dispersed. This indicates that job characteristics like remote work availability and occupation  type tend to align closely with geographic regions and specific industries. The tightly grouped clusters likely  represent roles with consistent remote work policies,  while the spread-out cluster may include a broader mix of job types.
 
-## 2. Supervised Learning: Classification – Predict Remote Type
 
-We trained a Random Forest Classifier to predict `REMOTE_TYPE_NAME` based on job location (`STATE_NAME`), job category (`SOC_2021_4`), and experience (`MAX_YEARS_EXPERIENCE`). The model helps identify which job characteristics are more likely to be remote, hybrid, or onsite.
+## Supervised Learning: Classification – Predict Remote Type
+
+To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: `STATE_NAME` (location), `SOC_2021_4` (job category), and `MAX_YEARS_EXPERIENCE` (seniority level).The model's performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.
 
 ```{python}
 # Import libraries
@@ -115,11 +121,16 @@ plt.tight_layout()
 plt.savefig("figuresmurphy/confusion_matrix_remote_type.png", dpi=300)
 plt.show()
 ```
+
 ![](figuresmurphy/confusion_matrix_remote_type.png){width=70% fig-align='center' fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"}
 
-## 3. Supervised Learning: Regression – Predict Salary
+**Interpretation:**
+The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3,  showing a bias toward the most common remote type. Job seekers should clearly state remote preferences,  as nuanced roles may be missed by automated systems.
 
-We trained a Random Forest Regressor to predict `AVERAGE_SALARY` based on job attributes such as `STATE_NAME`, `REMOTE_TYPE_NAME`, `SOC_2021_4`, and `MAX_YEARS_EXPERIENCE`.
+
+## Supervised Learning: Regression – Predict Salary
+
+We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.
 
 ```{python}
 
@@ -171,9 +182,12 @@ plt.show()
 
 ![](figuresmurphy/actual_vs_predicted_salary.png){width=70% fig-align='center' fig-cap="Actual vs. Predicted Salary by Random Forest"}
 
+**Interpretation:**
+The plot shows a strong alignment between predicted and actual salaries, with most points near the red dashed line—indicating good model performance. Some deviations, especially in higher salary ranges, reflect the difficulty of predicting roles with greater variability in seniority and industry.
 
 
-# Which states are more inclined to offer Remote/Hybrid/Onsite jobs?哪些州更倾向于提供远程/混合/现场工作？
+
+## Which states are more inclined to offer Remote/Hybrid/Onsite jobs?
 ```{python}
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -198,8 +212,13 @@ plt.show()
 
 ![Remote Work Type by State](figuresmurphy/remote_type_by_state.png){width=80% fig-align='center' fig-cap="Distribution of Remote Work Type Across States"}
 
+**Interpretation:**
+The bar chart shows that states like California, New York, and Texas have a high volume of job postings across all remote types. Remote roles are especially common in tech-focused states like California and Washington, while on-site jobs are more prevalent in states with stronger manufacturing industries.
 
-# Which type of remote work offers a higher salary? 哪种远程类型的工资更高？
+
+
+# Which type of remote work offers a higher salary? 
+We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.
 ```{python}
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -222,6 +241,8 @@ plt.show()
 
 ![Salary by Remote Type](figuresmurphy/salary_by_remote_type.png){width=70% fig-align='center' fig-cap="Boxplot of Salary Distribution Across Remote Work Types"}
 
+**Interpretation:**
+Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider,  indicating more salary volatility. On-site jobs show tighter salary ranges,  likely due to standardized pay scales in location-bound industries.
 
 
 
@@ -229,7 +250,9 @@ plt.show()
 remote_ratio_by_state.sort_values('REMOTE_RATIO', ascending=False).head(10)
 ```
 
-# map
+## Choropleth or map-based visualizations
+We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.
+
 ```{python}
 import pandas as pd
 import plotly.express as px
@@ -270,11 +293,18 @@ fig = px.choropleth(
 
 fig.show()
 ```
-# need help with can't save it!!!
+
+![](figuresmurphy/choropleth.png){width=80% fig-align='center' fig-cap="Choropleth Map: Proportion of Remote Jobs by State"}
+
+**Interpretation:**
+The map highlights that coastal and urban states like California, New York,  and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings,  likely due to a stronger focus on in-person or manufacturing jobs.
 
 
 
-# logistic Regression
+
+## Logistic Regression: Binary Classification (Remote vs Non-Remote)
+To identify what influences whether a job is remote, we used a logistic regression model. The confusion matrix below summarizes how well the model classifies remote and non-remote roles.
+
 
 ```{python}
 import pandas as pd
@@ -284,7 +314,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 
-# 1. 预处理 Preprocessing
+# 1. Preprocessing
 df_logistic = df[['STATE_NAME', 'MAX_YEARS_EXPERIENCE', 'AVERAGE_SALARY', 'REMOTE_TYPE_NAME']].dropna()
 
 df_logistic['REMOTE_TYPE_CLEANED'] = df_logistic['REMOTE_TYPE_NAME'].map({
@@ -293,27 +323,27 @@ df_logistic['REMOTE_TYPE_CLEANED'] = df_logistic['REMOTE_TYPE_NAME'].map({
     'Not Remote': 'Onsite'
 }).fillna('Onsite')
 
-# 创建二元分类标签列 Create binary classification target
+# Create binary classification target
 df_logistic['IS_REMOTE'] = df_logistic['REMOTE_TYPE_CLEANED'].apply(lambda x: 1 if x == 'Remote' else 0)
 
-# 2. One-hot 编码州名 One-hot encode state name
+# 2. One-hot encode state name
 df_encoded = pd.get_dummies(df_logistic, columns=['STATE_NAME'], drop_first=True)
 
-# 3. 拆分数据 Split data
+# 3. Split data
 X = df_encoded.drop(['IS_REMOTE', 'REMOTE_TYPE_NAME', 'REMOTE_TYPE_CLEANED'], axis=1)
 y = df_encoded['IS_REMOTE']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# 4. 训练模型 Train model
+# 4. Train model
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-# 5. 模型评估 Evaluation
+# 5.  Evaluation
 print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-# 6. 可视化混淆矩阵 Visualize confusion matrix
+# 6. Visualize confusion matrix
 plt.figure(figsize=(6,4))
 sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
 plt.title("Confusion Matrix 热力图")
@@ -325,10 +355,16 @@ plt.show()
 
 ```
 
+![](figuresmurphy/logistic_confusion_matrix.png){width=70% fig-align='center' fig-cap="Logistic Regression Confusion Matrix"}
+
+**Interpretation:**
+The model accurately distinguishes remote from non-remote jobs, performing better on non-remote roles. Some misclassifications remain, so job seekers in flexible roles should clearly state their work preferences.
 
 
+# Modeling Requirements
+## Linear Regression
+We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs. predicted plot and residuals histogram below show the model’s performance.
 
-# Linear Regression
 ```{python}
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -382,3 +418,15 @@ plt.tight_layout()
 plt.savefig("figuresmurphy/regression_residuals.png", dpi=300)
 plt.show()
 ```
+
+![](figuresmurphy/regression_actual_vs_predicted.png){width=70% fig-align='center' fig-cap="Actual vs. Predicted Salary by Linear Regression"}
+
+**Interpretation:**
+The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.
+
+
+![](figuresmurphy/regression_residuals.png){width=70% fig-align='center' fig-cap="Residuals Histogram of Linear Regression"}
+
+**Interpretation:**
+The residuals histogram is roughly normal and centered around zero, suggesting no major bias. However, the spread shows that predictions can vary by several thousand dollars based on the input features.
+
