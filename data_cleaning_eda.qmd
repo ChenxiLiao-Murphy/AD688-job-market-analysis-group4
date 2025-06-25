@@ -11,7 +11,7 @@ format:
     df-print: paged
 execute:
   echo: true
-  eval: true
+  eval: false
   code-fold: true
   freeze: auto
 ---
