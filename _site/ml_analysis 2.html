@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cf3f2c26eef976f46b51aa29f3e196e4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -137,19 +137,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./eda_enhance.html"> 
-<span class="menu-text">EDA (Enhanced)</span></a>
+<span class="menu-text">Exploratory Data Analysis (Enhanced)</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./skill_gap_analysis.html"> 
 <span class="menu-text">Skill Gap Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./nlp_methods.html"> 
-<span class="menu-text">NLP Methods</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link active" href="./ml_analysis.html" aria-current="page"> 
 <span class="menu-text">ML Methods</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./nlp_methods.html"> 
+<span class="menu-text">NLP Methods</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -167,21 +167,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#unsupervised-learning-kmeans-clustering" id="toc-unsupervised-learning-kmeans-clustering" class="nav-link" data-scroll-target="#unsupervised-learning-kmeans-clustering"><span class="header-section-number">2</span> Unsupervised Learning: KMeans Clustering</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#unsupervised-learning-kmeans-clustering" id="toc-unsupervised-learning-kmeans-clustering" class="nav-link" data-scroll-target="#unsupervised-learning-kmeans-clustering">Unsupervised Learning: KMeans Clustering</a>
   <ul class="collapse">
-  <li><a href="#supervised-learning-classification-predict-remote-type" id="toc-supervised-learning-classification-predict-remote-type" class="nav-link" data-scroll-target="#supervised-learning-classification-predict-remote-type"><span class="header-section-number">2.1</span> Supervised Learning: Classification – Predict Remote Type</a></li>
-  <li><a href="#supervised-learning-regression-predict-salary" id="toc-supervised-learning-regression-predict-salary" class="nav-link" data-scroll-target="#supervised-learning-regression-predict-salary"><span class="header-section-number">2.2</span> Supervised Learning: Regression – Predict Salary</a></li>
-  <li><a href="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" id="toc-which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="nav-link" data-scroll-target="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</a></li>
+  <li><a href="#supervised-learning-classification-predict-remote-type" id="toc-supervised-learning-classification-predict-remote-type" class="nav-link" data-scroll-target="#supervised-learning-classification-predict-remote-type">Supervised Learning: Classification – Predict Remote Type</a></li>
+  <li><a href="#supervised-learning-regression-predict-salary" id="toc-supervised-learning-regression-predict-salary" class="nav-link" data-scroll-target="#supervised-learning-regression-predict-salary">Supervised Learning: Regression – Predict Salary</a></li>
+  <li><a href="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" id="toc-which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="nav-link" data-scroll-target="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs">Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</a></li>
   </ul></li>
-  <li><a href="#which-type-of-remote-work-offers-a-higher-salary" id="toc-which-type-of-remote-work-offers-a-higher-salary" class="nav-link" data-scroll-target="#which-type-of-remote-work-offers-a-higher-salary"><span class="header-section-number">3</span> Which type of remote work offers a higher salary?</a>
+  <li><a href="#which-type-of-remote-work-offers-a-higher-salary" id="toc-which-type-of-remote-work-offers-a-higher-salary" class="nav-link" data-scroll-target="#which-type-of-remote-work-offers-a-higher-salary">Which type of remote work offers a higher salary?</a>
   <ul class="collapse">
-  <li><a href="#choropleth-or-map-based-visualizations" id="toc-choropleth-or-map-based-visualizations" class="nav-link" data-scroll-target="#choropleth-or-map-based-visualizations"><span class="header-section-number">3.1</span> Choropleth or map-based visualizations</a></li>
-  <li><a href="#logistic-regression-binary-classification-remote-vs-non-remote" id="toc-logistic-regression-binary-classification-remote-vs-non-remote" class="nav-link" data-scroll-target="#logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">3.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</a></li>
+  <li><a href="#choropleth-or-map-based-visualizations" id="toc-choropleth-or-map-based-visualizations" class="nav-link" data-scroll-target="#choropleth-or-map-based-visualizations">Choropleth or map-based visualizations</a></li>
+  <li><a href="#logistic-regression-binary-classification-remote-vs-non-remote" id="toc-logistic-regression-binary-classification-remote-vs-non-remote" class="nav-link" data-scroll-target="#logistic-regression-binary-classification-remote-vs-non-remote">Logistic Regression: Binary Classification (Remote vs Non-Remote)</a></li>
   </ul></li>
-  <li><a href="#modeling-requirements" id="toc-modeling-requirements" class="nav-link" data-scroll-target="#modeling-requirements"><span class="header-section-number">4</span> Modeling Requirements</a>
+  <li><a href="#modeling-requirements" id="toc-modeling-requirements" class="nav-link" data-scroll-target="#modeling-requirements">Modeling Requirements</a>
   <ul class="collapse">
-  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">4.1</span> Linear Regression</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -208,15 +208,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <p>This section presents our machine learning models to analyze geographic and remote work patterns in the 2024 U.S. job market. We apply both <strong>unsupervised</strong> and <strong>supervised</strong> learning methods to gain insights into how job locations and remote types impact salaries and job classifications.</p>
 <hr>
 </section>
-<section id="unsupervised-learning-kmeans-clustering" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Unsupervised Learning: KMeans Clustering</h1>
+<section id="unsupervised-learning-kmeans-clustering" class="level1">
+<h1>Unsupervised Learning: KMeans Clustering</h1>
 <p>To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: <code>STATE_NAME</code>, <code>REMOTE_TYPE_NAME</code>, and <code>SOC_2021_4</code>. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.</p>
-<div id="0da34559" class="cell" data-execution_count="1">
+<div id="b855ad8e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cedb1e22" class="cell" data-execution_count="2">
+<div id="3b1d1f93" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -272,10 +272,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The PCA scatter plot reveals four distinct clusters of job postings, segmented by location (STATE_NAME), remote type (REMOTE_TYPE_NAME), and occupation code (SOC_2021_4). We see a clear separation among the clusters—three are relatively compact, while one appears more dispersed. This indicates that job characteristics like remote work availability and occupation type tend to align closely with geographic regions and specific industries. The tightly grouped clusters likely represent roles with consistent remote work policies, while the spread-out cluster may include a broader mix of job types.</p>
-<section id="supervised-learning-classification-predict-remote-type" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="supervised-learning-classification-predict-remote-type"><span class="header-section-number">2.1</span> Supervised Learning: Classification – Predict Remote Type</h2>
+<section id="supervised-learning-classification-predict-remote-type" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-learning-classification-predict-remote-type">Supervised Learning: Classification – Predict Remote Type</h2>
 <p>To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: <code>STATE_NAME</code> (location), <code>SOC_2021_4</code> (job category), and <code>MAX_YEARS_EXPERIENCE</code> (seniority level).The model’s performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.</p>
-<div id="628d6424" class="cell" data-execution_count="3">
+<div id="d3a70bcc" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -320,15 +320,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/confusion_matrix_remote_type.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"></p>
+<p><img src="figuresmurphy/confusion_matrix_remote_type.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"></p>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3, showing a bias toward the most common remote type. Job seekers should clearly state remote preferences, as nuanced roles may be missed by automated systems.</p>
 </section>
-<section id="supervised-learning-regression-predict-salary" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="supervised-learning-regression-predict-salary"><span class="header-section-number">2.2</span> Supervised Learning: Regression – Predict Salary</h2>
+<section id="supervised-learning-regression-predict-salary" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-learning-regression-predict-salary">Supervised Learning: Regression – Predict Salary</h2>
 <p>We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.</p>
-<div id="1b09611e" class="cell" data-execution_count="4">
+<div id="163e73d1" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create AVERAGE_SALARY if not already in df</span></span>
@@ -379,14 +379,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/actual_vs_predicted_salary.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Actual vs. Predicted Salary by Random Forest"></p>
+<p><img src="figuresmurphy/actual_vs_predicted_salary.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Actual vs. Predicted Salary by Random Forest"></p>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The plot shows a strong alignment between predicted and actual salaries, with most points near the red dashed line—indicating good model performance. Some deviations, especially in higher salary ranges, reflect the difficulty of predicting roles with greater variability in seniority and industry.</p>
 </section>
-<section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
-<div id="0016fb7f" class="cell" data-execution_count="5">
+<section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2">
+<h2 class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs">Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
+<div id="d437fd7a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -412,17 +412,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/remote_type_by_state.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="figuresmurphy/remote_type_by_state.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption>Remote Work Type by State</figcaption>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The bar chart shows that states like California, New York, and Texas have a high volume of job postings across all remote types. Remote roles are especially common in tech-focused states like California and Washington, while on-site jobs are more prevalent in states with stronger manufacturing industries.</p>
 </section>
 </section>
-<section id="which-type-of-remote-work-offers-a-higher-salary" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Which type of remote work offers a higher salary?</h1>
+<section id="which-type-of-remote-work-offers-a-higher-salary" class="level1">
+<h1>Which type of remote work offers a higher salary?</h1>
 <p>We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.</p>
-<div id="5cbbc18b" class="cell" data-execution_count="6">
+<div id="9a247edb" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -446,21 +446,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/salary_by_remote_type.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="figuresmurphy/salary_by_remote_type.png" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption>Salary by Remote Type</figcaption>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider, indicating more salary volatility. On-site jobs show tighter salary ranges, likely due to standardized pay scales in location-bound industries.</p>
-<div id="b290441a" class="cell" data-execution_count="7">
+<div id="960f2ef2" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.sort_values(<span class="st">'REMOTE_RATIO'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="choropleth-or-map-based-visualizations" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="choropleth-or-map-based-visualizations"><span class="header-section-number">3.1</span> Choropleth or map-based visualizations</h2>
+<section id="choropleth-or-map-based-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-or-map-based-visualizations">Choropleth or map-based visualizations</h2>
 <p>We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.</p>
-<div id="f1ed6ef3" class="cell" data-execution_count="8">
+<div id="6ba34598" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -506,15 +506,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/choropleth.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Choropleth Map: Proportion of Remote Jobs by State"></p>
+<p><img src="figuresmurphy/choropleth.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-cap="Choropleth Map: Proportion of Remote Jobs by State"></p>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The map highlights that coastal and urban states like California, New York, and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings, likely due to a stronger focus on in-person or manufacturing jobs.</p>
 </section>
-<section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">3.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
+<section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote">Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
 <p>To identify what influences whether a job is remote, we used a logistic regression model. The confusion matrix below summarizes how well the model classifies remote and non-remote roles.</p>
-<div id="28604dd5" class="cell" data-execution_count="9">
+<div id="526202ab" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -566,18 +566,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/logistic_confusion_matrix.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Logistic Regression Confusion Matrix"></p>
+<p><img src="figuresmurphy/logistic_confusion_matrix.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Logistic Regression Confusion Matrix"></p>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The model accurately distinguishes remote from non-remote jobs, performing better on non-remote roles. Some misclassifications remain, so job seekers in flexible roles should clearly state their work preferences.</p>
 </section>
 </section>
-<section id="modeling-requirements" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Modeling Requirements</h1>
-<section id="linear-regression" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">4.1</span> Linear Regression</h2>
+<section id="modeling-requirements" class="level1">
+<h1>Modeling Requirements</h1>
+<section id="linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
 <p>We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs.&nbsp;predicted plot and residuals histogram below show the model’s performance.</p>
-<div id="2905deaf" class="cell" data-execution_count="10">
+<div id="4a74b614" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -635,7 +635,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/regression_actual_vs_predicted.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Actual vs. Predicted Salary by Linear Regression"></p>
+<p><img src="figuresmurphy/regression_actual_vs_predicted.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Actual vs. Predicted Salary by Linear Regression"></p>
 </figure>
 </div>
 <p><strong>Interpretation:</strong> The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.</p>
