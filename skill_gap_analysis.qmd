@@ -12,6 +12,35 @@ This page presents the skill gap analysis between job requirements and available
 
 Team members' current skills relevant to their selected IT career path：
 
+
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import Counter
+import re
+
+```
+
+
+```{python}
+
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
+
+df = pd.read_csv("data/lightcast_job_postings.csv", encoding="utf-8", on_bad_lines='skip')
+
+```
+
+
+
 ```{python}
 import pandas as pd
 
@@ -36,7 +65,7 @@ plt.figure(figsize=(8, 6))
 sns.heatmap(df_skills, annot=True, cmap="coolwarm", linewidths=0.5)
 plt.title("Team Skill Levels Heatmap")
 plt.tight_layout()
-plt.savefig("figureswxw/team_skill_heatmap.png")
+plt.savefig("figurestyj/team_skill_heatmap.png")
 plt.show()
 ```
 
@@ -74,6 +103,19 @@ plt.title("Average Team Skill Levels vs Top Skills")
 plt.ylabel("Average Score")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig("figureswxw/team_vs_industry_skills.png")
+plt.savefig("figurestyj/team_vs_industry_skills.png")
 plt.show()
+```
+
+```{python}
+job_descriptions = df["BODY"].dropna().tolist()
+all_text = " ".join(job_descriptions).lower()
+
+skills_keywords = ["python", "sql", "machine learning", "cloud", "aws", "docker", "java", "excel", "r", "linux"]
+skill_counts = Counter()
+for skill in skills_keywords:
+    matches = re.findall(rf"\b{re.escape(skill)}\b", all_text)
+    skill_counts[skill] = len(matches)
+
+top_skills = [skill for skill, count in skill_counts.most_common(5)]
 ```

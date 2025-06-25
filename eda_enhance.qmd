@@ -2,22 +2,116 @@
 title: "Exploratory Data Analysis"
 ---
 
+
+
 # Exploratory Data Analysis
 
-This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.
 
-_Content will be added here._
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
 
 import seaborn as sns
 import matplotlib.pyplot as plt
+import pandas as pd
+from collections import Counter
+import re
 
-plt.figure(figsize=(10,6))
-sns.barplot(data=df, x="STATE_NAME", y="Average_Salary")
-plt.title("Average Salary by State")
-plt.xticks(rotation=45)
+```
+
+```{python}
+
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
+
+df = pd.read_csv("data/lightcast_job_postings.csv", encoding="utf-8", on_bad_lines='skip')
+
+```
+
+
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-cap: "Job count by industry"
+#| fig-align: center
+
+industry_counts = df['NAICS_2022_2_NAME'].value_counts().reset_index()
+industry_counts.columns = ['Industry', 'Job_Count']
+
+plt.figure(figsize=(12, 8))
+sns.barplot(data=industry_counts, x="Industry", y="Job_Count")
+plt.title("Job Count by Industry (NAICS Level 2)")
+plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-plt.savefig("figures/salary_by_state.png")
+plt.savefig("figurestyj/job_count_by_industry.png")
 plt.show()
 
-### Salary by State
-![](figures/salary_by_state.png)
+```
+
+
+![](figures/salary_by_state.png){width=100% fig-align='center'}
+
+
+
+
+### Salary by State ??
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Top skills from job description"
+
+
+job_descriptions = df['BODY'].dropna().tolist()
+all_text = " ".join(job_descriptions).lower()
+
+skills_keywords = ["python", "sql", "machine learning", "cloud", "aws",
+                   "docker", "java", "excel", "r", "linux"]
+skill_counts = Counter()
+
+for skill in skills_keywords:
+    matches = re.findall(rf"\b{re.escape(skill)}\b", all_text)
+    skill_counts[skill] = len(matches)
+
+top_skills_sorted = skill_counts.most_common(5)
+skills, counts = zip(*top_skills_sorted)
+
+plt.figure(figsize=(8, 4))
+sns.barplot(x=list(skills), y=list(counts), palette="Blues_d")
+plt.title("Top 5 In-Demand Skills from Job Descriptions")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.savefig("figurestyj/top_skills_from_description.png")
+plt.show()
+
+```
+
+
+
+
+```{python}
+
+
+```
+
+
+
+
+
+```{python}
+
+```
+
+
+
+
+```{python}
+
+```
+
