@@ -6,6 +6,10 @@ format:
     code-fold: true
 bibliography: references.bib
 csl: csl/econometrica.csl
+execute:
+    echo: true
+    eval: false
+    freeze: auto
 ---
 
 # Introduction

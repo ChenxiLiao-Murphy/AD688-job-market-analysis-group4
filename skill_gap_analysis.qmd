@@ -42,7 +42,11 @@ df = pd.read_csv("data/lightcast_job_postings.csv", encoding="utf-8", on_bad_lin
 
 
 ```{python}
-import pandas as pd
+
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
 
 skills_data = {
     "Name": ["Eugenia", "Chenxi", "Xiangwen"],
@@ -73,6 +77,13 @@ plt.show()
 ### 3.2 Compare with top job market skills
 
 ```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
+#| fig-cap: "Team VS Industry Skills"
+#| fig-align: center
+
 from collections import Counter
 
 top_skills = ["Python", "SQL", "Machine Learning", "Cloud Computing", "Docker", "AWS"]
@@ -108,6 +119,11 @@ plt.show()
 ```
 
 ```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| results: hide
+
 job_descriptions = df["BODY"].dropna().tolist()
 all_text = " ".join(job_descriptions).lower()
 

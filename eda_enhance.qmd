@@ -54,7 +54,7 @@ plt.show()
 ```
 
 
-![](figures/salary_by_state.png){width=100% fig-align='center'}
+![](figurestyj/job_count_by_industry.png){width=100% fig-align='center'}
 
 
 

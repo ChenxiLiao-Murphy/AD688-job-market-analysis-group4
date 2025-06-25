@@ -10,12 +10,12 @@ website:
       - href: introduction.qmd
         text: "Introduction"
       - href: data_cleaning_eda.qmd
-        text: "Data Cleaning & Exploration"
+        text: "Data Cleaning & EDA"
       - href: eda_enhance.qmd
-        text: "Exploratory Data Analysis"
+        text: "Exploratory Data Analysis (Enhanced)"
       - href: skill_gap_analysis.qmd
         text: "Skill Gap Analysis"
-      - href: ml_methods.qmd
+      - href: ml_analysis.qmd
         text: "ML Methods"
       - href: nlp_methods.qmd
         text: "NLP Methods"
@@ -23,13 +23,9 @@ format:
   html:
     theme: cosmo
     toc: true
+    code-fold: true
+
     
 execute:
-  echo: true
-  eval: true
-  code-fold: true
   execute-dir: project
-  engine: python
-  engine-path: "./.venv/bin/python"
-  freeze: auto
 
