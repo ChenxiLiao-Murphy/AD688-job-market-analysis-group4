@@ -1,6 +1,5 @@
 ---
-title: "Data Cleaning"
-subtitle: "Data Preparation and Exploratory Insights for Geographic and Remote Work Trends"
+title: "Data Cleaning & EDA"
 
 bibliography: references.bib
 csl: csl/econometrica.csl
@@ -128,7 +127,7 @@ msno.heatmap(df1)
 
 plt.title("Missing Values Heatmap")
 plt.tight_layout()
-plt.savefig("figureswxw/missing_values_heatmap.png", dpi=300)
+plt.savefig("figureswxw/missing_values_heatmap.png", dpi=300,  bbox_inches='tight')
 plt.show()
 
 ```
@@ -224,7 +223,7 @@ plt.ylabel("Number of Job Postings")
 plt.xlabel("Remote Type")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figureswxw/remote_type_distribution.png", dpi=300)
+plt.savefig("figureswxw/remote_type_distribution.png", dpi=300,  bbox_inches='tight')
 plt.show()
 
 ```
@@ -276,7 +275,7 @@ plt.xlabel("State")
 plt.xticks(rotation=30)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figureswxw/top_states_ai_nonai.png", dpi=300)
+plt.savefig("figureswxw/top_states_ai_nonai.png", dpi=300,  bbox_inches='tight')
 plt.show()
 
 ```
@@ -335,7 +334,7 @@ if "POSTED" in df1.columns:
     plt.xlabel("Month")
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
-    plt.savefig("figureswxw/remote_trend_over_time.png", dpi=300)
+    plt.savefig("figureswxw/remote_trend_over_time.png", dpi=300,  bbox_inches='tight')
     plt.show()
 else:
     print("POSTED column not found in dataset.")
@@ -365,7 +364,7 @@ plt.ylabel("Number of Job Postings")
 plt.xlabel("Month")
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figureswxw/techhub_vs_other_trend.png", dpi=300)
+plt.savefig("figureswxw/techhub_vs_other_trend.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
@@ -415,7 +414,7 @@ plt.legend(
     frameon=False
 )
 plt.tight_layout()
-plt.savefig("figureswxw/remote_trend_top5_industry.png", dpi=300)
+plt.savefig("figureswxw/remote_trend_top5_industry.png", dpi=30,  bbox_inches='tight')
 plt.show()
 
 
@@ -478,7 +477,7 @@ if {"Urban_Rural", "IS_AI"}.issubset(df1.columns):
     ax.grid(axis='y', linestyle='--', alpha=0.7)
 
     plt.tight_layout()
-    plt.savefig("figureswxw/urban_rural_ai_nonai_bar.png", dpi=300)
+    plt.savefig("figureswxw/urban_rural_ai_nonai_bar.png", dpi=300,  bbox_inches='tight')
     plt.show()
 
 else:
@@ -522,7 +521,7 @@ if {"Urban_Rural", "IS_AI"}.issubset(df1.columns):
         ax.set_title(f"{region} - AI vs Non-AI")
 
     plt.tight_layout()
-    plt.savefig("figureswxw/urban_rural_ai_nonai_pie_combined.png", dpi=300)
+    plt.savefig("figureswxw/urban_rural_ai_nonai_pie_combined.png", dpi=300,  bbox_inches='tight')
     plt.show()
 
 else:

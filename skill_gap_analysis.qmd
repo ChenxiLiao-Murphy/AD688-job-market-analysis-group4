@@ -1,14 +1,25 @@
 ---
 title: "Skill Gap Analysis"
+bibliography: references.bib
+csl: csl/econometrica.csl
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+execute:
+  echo: true
+  eval: false
+  code-fold: true
+  freeze: auto
 ---
 
-# Skill Gap Analysis
 
-This page presents the skill gap analysis between job requirements and available workforce skills.
+This section presents the skill gap analysis between job requirements and available workforce skills.
 
-## Step 3： Skill Gap Analysis
 
-### 3.1 Team score DataFrame
+
+# Team score DataFrame
 
 Team members' current skills relevant to their selected IT career path：
 
@@ -69,12 +80,12 @@ plt.figure(figsize=(8, 6))
 sns.heatmap(df_skills, annot=True, cmap="coolwarm", linewidths=0.5)
 plt.title("Team Skill Levels Heatmap")
 plt.tight_layout()
-plt.savefig("figurestyj/team_skill_heatmap.png")
+plt.savefig("figurestyj/team_skill_heatmap.png", dpi=300,  bbox_inches='tight')
 plt.show()
 ```
 
 
-### 3.2 Compare with top job market skills
+# Compare with top job market skills
 
 ```{python}
 #| echo: true
@@ -113,12 +124,15 @@ plt.bar(top_skills, skills_to_plot, color="skyblue")
 plt.title("Average Team Skill Levels vs Top Skills")
 plt.ylabel("Average Score")
 plt.xticks(rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figurestyj/team_vs_industry_skills.png")
+plt.savefig("figurestyj/team_vs_industry_skills.png", dpi=300,  bbox_inches='tight')
 plt.show()
 ```
 
+
 ```{python}
+
 #| echo: true
 #| eval: false  
 #| code-fold: true
@@ -134,4 +148,34 @@ for skill in skills_keywords:
     skill_counts[skill] = len(matches)
 
 top_skills = [skill for skill, count in skill_counts.most_common(5)]
+```
+
+
+
+```{python}
+
+
+
+```
+
+
+
+```{python}
+
+```
+
+
+```{python}
+
+```
+
+
+
+```{python}
+
+```
+
+
+```{python}
+
 ```

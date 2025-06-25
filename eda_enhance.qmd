@@ -48,7 +48,7 @@ sns.barplot(data=industry_counts, x="Industry", y="Job_Count")
 plt.title("Job Count by Industry (NAICS Level 2)")
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-plt.savefig("figurestyj/job_count_by_industry.png")
+plt.savefig("figurestyj/job_count_by_industry.png",dpi=300,  bbox_inches='tight')
 plt.show()
 
 ```
@@ -87,7 +87,7 @@ sns.barplot(x=list(skills), y=list(counts), palette="Blues_d")
 plt.title("Top 5 In-Demand Skills from Job Descriptions")
 plt.ylabel("Frequency")
 plt.tight_layout()
-plt.savefig("figurestyj/top_skills_from_description.png")
+plt.savefig("figurestyj/top_skills_from_description.png", dpi=300,  bbox_inches='tight')
 plt.show()
 
 ```
@@ -101,7 +101,28 @@ plt.show()
 ```
 
 
+```{python}
 
+```
+
+
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+
+```{python}
+
+```
+
+```{python}
+
+```
 
 
 ```{python}
@@ -110,8 +131,19 @@ plt.show()
 
 
 
+```{python}
+
+```
 
 ```{python}
 
 ```
 
+
+```{python}
+
+```
+
+```{python}
+
+```
