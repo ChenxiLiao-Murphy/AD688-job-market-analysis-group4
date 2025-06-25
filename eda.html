@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -36,10 +36,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-9d882aefbe6880e209bb4e231fcedeb2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -132,10 +133,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
-  <ul class="collapse">
-  <li><a href="#salary-by-state" id="toc-salary-by-state" class="nav-link" data-scroll-target="#salary-by-state">Salary by State</a></li>
-  </ul></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -165,14 +163,8 @@ ul.task-list li input[type="checkbox"] {
 <h1>Exploratory Data Analysis</h1>
 <p>This page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.</p>
 <p><em>Content will be added here.</em></p>
-<p>import seaborn as sns import matplotlib.pyplot as plt</p>
-<p>plt.figure(figsize=(10,6)) sns.barplot(data=df, x=“STATE_NAME”, y=“Average_Salary”) plt.title(“Average Salary by State”) plt.xticks(rotation=45) plt.tight_layout() plt.savefig(“figures/salary_by_state.png”) plt.show()</p>
-<section id="salary-by-state" class="level3">
-<h3 class="anchored" data-anchor-id="salary-by-state">Salary by State</h3>
-<p><img src="figures/salary_by_state.png" class="img-fluid"></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -248,7 +240,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ChenxiLiao-Murphy\.github\.io\/AD688-job-market-analysis-group4\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

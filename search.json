@@ -1,122 +1,24 @@
 [
   {
-    "objectID": "ml_methods.html",
-    "href": "ml_methods.html",
-    "title": "ML Methods",
+    "objectID": "ml_analysis.html",
+    "href": "ml_analysis.html",
+    "title": "Modeling & Analysis",
     "section": "",
-    "text": "ML Methods\nThis page describes the machine learning methods applied to analyze the job market data.\nContent will be added here."
+    "text": "This section presents our machine learning models to analyze geographic and remote work patterns in the 2024 U.S. job market. We apply both unsupervised and supervised learning methods to gain insights into how job locations and remote types impact salaries and job classifications."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "objectID": "ml_analysis.html#supervised-learning-classification-predict-remote-type",
+    "href": "ml_analysis.html#supervised-learning-classification-predict-remote-type",
+    "title": "Modeling & Analysis",
+    "section": "2. Supervised Learning: Classification – Predict Remote Type",
+    "text": "2. Supervised Learning: Classification – Predict Remote Type\nWe trained a Random Forest Classifier to predict REMOTE_TYPE_NAME based on job location (STATE_NAME), job category (SOC_2021_4), and experience (MAX_YEARS_EXPERIENCE). The model helps identify which job characteristics are more likely to be remote, hybrid, or onsite.\n\n\nCode\n# Import libraries\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import classification_report, confusion_matrix\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n# Prepare dataset\ndf_class = df[['STATE_NAME', 'SOC_2021_4', 'MAX_YEARS_EXPERIENCE', 'REMOTE_TYPE_NAME']].dropna()\ndf_class_encoded = pd.get_dummies(df_class, columns=['STATE_NAME', 'SOC_2021_4'])\n\nX = df_class_encoded.drop('REMOTE_TYPE_NAME', axis=1)\ny = df_class['REMOTE_TYPE_NAME']\n\n# Train/test split\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# Train classifier\nclf = RandomForestClassifier(random_state=42)\nclf.fit(X_train, y_train)\ny_pred = clf.predict(X_test)\n\n# Print performance\nprint(classification_report(y_test, y_pred))\nprint(confusion_matrix(y_test, y_pred))\n\n\n# Visualize confusion matrix\nplt.figure(figsize=(6,5))\nsns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')\nplt.title(\"Confusion Matrix - Remote Work Type Classifier\")\nplt.xlabel(\"Predicted\")\nplt.ylabel(\"Actual\")\nplt.tight_layout()\n\n# Save\nplt.savefig(\"figuresmurphy/confusion_matrix_remote_type.png\", dpi=300)\nplt.show()"
   },
   {
-    "objectID": "nlp_methods.html",
-    "href": "nlp_methods.html",
-    "title": "NLP Methods",
-    "section": "",
-    "text": "NLP Methods\nThis page introduces the natural language processing (NLP) techniques used in this project.\nContent will be added here."
-  },
-  {
-    "objectID": "eda.html",
-    "href": "eda.html",
-    "title": "Exploratory Data Analysis",
-    "section": "",
-    "text": "Exploratory Data Analysis\nThis page summarizes the exploratory data analysis (EDA) of the dataset, including key trends and patterns.\nContent will be added here.\nimport seaborn as sns import matplotlib.pyplot as plt\nplt.figure(figsize=(10,6)) sns.barplot(data=df, x=“STATE_NAME”, y=“Average_Salary”) plt.title(“Average Salary by State”) plt.xticks(rotation=45) plt.tight_layout() plt.savefig(“figures/salary_by_state.png”) plt.show()\n\nSalary by State"
-  },
-  {
-    "objectID": "data_cleaning.html",
-    "href": "data_cleaning.html",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "This page provides an overview of the data cleaning and initial exploration process for the job market dataset.\nContent will be added here.\n\n\n\n\nCode\nimport pandas as pd\ndf1 = pd.read_csv(\"./data/lightcast_job_postings.csv\")\n\n\n\n\nCode\ndf1.head()\ndf1.info()\ndf1.describe()\n\n\n\n\n\n\n\nCode\ndf1.columns.tolist()\nprint(df1.columns.tolist())\n\n\n\n\n\n\n# Define columns that are irrelevant or redundant for our analysis\ncolumns_to_drop = [\n    # Tracking and metadata\n    \"ID\", \"LAST_UPDATED_DATE\", \"LAST_UPDATED_TIMESTAMP\", \"DUPLICATES\",\n    \"URL\", \"ACTIVE_URLS\", \"ACTIVE_SOURCES_INFO\", \"SOURCE_TYPES\", \"SOURCES\",\n\n    # Company raw info\n    \"COMPANY_RAW\", \"COMPANY_IS_STAFFING\",\n\n    # Raw or text-heavy fields\n    \"TITLE_RAW\", \"BODY\",\n\n    # Modeled / derived fields\n    \"MODELED_EXPIRED\", \"MODELED_DURATION\",\n\n    # Educational levels (redundant versions)\n    \"EDUCATION_LEVELS\", \"EDUCATION_LEVELS_NAME\",\n    \"MIN_EDULEVELS\", \"MIN_EDULEVELS_NAME\", \"MAX_EDULEVELS\",\n\n    # Redundant NAICS / SOC codes\n    \"NAICS_2022_2\", \"NAICS_2022_2_NAME\",\n    \"NAICS_2022_3\", \"NAICS_2022_3_NAME\",\n    \"SOC_2\", \"SOC_3\", \"SOC_5\"\n]\n\n# Drop columns, ignore if a column is missing\ndf1.drop(columns=columns_to_drop, inplace=True, errors=\"ignore\")\n\n# Display the first few rows to confirm\ndf1.head()\n\n\n\n\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nos.makedirs(\"figureswxw\", exist_ok=True)\n\n\n\n\nCode\nimport missingno as msno\nimport matplotlib.pyplot as plt\nmsno.heatmap(df1)\n\nplt.title(\"Missing Values Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figureswxw/missing_values_heatmap.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\n# Drop columns with &gt;50% missing values\ndf1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)\n\n\nif \"SALARY\" in df1.columns:\n    df1[\"SALARY\"] = df1[\"SALARY\"].fillna(df1[\"SALARY\"].median())\n\n    df1[\"DURATION\"] = df1[\"DURATION\"].fillna(df1[\"DURATION\"].median())\n\ncategorical_columns = [\"REMOTE_TYPE_NAME\", \"COMPANY_NAME\", \"MAX_EDULEVELS_NAME\"]\n\nfor col in categorical_columns:\n    if col in df1.columns:\n        df1[col] = df1[col].fillna(\"Unknown\")\n\n\ndf1.info()\n\n\n\n\n\n\ndf1.drop_duplicates(subset=[\"TITLE_CLEAN\", \"COMPANY_NAME\", \"CITY_NAME\", \"POSTED\"], inplace=True)\n\ndf1[\"REMOTE_TYPE_NAME\"].value_counts(dropna=False)\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts(dropna=False)\n\n\n\nCode\n#improve\n\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].replace({\n    \"Part-time (â‰¤ 32 hours)\": \"Part-time (≤ 32 hours)\",\n    \"Part-time / full-time\": \"Part-time / Full-time\"\n})\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].fillna(\"Unknown\")\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts()"
-  },
-  {
-    "objectID": "data_cleaning.html#load-dataset",
-    "href": "data_cleaning.html#load-dataset",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "Code\nimport pandas as pd\ndf1 = pd.read_csv(\"./data/lightcast_job_postings.csv\")\n\n\n\n\nCode\ndf1.head()\ndf1.info()\ndf1.describe()"
-  },
-  {
-    "objectID": "data_cleaning.html#check-columns-information",
-    "href": "data_cleaning.html#check-columns-information",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "Code\ndf1.columns.tolist()\nprint(df1.columns.tolist())"
-  },
-  {
-    "objectID": "data_cleaning.html#dropping-unnecessary-columns",
-    "href": "data_cleaning.html#dropping-unnecessary-columns",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "# Define columns that are irrelevant or redundant for our analysis\ncolumns_to_drop = [\n    # Tracking and metadata\n    \"ID\", \"LAST_UPDATED_DATE\", \"LAST_UPDATED_TIMESTAMP\", \"DUPLICATES\",\n    \"URL\", \"ACTIVE_URLS\", \"ACTIVE_SOURCES_INFO\", \"SOURCE_TYPES\", \"SOURCES\",\n\n    # Company raw info\n    \"COMPANY_RAW\", \"COMPANY_IS_STAFFING\",\n\n    # Raw or text-heavy fields\n    \"TITLE_RAW\", \"BODY\",\n\n    # Modeled / derived fields\n    \"MODELED_EXPIRED\", \"MODELED_DURATION\",\n\n    # Educational levels (redundant versions)\n    \"EDUCATION_LEVELS\", \"EDUCATION_LEVELS_NAME\",\n    \"MIN_EDULEVELS\", \"MIN_EDULEVELS_NAME\", \"MAX_EDULEVELS\",\n\n    # Redundant NAICS / SOC codes\n    \"NAICS_2022_2\", \"NAICS_2022_2_NAME\",\n    \"NAICS_2022_3\", \"NAICS_2022_3_NAME\",\n    \"SOC_2\", \"SOC_3\", \"SOC_5\"\n]\n\n# Drop columns, ignore if a column is missing\ndf1.drop(columns=columns_to_drop, inplace=True, errors=\"ignore\")\n\n# Display the first few rows to confirm\ndf1.head()"
-  },
-  {
-    "objectID": "data_cleaning.html#handling-missing-values",
-    "href": "data_cleaning.html#handling-missing-values",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "Code\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nos.makedirs(\"figureswxw\", exist_ok=True)\n\n\n\n\nCode\nimport missingno as msno\nimport matplotlib.pyplot as plt\nmsno.heatmap(df1)\n\nplt.title(\"Missing Values Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figureswxw/missing_values_heatmap.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\n# Drop columns with &gt;50% missing values\ndf1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)\n\n\nif \"SALARY\" in df1.columns:\n    df1[\"SALARY\"] = df1[\"SALARY\"].fillna(df1[\"SALARY\"].median())\n\n    df1[\"DURATION\"] = df1[\"DURATION\"].fillna(df1[\"DURATION\"].median())\n\ncategorical_columns = [\"REMOTE_TYPE_NAME\", \"COMPANY_NAME\", \"MAX_EDULEVELS_NAME\"]\n\nfor col in categorical_columns:\n    if col in df1.columns:\n        df1[col] = df1[col].fillna(\"Unknown\")\n\n\ndf1.info()"
-  },
-  {
-    "objectID": "data_cleaning.html#remove-duplicates",
-    "href": "data_cleaning.html#remove-duplicates",
-    "title": "Data Cleaning",
-    "section": "",
-    "text": "df1.drop_duplicates(subset=[\"TITLE_CLEAN\", \"COMPANY_NAME\", \"CITY_NAME\", \"POSTED\"], inplace=True)\n\ndf1[\"REMOTE_TYPE_NAME\"].value_counts(dropna=False)\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts(dropna=False)\n\n\n\nCode\n#improve\n\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].replace({\n    \"Part-time (â‰¤ 32 hours)\": \"Part-time (≤ 32 hours)\",\n    \"Part-time / full-time\": \"Part-time / Full-time\"\n})\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].fillna(\"Unknown\")\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts()"
-  },
-  {
-    "objectID": "data_cleaning.html#remote-type-distribution",
-    "href": "data_cleaning.html#remote-type-distribution",
-    "title": "Data Cleaning",
-    "section": "2.1 Remote Type distribution",
-    "text": "2.1 Remote Type distribution\n\n\nCode\nremote_counts = df1[\"REMOTE_TYPE_NAME\"].value_counts()\n\nplt.figure(figsize=(10,6))\nsns.barplot(\n    x=remote_counts.index, \n    y=remote_counts.values, \n    palette=\"Set2\"\n)\nplt.title(\"Remote Type Distribution\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Remote Type\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/remote_type_distribution.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\nimport os\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\ndf1[\"IS_AI\"] = df1[\"NAICS_2022_6_NAME\"].fillna(\"\").str.contains(\"AI|Artificial Intelligence\", case=False) | \\\n               df1[\"LOT_OCCUPATION\"].fillna(\"\").str.contains(\"AI|Artificial Intelligence\", case=False)\n\ndf1[\"IS_AI\"] = df1[\"IS_AI\"].map({True: \"AI\", False: \"Non-AI\"})"
-  },
-  {
-    "objectID": "data_cleaning.html#top-10-states-ai-vs-non-ai-job-postings",
-    "href": "data_cleaning.html#top-10-states-ai-vs-non-ai-job-postings",
-    "title": "Data Cleaning",
-    "section": "2.2 Top 10 states : AI vs Non-AI Job Postings",
-    "text": "2.2 Top 10 states : AI vs Non-AI Job Postings\n\n\nCode\ntop_states = df1[\"STATE_NAME\"].value_counts().head(10).index\ndf_top_states = df1[df1[\"STATE_NAME\"].isin(top_states)]\n\npivot_states = df_top_states.groupby([\"STATE_NAME\", \"IS_AI\"]).size().unstack(fill_value=0)\n\npivot_states.plot(kind=\"bar\", stacked=True, figsize=(12,6), colormap=\"Set3\")\nplt.title(\"Top 10 States: AI vs Non-AI Job Postings\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"State\")\nplt.xticks(rotation=30)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/top_states_ai_nonai.png\", dpi=300)\nplt.show()"
-  },
-  {
-    "objectID": "data_cleaning.html#top-10-cities-ai-vs-non-ai-job-postings",
-    "href": "data_cleaning.html#top-10-cities-ai-vs-non-ai-job-postings",
-    "title": "Data Cleaning",
-    "section": "2.3 Top 10 cities: AI vs Non-AI Job Postings",
-    "text": "2.3 Top 10 cities: AI vs Non-AI Job Postings\n\n\nCode\ntop_cities = df1[\"CITY_NAME\"].value_counts().head(10).index\ndf_top_cities = df1[df1[\"CITY_NAME\"].isin(top_cities)]\n\npivot_cities = df_top_cities.groupby([\"CITY_NAME\", \"IS_AI\"]).size().unstack(fill_value=0)\n\npivot_cities.plot(kind=\"bar\", stacked=True, figsize=(12,6), colormap=\"Set1\")\nplt.title(\"Top 10 Cities: AI vs Non-AI Job Postings\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"City\")\nplt.xticks(rotation=30)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/top_cities_ai_nonai.png\", dpi=300)\nplt.show()"
-  },
-  {
-    "objectID": "data_cleaning.html#time-trend-of-remote-work-types",
-    "href": "data_cleaning.html#time-trend-of-remote-work-types",
-    "title": "Data Cleaning",
-    "section": "2.4 Time Trend of Remote Work Types",
-    "text": "2.4 Time Trend of Remote Work Types\n\n\nCode\nif \"POSTED\" in df1.columns:\n    df1[\"POSTED_DATE\"] = pd.to_datetime(df1[\"POSTED\"], errors='coerce')\n    df1 = df1.dropna(subset=[\"POSTED_DATE\"])\n    df1[\"POSTED_MONTH\"] = df1[\"POSTED_DATE\"].dt.to_period(\"M\")\n    \n    trend = df1.groupby([\"POSTED_MONTH\", \"REMOTE_TYPE_NAME\"]).size().unstack(fill_value=0)\n    \n    trend.plot(figsize=(14,7))\n    plt.title(\"Remote Work Trends Over Time\", fontsize=14)\n    plt.ylabel(\"Number of Job Postings\")\n    plt.xlabel(\"Month\")\n    plt.grid(axis='y', linestyle='--', alpha=0.7)\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/remote_trend_over_time.png\", dpi=300)\n    plt.show()\nelse:\n    print(\"POSTED column not found in dataset.\")"
-  },
-  {
-    "objectID": "data_cleaning.html#tech-hubs-vs-other-locations-hiring-trends",
-    "href": "data_cleaning.html#tech-hubs-vs-other-locations-hiring-trends",
-    "title": "Data Cleaning",
-    "section": "2.5 Tech Hubs vs Other Locations Hiring Trends",
-    "text": "2.5 Tech Hubs vs Other Locations Hiring Trends\n\n\nCode\ndf1[\"IS_HUB\"] = df1[\"CITY_NAME\"].apply(lambda x: \"Hub\" if x in [\"San Francisco\", \"Austin\", \"Boston\"] else \"Other\")\n\npivot_hub = df1.groupby([\"POSTED_MONTH\", \"IS_HUB\"]).size().unstack(fill_value=0)\n\npivot_hub.plot(figsize=(14,7))\nplt.title(\"Hiring Trends: Tech Hubs vs Other Locations\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Month\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/techhub_vs_other_trend.png\", dpi=300)\nplt.show()"
-  },
-  {
-    "objectID": "data_cleaning.html#remote-job-trend-by-industry",
-    "href": "data_cleaning.html#remote-job-trend-by-industry",
-    "title": "Data Cleaning",
-    "section": "2.6 Remote Job Trend by Industry",
-    "text": "2.6 Remote Job Trend by Industry\n\n\nCode\ntop_industries = (\n    df1.groupby(\"NAICS_2022_6_NAME\").size()\n    .sort_values(ascending=False)\n    .head(10)\n    .index\n)\n\n\ndf_top_ind = df1[df1[\"NAICS_2022_6_NAME\"].isin(top_industries)]\n\n\ndf_top_ind[\"POSTED_DATE\"] = pd.to_datetime(df_top_ind[\"POSTED\"], errors='coerce')\ndf_top_ind = df_top_ind.dropna(subset=[\"POSTED_DATE\"])\ndf_top_ind[\"POSTED_MONTH\"] = df_top_ind[\"POSTED_DATE\"].dt.to_period(\"M\")\n\n\npivot = df_top_ind.groupby([\"POSTED_MONTH\", \"NAICS_2022_6_NAME\"]).size().unstack(fill_value=0)\n\npivot.plot(figsize=(14,7))\nplt.title(\"Remote Job Trends by Top 5 Industries Over Time\", fontsize=14)\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Month\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.legend(\n    title=\"NAICS_2022_6_NAME\",\n    loc='upper center',\n    bbox_to_anchor=(0.5, -0.15),  \n    ncol=2,                       \n    frameon=False\n)\nplt.tight_layout()\nplt.savefig(\"figureswxw/remote_trend_top5_industry.png\", dpi=300)\nplt.show()"
-  },
-  {
-    "objectID": "data_cleaning.html#urbanrural-region-ai-vs-non-ai-job-postings",
-    "href": "data_cleaning.html#urbanrural-region-ai-vs-non-ai-job-postings",
-    "title": "Data Cleaning",
-    "section": "2.7 Urban/Rural Region: AI vs Non-AI Job Postings",
-    "text": "2.7 Urban/Rural Region: AI vs Non-AI Job Postings\n\n\nCode\nurban_cities = [\n    \"New York\", \"Los Angeles\", \"Chicago\", \"Houston\", \"San Francisco\",\n    \"Austin\", \"Boston\", \"Dallas\", \"Seattle\", \"Washington\", \"Atlanta\"\n]\n\ndf1[\"CITY_NAME_CLEAN\"] = df1[\"CITY_NAME\"].str.split(\",\").str[0].str.strip().str.title()\n\ndf1[\"Urban_Rural\"] = df1[\"CITY_NAME_CLEAN\"].apply(\n    lambda x: \"Urban\" if x in urban_cities else \"Rural\"\n)\n\nprint(df1[\"Urban_Rural\"].value_counts())\n\n\n\n2.7.1 Stacked Bar Chart\n\n\nCode\nif {\"Urban_Rural\", \"IS_AI\"}.issubset(df1.columns):\n    pivot_urban = df1.groupby([\"Urban_Rural\", \"IS_AI\"]).size().unstack(fill_value=0)\n\n    ax = pivot_urban.plot(\n        kind=\"bar\",\n        stacked=True,\n        figsize=(8, 5),\n        color=[\"#ff9999\", \"#66b3ff\"],\n        edgecolor=\"black\"\n    )\n    ax.set_title(\"Urban and Rural Regions: AI vs Non-AI Job Postings\", fontsize=14)\n    ax.set_ylabel(\"Number of Job Postings\")\n    ax.set_xlabel(\"Region Type\")\n    ax.set_xticklabels(ax.get_xticklabels(), rotation=0)\n    ax.grid(axis='y', linestyle='--', alpha=0.7)\n\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/urban_rural_ai_nonai_bar.png\", dpi=300)\n    plt.show()\n\nelse:\n    print(\"Required columns are missing. Please check your dataset.\")\n\n\n\n\n\n\n\n\n\n2.7.2 Pie Chart\n\n\nCode\nimport matplotlib.pyplot as plt\n\nif {\"Urban_Rural\", \"IS_AI\"}.issubset(df1.columns):\n    pivot_urban = df1.groupby([\"Urban_Rural\", \"IS_AI\"]).size().unstack(fill_value=0)\n\n    fig, axes = plt.subplots(1, 2, figsize=(8, 4))  \n\n    for ax, region in zip(axes, [\"Urban\", \"Rural\"]):\n        data = pivot_urban.loc[region]\n        ax.pie(\n            data,\n            labels=data.index,\n            autopct='%1.1f%%',\n            startangle=90,\n            colors=[\"#ff9999\", \"#66b3ff\"],\n            wedgeprops={'edgecolor': 'black'}\n        )\n        ax.set_title(f\"{region} - AI vs Non-AI\")\n\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/urban_rural_ai_nonai_pie_combined.png\", dpi=300)\n    plt.show()\n\nelse:\n    print(\"Required columns are missing. Please check your dataset.\")"
+    "objectID": "ml_analysis.html#supervised-learning-regression-predict-salary",
+    "href": "ml_analysis.html#supervised-learning-regression-predict-salary",
+    "title": "Modeling & Analysis",
+    "section": "3. Supervised Learning: Regression – Predict Salary",
+    "text": "3. Supervised Learning: Regression – Predict Salary\nWe trained a Random Forest Regressor to predict AVERAGE_SALARY based on job attributes such as STATE_NAME, REMOTE_TYPE_NAME, SOC_2021_4, and MAX_YEARS_EXPERIENCE.\n\n\nCode\n# Step 1: Create AVERAGE_SALARY if not already in df\ndf['SALARY_FROM'] = pd.to_numeric(df['SALARY_FROM'], errors='coerce')\ndf['SALARY_TO'] = pd.to_numeric(df['SALARY_TO'], errors='coerce')\ndf['AVERAGE_SALARY'] = (df['SALARY_FROM'] + df['SALARY_TO']) / 2\n\n# Step 2: Drop rows with missing values in key columns\ndf_reg = df[['STATE_NAME', 'SOC_2021_4', 'REMOTE_TYPE_NAME', 'MAX_YEARS_EXPERIENCE', 'AVERAGE_SALARY']].dropna()\n\n# Step 3: One-hot encoding\ndf_reg_encoded = pd.get_dummies(df_reg, columns=['STATE_NAME', 'SOC_2021_4', 'REMOTE_TYPE_NAME'])\n\n# Step 4: Split X and y\nX = df_reg_encoded.drop('AVERAGE_SALARY', axis=1)\ny = df_reg_encoded['AVERAGE_SALARY']\n\n# Step 5: Train/test split\nfrom sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# Step 6: Train Random Forest Regressor\nfrom sklearn.ensemble import RandomForestRegressor\nmodel = RandomForestRegressor(random_state=42)\nmodel.fit(X_train, y_train)\n\n# Step 7: Predict\ny_pred = model.predict(X_test)\n\n# Step 8: Evaluate\nfrom sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score\nprint(\"Mean Squared Error:\", mean_squared_error(y_test, y_pred))\nprint(\"Mean Absolute Error:\", mean_absolute_error(y_test, y_pred))\nprint(\"R2 Score:\", r2_score(y_test, y_pred))\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(6,6))\nplt.scatter(y_test, y_pred, alpha=0.5)\nplt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')\nplt.xlabel(\"Actual Salary\")\nplt.ylabel(\"Predicted Salary\")\nplt.title(\"Actual vs Predicted Salary\")\nplt.tight_layout()\nplt.savefig(\"figuresmurphy/actual_vs_predicted_salary.png\", dpi=300)\nplt.show()"
   },
   {
     "objectID": "index.html",
@@ -130,6 +32,125 @@
     "href": "skill_gap_analysis.html",
     "title": "Skill Gap Analysis",
     "section": "",
-    "text": "Skill Gap Analysis\nThis page presents the skill gap analysis between job requirements and available workforce skills.\nContent will be added here."
+    "text": "This page presents the skill gap analysis between job requirements and available workforce skills.\n\n\n\n\nTeam members’ current skills relevant to their selected IT career path：\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom collections import Counter\nimport re\n\n\n\n\nCode\ndf = pd.read_csv(\"data/lightcast_job_postings.csv\", encoding=\"utf-8\", on_bad_lines='skip')\n\n\n\n\nCode\nskills_data = {\n    \"Name\": [\"Eugenia\", \"Chenxi\", \"Xiangwen\"],\n    \"Python\": [3, 3, 5],\n    \"SQL\": [4, 2, 3],\n    \"Machine Learning\": [1, 2, 4],\n    \"Cloud Computing\": [3, 1, 2],\n    \"AWS\": [2, 4, 3]\n}\n\ndf_skills = pd.DataFrame(skills_data)\ndf_skills.set_index(\"Name\", inplace=True)\ndf_skills\n\n\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(8, 6))\nsns.heatmap(df_skills, annot=True, cmap=\"coolwarm\", linewidths=0.5)\nplt.title(\"Team Skill Levels Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_skill_heatmap.png\")\nplt.show()\n\n\n\n\n\n\n\nCode\nfrom collections import Counter\n\ntop_skills = [\"Python\", \"SQL\", \"Machine Learning\", \"Cloud Computing\", \"Docker\", \"AWS\"]\njob_skill_counts = Counter(top_skills)\n\nfor skill in top_skills:\n    if skill not in df_skills.columns:\n        df_skills[skill] = 0  # Assume no knowledge in missing skills\n\ndf_skills\n\n\nimport os\nimport matplotlib.pyplot as plt\n\nos.makedirs(\"figureswxw\", exist_ok=True)\n\nteam_avg_skills = df_skills.mean()\n\nskills_to_plot = []\nfor skill in top_skills:\n    score = team_avg_skills[skill] if skill in team_avg_skills else 0\n    skills_to_plot.append(score)\n\nplt.figure(figsize=(10, 5))\nplt.bar(top_skills, skills_to_plot, color=\"skyblue\")\nplt.title(\"Average Team Skill Levels vs Top Skills\")\nplt.ylabel(\"Average Score\")\nplt.xticks(rotation=45)\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_vs_industry_skills.png\")\nplt.show()\n\n\n\n\nCode\njob_descriptions = df[\"BODY\"].dropna().tolist()\nall_text = \" \".join(job_descriptions).lower()\n\nskills_keywords = [\"python\", \"sql\", \"machine learning\", \"cloud\", \"aws\", \"docker\", \"java\", \"excel\", \"r\", \"linux\"]\nskill_counts = Counter()\nfor skill in skills_keywords:\n    matches = re.findall(rf\"\\b{re.escape(skill)}\\b\", all_text)\n    skill_counts[skill] = len(matches)\n\ntop_skills = [skill for skill, count in skill_counts.most_common(5)]"
+  },
+  {
+    "objectID": "skill_gap_analysis.html#step-3-skill-gap-analysis",
+    "href": "skill_gap_analysis.html#step-3-skill-gap-analysis",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "Team members’ current skills relevant to their selected IT career path：\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom collections import Counter\nimport re\n\n\n\n\nCode\ndf = pd.read_csv(\"data/lightcast_job_postings.csv\", encoding=\"utf-8\", on_bad_lines='skip')\n\n\n\n\nCode\nskills_data = {\n    \"Name\": [\"Eugenia\", \"Chenxi\", \"Xiangwen\"],\n    \"Python\": [3, 3, 5],\n    \"SQL\": [4, 2, 3],\n    \"Machine Learning\": [1, 2, 4],\n    \"Cloud Computing\": [3, 1, 2],\n    \"AWS\": [2, 4, 3]\n}\n\ndf_skills = pd.DataFrame(skills_data)\ndf_skills.set_index(\"Name\", inplace=True)\ndf_skills\n\n\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(8, 6))\nsns.heatmap(df_skills, annot=True, cmap=\"coolwarm\", linewidths=0.5)\nplt.title(\"Team Skill Levels Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_skill_heatmap.png\")\nplt.show()\n\n\n\n\n\n\n\nCode\nfrom collections import Counter\n\ntop_skills = [\"Python\", \"SQL\", \"Machine Learning\", \"Cloud Computing\", \"Docker\", \"AWS\"]\njob_skill_counts = Counter(top_skills)\n\nfor skill in top_skills:\n    if skill not in df_skills.columns:\n        df_skills[skill] = 0  # Assume no knowledge in missing skills\n\ndf_skills\n\n\nimport os\nimport matplotlib.pyplot as plt\n\nos.makedirs(\"figureswxw\", exist_ok=True)\n\nteam_avg_skills = df_skills.mean()\n\nskills_to_plot = []\nfor skill in top_skills:\n    score = team_avg_skills[skill] if skill in team_avg_skills else 0\n    skills_to_plot.append(score)\n\nplt.figure(figsize=(10, 5))\nplt.bar(top_skills, skills_to_plot, color=\"skyblue\")\nplt.title(\"Average Team Skill Levels vs Top Skills\")\nplt.ylabel(\"Average Score\")\nplt.xticks(rotation=45)\nplt.tight_layout()\nplt.savefig(\"figurestyj/team_vs_industry_skills.png\")\nplt.show()\n\n\n\n\nCode\njob_descriptions = df[\"BODY\"].dropna().tolist()\nall_text = \" \".join(job_descriptions).lower()\n\nskills_keywords = [\"python\", \"sql\", \"machine learning\", \"cloud\", \"aws\", \"docker\", \"java\", \"excel\", \"r\", \"linux\"]\nskill_counts = Counter()\nfor skill in skills_keywords:\n    matches = re.findall(rf\"\\b{re.escape(skill)}\\b\", all_text)\n    skill_counts[skill] = len(matches)\n\ntop_skills = [skill for skill, count in skill_counts.most_common(5)]"
+  },
+  {
+    "objectID": "nlp_methods.html",
+    "href": "nlp_methods.html",
+    "title": "NLP Methods",
+    "section": "",
+    "text": "NLP Methods\nThis page introduces the natural language processing (NLP) techniques used in this project.\nContent will be added here."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "data_cleaning_eda.html",
+    "href": "data_cleaning_eda.html",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "This page provides an overview of the data cleaning and initial exploration process for the job market dataset.\nContent will be added here.\n\n\n\n\nCode\nimport pandas as pd\ndf1 = pd.read_csv(\"./data/lightcast_job_postings.csv\")\n\n\n\n\nCode\ndf1.head()\ndf1.info()\ndf1.describe()\n\n\n\n\n\n\n\nCode\ndf1.columns.tolist()\nprint(df1.columns.tolist())\n\n\n\n\n\n\n# Define columns that are irrelevant or redundant for our analysis\ncolumns_to_drop = [\n    # Tracking and metadata\n    \"ID\", \"LAST_UPDATED_DATE\", \"LAST_UPDATED_TIMESTAMP\", \"DUPLICATES\",\n    \"URL\", \"ACTIVE_URLS\", \"ACTIVE_SOURCES_INFO\", \"SOURCE_TYPES\", \"SOURCES\",\n\n    # Company raw info\n    \"COMPANY_RAW\", \"COMPANY_IS_STAFFING\",\n\n    # Raw or text-heavy fields\n    \"TITLE_RAW\", \"BODY\",\n\n    # Modeled / derived fields\n    \"MODELED_EXPIRED\", \"MODELED_DURATION\",\n\n    # Educational levels (redundant versions)\n    \"EDUCATION_LEVELS\", \"EDUCATION_LEVELS_NAME\",\n    \"MIN_EDULEVELS\", \"MIN_EDULEVELS_NAME\", \"MAX_EDULEVELS\",\n\n    # Redundant NAICS / SOC codes\n    \"NAICS_2022_2\", \"NAICS_2022_2_NAME\",\n    \"NAICS_2022_3\", \"NAICS_2022_3_NAME\",\n    \"SOC_2\", \"SOC_3\", \"SOC_5\"\n]\n\n# Drop columns, ignore if a column is missing\ndf1.drop(columns=columns_to_drop, inplace=True, errors=\"ignore\")\n\n# Display the first few rows to confirm\ndf1.head()\n\n\n\n\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nos.makedirs(\"figureswxw\", exist_ok=True)\n\n\n\n\nCode\nimport missingno as msno\nimport matplotlib.pyplot as plt\nmsno.heatmap(df1)\n\nplt.title(\"Missing Values Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figureswxw/missing_values_heatmap.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\n# Drop columns with &gt;50% missing values\ndf1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)\n\n\nif \"SALARY\" in df1.columns:\n    df1[\"SALARY\"] = df1[\"SALARY\"].fillna(df1[\"SALARY\"].median())\n\n    df1[\"DURATION\"] = df1[\"DURATION\"].fillna(df1[\"DURATION\"].median())\n\ncategorical_columns = [\"REMOTE_TYPE_NAME\", \"COMPANY_NAME\", \"MAX_EDULEVELS_NAME\"]\n\nfor col in categorical_columns:\n    if col in df1.columns:\n        df1[col] = df1[col].fillna(\"Unknown\")\n\n\ndf1.info()\n\n\n\n\n\n\ndf1.drop_duplicates(subset=[\"TITLE_CLEAN\", \"COMPANY_NAME\", \"CITY_NAME\", \"POSTED\"], inplace=True)\n\ndf1[\"REMOTE_TYPE_NAME\"].value_counts(dropna=False)\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts(dropna=False)\n\n\n\nCode\n#improve\n\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].replace({\n    \"Part-time (â‰¤ 32 hours)\": \"Part-time (≤ 32 hours)\",\n    \"Part-time / full-time\": \"Part-time / Full-time\"\n})\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].fillna(\"Unknown\")\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#load-dataset",
+    "href": "data_cleaning_eda.html#load-dataset",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "Code\nimport pandas as pd\ndf1 = pd.read_csv(\"./data/lightcast_job_postings.csv\")\n\n\n\n\nCode\ndf1.head()\ndf1.info()\ndf1.describe()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#check-columns-information",
+    "href": "data_cleaning_eda.html#check-columns-information",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "Code\ndf1.columns.tolist()\nprint(df1.columns.tolist())"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#dropping-unnecessary-columns",
+    "href": "data_cleaning_eda.html#dropping-unnecessary-columns",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "# Define columns that are irrelevant or redundant for our analysis\ncolumns_to_drop = [\n    # Tracking and metadata\n    \"ID\", \"LAST_UPDATED_DATE\", \"LAST_UPDATED_TIMESTAMP\", \"DUPLICATES\",\n    \"URL\", \"ACTIVE_URLS\", \"ACTIVE_SOURCES_INFO\", \"SOURCE_TYPES\", \"SOURCES\",\n\n    # Company raw info\n    \"COMPANY_RAW\", \"COMPANY_IS_STAFFING\",\n\n    # Raw or text-heavy fields\n    \"TITLE_RAW\", \"BODY\",\n\n    # Modeled / derived fields\n    \"MODELED_EXPIRED\", \"MODELED_DURATION\",\n\n    # Educational levels (redundant versions)\n    \"EDUCATION_LEVELS\", \"EDUCATION_LEVELS_NAME\",\n    \"MIN_EDULEVELS\", \"MIN_EDULEVELS_NAME\", \"MAX_EDULEVELS\",\n\n    # Redundant NAICS / SOC codes\n    \"NAICS_2022_2\", \"NAICS_2022_2_NAME\",\n    \"NAICS_2022_3\", \"NAICS_2022_3_NAME\",\n    \"SOC_2\", \"SOC_3\", \"SOC_5\"\n]\n\n# Drop columns, ignore if a column is missing\ndf1.drop(columns=columns_to_drop, inplace=True, errors=\"ignore\")\n\n# Display the first few rows to confirm\ndf1.head()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#handling-missing-values",
+    "href": "data_cleaning_eda.html#handling-missing-values",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "Code\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport os\nos.makedirs(\"figureswxw\", exist_ok=True)\n\n\n\n\nCode\nimport missingno as msno\nimport matplotlib.pyplot as plt\nmsno.heatmap(df1)\n\nplt.title(\"Missing Values Heatmap\")\nplt.tight_layout()\nplt.savefig(\"figureswxw/missing_values_heatmap.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\n# Drop columns with &gt;50% missing values\ndf1.dropna(axis=1, thresh=len(df1) * 0.5, inplace=True)\n\n\nif \"SALARY\" in df1.columns:\n    df1[\"SALARY\"] = df1[\"SALARY\"].fillna(df1[\"SALARY\"].median())\n\n    df1[\"DURATION\"] = df1[\"DURATION\"].fillna(df1[\"DURATION\"].median())\n\ncategorical_columns = [\"REMOTE_TYPE_NAME\", \"COMPANY_NAME\", \"MAX_EDULEVELS_NAME\"]\n\nfor col in categorical_columns:\n    if col in df1.columns:\n        df1[col] = df1[col].fillna(\"Unknown\")\n\n\ndf1.info()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#remove-duplicates",
+    "href": "data_cleaning_eda.html#remove-duplicates",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "df1.drop_duplicates(subset=[\"TITLE_CLEAN\", \"COMPANY_NAME\", \"CITY_NAME\", \"POSTED\"], inplace=True)\n\ndf1[\"REMOTE_TYPE_NAME\"].value_counts(dropna=False)\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts(dropna=False)\n\n\n\nCode\n#improve\n\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].replace({\n    \"Part-time (â‰¤ 32 hours)\": \"Part-time (≤ 32 hours)\",\n    \"Part-time / full-time\": \"Part-time / Full-time\"\n})\ndf1[\"EMPLOYMENT_TYPE_NAME\"] = df1[\"EMPLOYMENT_TYPE_NAME\"].fillna(\"Unknown\")\ndf1[\"EMPLOYMENT_TYPE_NAME\"].value_counts()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#remote-type-distribution",
+    "href": "data_cleaning_eda.html#remote-type-distribution",
+    "title": "Data Cleaning",
+    "section": "2.1 Remote Type distribution",
+    "text": "2.1 Remote Type distribution\n\n\nCode\nremote_counts = df1[\"REMOTE_TYPE_NAME\"].value_counts()\n\nplt.figure(figsize=(10,6))\nsns.barplot(\n    x=remote_counts.index, \n    y=remote_counts.values, \n    palette=\"Set2\"\n)\nplt.title(\"Remote Type Distribution\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Remote Type\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/remote_type_distribution.png\", dpi=300)\nplt.show()\n\n\n\n\n\n\n\n\n\nCode\nimport os\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\ndf1[\"IS_AI\"] = df1[\"NAICS_2022_6_NAME\"].fillna(\"\").str.contains(\"AI|Artificial Intelligence\", case=False) | \\\n               df1[\"LOT_OCCUPATION\"].fillna(\"\").str.contains(\"AI|Artificial Intelligence\", case=False)\n\ndf1[\"IS_AI\"] = df1[\"IS_AI\"].map({True: \"AI\", False: \"Non-AI\"})"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#top-10-states-ai-vs-non-ai-job-postings",
+    "href": "data_cleaning_eda.html#top-10-states-ai-vs-non-ai-job-postings",
+    "title": "Data Cleaning",
+    "section": "2.2 Top 10 states : AI vs Non-AI Job Postings",
+    "text": "2.2 Top 10 states : AI vs Non-AI Job Postings\n\n\nCode\ntop_states = df1[\"STATE_NAME\"].value_counts().head(10).index\ndf_top_states = df1[df1[\"STATE_NAME\"].isin(top_states)]\n\npivot_states = df_top_states.groupby([\"STATE_NAME\", \"IS_AI\"]).size().unstack(fill_value=0)\n\npivot_states.plot(kind=\"bar\", stacked=True, figsize=(12,6), colormap=\"Set3\")\nplt.title(\"Top 10 States: AI vs Non-AI Job Postings\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"State\")\nplt.xticks(rotation=30)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/top_states_ai_nonai.png\", dpi=300)\nplt.show()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#top-10-cities-ai-vs-non-ai-job-postings",
+    "href": "data_cleaning_eda.html#top-10-cities-ai-vs-non-ai-job-postings",
+    "title": "Data Cleaning",
+    "section": "2.3 Top 10 cities: AI vs Non-AI Job Postings",
+    "text": "2.3 Top 10 cities: AI vs Non-AI Job Postings\n\n\nCode\ntop_cities = df1[\"CITY_NAME\"].value_counts().head(10).index\ndf_top_cities = df1[df1[\"CITY_NAME\"].isin(top_cities)]\n\npivot_cities = df_top_cities.groupby([\"CITY_NAME\", \"IS_AI\"]).size().unstack(fill_value=0)\n\npivot_cities.plot(kind=\"bar\", stacked=True, figsize=(12,6), colormap=\"Set1\")\nplt.title(\"Top 10 Cities: AI vs Non-AI Job Postings\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"City\")\nplt.xticks(rotation=30)\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/top_cities_ai_nonai.png\", dpi=300)\nplt.show()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#time-trend-of-remote-work-types",
+    "href": "data_cleaning_eda.html#time-trend-of-remote-work-types",
+    "title": "Data Cleaning",
+    "section": "2.4 Time Trend of Remote Work Types",
+    "text": "2.4 Time Trend of Remote Work Types\n\n\nCode\nif \"POSTED\" in df1.columns:\n    df1[\"POSTED_DATE\"] = pd.to_datetime(df1[\"POSTED\"], errors='coerce')\n    df1 = df1.dropna(subset=[\"POSTED_DATE\"])\n    df1[\"POSTED_MONTH\"] = df1[\"POSTED_DATE\"].dt.to_period(\"M\")\n    \n    trend = df1.groupby([\"POSTED_MONTH\", \"REMOTE_TYPE_NAME\"]).size().unstack(fill_value=0)\n    \n    trend.plot(figsize=(14,7))\n    plt.title(\"Remote Work Trends Over Time\", fontsize=14)\n    plt.ylabel(\"Number of Job Postings\")\n    plt.xlabel(\"Month\")\n    plt.grid(axis='y', linestyle='--', alpha=0.7)\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/remote_trend_over_time.png\", dpi=300)\n    plt.show()\nelse:\n    print(\"POSTED column not found in dataset.\")"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#tech-hubs-vs-other-locations-hiring-trends",
+    "href": "data_cleaning_eda.html#tech-hubs-vs-other-locations-hiring-trends",
+    "title": "Data Cleaning",
+    "section": "2.5 Tech Hubs vs Other Locations Hiring Trends",
+    "text": "2.5 Tech Hubs vs Other Locations Hiring Trends\n\n\nCode\ndf1[\"IS_HUB\"] = df1[\"CITY_NAME\"].apply(lambda x: \"Hub\" if x in [\"San Francisco\", \"Austin\", \"Boston\"] else \"Other\")\n\npivot_hub = df1.groupby([\"POSTED_MONTH\", \"IS_HUB\"]).size().unstack(fill_value=0)\n\npivot_hub.plot(figsize=(14,7))\nplt.title(\"Hiring Trends: Tech Hubs vs Other Locations\")\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Month\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\nplt.savefig(\"figureswxw/techhub_vs_other_trend.png\", dpi=300)\nplt.show()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#remote-job-trend-by-industry",
+    "href": "data_cleaning_eda.html#remote-job-trend-by-industry",
+    "title": "Data Cleaning",
+    "section": "2.6 Remote Job Trend by Industry",
+    "text": "2.6 Remote Job Trend by Industry\n\n\nCode\ntop_industries = (\n    df1.groupby(\"NAICS_2022_6_NAME\").size()\n    .sort_values(ascending=False)\n    .head(10)\n    .index\n)\n\n\ndf_top_ind = df1[df1[\"NAICS_2022_6_NAME\"].isin(top_industries)]\n\n\ndf_top_ind[\"POSTED_DATE\"] = pd.to_datetime(df_top_ind[\"POSTED\"], errors='coerce')\ndf_top_ind = df_top_ind.dropna(subset=[\"POSTED_DATE\"])\ndf_top_ind[\"POSTED_MONTH\"] = df_top_ind[\"POSTED_DATE\"].dt.to_period(\"M\")\n\n\npivot = df_top_ind.groupby([\"POSTED_MONTH\", \"NAICS_2022_6_NAME\"]).size().unstack(fill_value=0)\n\npivot.plot(figsize=(14,7))\nplt.title(\"Remote Job Trends by Top 5 Industries Over Time\", fontsize=14)\nplt.ylabel(\"Number of Job Postings\")\nplt.xlabel(\"Month\")\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.legend(\n    title=\"NAICS_2022_6_NAME\",\n    loc='upper center',\n    bbox_to_anchor=(0.5, -0.15),  \n    ncol=2,                       \n    frameon=False\n)\nplt.tight_layout()\nplt.savefig(\"figureswxw/remote_trend_top5_industry.png\", dpi=300)\nplt.show()"
+  },
+  {
+    "objectID": "data_cleaning_eda.html#urbanrural-region-ai-vs-non-ai-job-postings",
+    "href": "data_cleaning_eda.html#urbanrural-region-ai-vs-non-ai-job-postings",
+    "title": "Data Cleaning",
+    "section": "2.7 Urban/Rural Region: AI vs Non-AI Job Postings",
+    "text": "2.7 Urban/Rural Region: AI vs Non-AI Job Postings\n\n\nCode\nurban_cities = [\n    \"New York\", \"Los Angeles\", \"Chicago\", \"Houston\", \"San Francisco\",\n    \"Austin\", \"Boston\", \"Dallas\", \"Seattle\", \"Washington\", \"Atlanta\"\n]\n\ndf1[\"CITY_NAME_CLEAN\"] = df1[\"CITY_NAME\"].str.split(\",\").str[0].str.strip().str.title()\n\ndf1[\"Urban_Rural\"] = df1[\"CITY_NAME_CLEAN\"].apply(\n    lambda x: \"Urban\" if x in urban_cities else \"Rural\"\n)\n\nprint(df1[\"Urban_Rural\"].value_counts())\n\n\n\n2.7.1 Stacked Bar Chart\n\n\nCode\nif {\"Urban_Rural\", \"IS_AI\"}.issubset(df1.columns):\n    pivot_urban = df1.groupby([\"Urban_Rural\", \"IS_AI\"]).size().unstack(fill_value=0)\n\n    ax = pivot_urban.plot(\n        kind=\"bar\",\n        stacked=True,\n        figsize=(8, 5),\n        color=[\"#ff9999\", \"#66b3ff\"],\n        edgecolor=\"black\"\n    )\n    ax.set_title(\"Urban and Rural Regions: AI vs Non-AI Job Postings\", fontsize=14)\n    ax.set_ylabel(\"Number of Job Postings\")\n    ax.set_xlabel(\"Region Type\")\n    ax.set_xticklabels(ax.get_xticklabels(), rotation=0)\n    ax.grid(axis='y', linestyle='--', alpha=0.7)\n\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/urban_rural_ai_nonai_bar.png\", dpi=300)\n    plt.show()\n\nelse:\n    print(\"Required columns are missing. Please check your dataset.\")\n\n\n\n\n\n\n\n\n\n2.7.2 Pie Chart\n\n\nCode\nimport matplotlib.pyplot as plt\n\nif {\"Urban_Rural\", \"IS_AI\"}.issubset(df1.columns):\n    pivot_urban = df1.groupby([\"Urban_Rural\", \"IS_AI\"]).size().unstack(fill_value=0)\n\n    fig, axes = plt.subplots(1, 2, figsize=(8, 4))  \n\n    for ax, region in zip(axes, [\"Urban\", \"Rural\"]):\n        data = pivot_urban.loc[region]\n        ax.pie(\n            data,\n            labels=data.index,\n            autopct='%1.1f%%',\n            startangle=90,\n            colors=[\"#ff9999\", \"#66b3ff\"],\n            wedgeprops={'edgecolor': 'black'}\n        )\n        ax.set_title(f\"{region} - AI vs Non-AI\")\n\n    plt.tight_layout()\n    plt.savefig(\"figureswxw/urban_rural_ai_nonai_pie_combined.png\", dpi=300)\n    plt.show()\n\nelse:\n    print(\"Required columns are missing. Please check your dataset.\")"
+  },
+  {
+    "objectID": "eda_enhance.html",
+    "href": "eda_enhance.html",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Exploratory Data Analysis\n\n\nCode\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom collections import Counter\nimport re\n\n\n\n\nCode\ndf = pd.read_csv(\"data/lightcast_job_postings.csv\", encoding=\"utf-8\", on_bad_lines='skip')\n\n\n\n\nCode\nindustry_counts = df['NAICS_2022_2_NAME'].value_counts().reset_index()\nindustry_counts.columns = ['Industry', 'Job_Count']\n\nplt.figure(figsize=(12, 8))\nsns.barplot(data=industry_counts, x=\"Industry\", y=\"Job_Count\")\nplt.title(\"Job Count by Industry (NAICS Level 2)\")\nplt.xticks(rotation=45, ha='right')\nplt.tight_layout()\nplt.savefig(\"figurestyj/job_count_by_industry.png\")\nplt.show()\n\n\n\n\n\n\n\n\nSalary by State ??\n\n\nCode\njob_descriptions = df['BODY'].dropna().tolist()\nall_text = \" \".join(job_descriptions).lower()\n\nskills_keywords = [\"python\", \"sql\", \"machine learning\", \"cloud\", \"aws\",\n                   \"docker\", \"java\", \"excel\", \"r\", \"linux\"]\nskill_counts = Counter()\n\nfor skill in skills_keywords:\n    matches = re.findall(rf\"\\b{re.escape(skill)}\\b\", all_text)\n    skill_counts[skill] = len(matches)\n\ntop_skills_sorted = skill_counts.most_common(5)\nskills, counts = zip(*top_skills_sorted)\n\nplt.figure(figsize=(8, 4))\nsns.barplot(x=list(skills), y=list(counts), palette=\"Blues_d\")\nplt.title(\"Top 5 In-Demand Skills from Job Descriptions\")\nplt.ylabel(\"Frequency\")\nplt.tight_layout()\nplt.savefig(\"figurestyj/top_skills_from_description.png\")\nplt.show()"
   }
 ]
