@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="team-score-dataframe" class="level3">
 <h3 class="anchored" data-anchor-id="team-score-dataframe">3.1 Team score DataFrame</h3>
 <p>Team members’ current skills relevant to their selected IT career path：</p>
-<div id="2bff329b" class="cell" data-results="hide" data-execution_count="1">
+<div id="f5fa189d" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -218,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="635c6ffb" class="cell" data-results="hide" data-execution_count="2">
+<div id="e4324334" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, on_bad_lines<span class="op">=</span><span class="st">'skip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="98f9699f" class="cell" data-results="hide" data-execution_count="3">
+<div id="d7fa22c4" class="cell" data-results="hide" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skills_data <span class="op">=</span> {</span>
@@ -255,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="compare-with-top-job-market-skills" class="level3">
 <h3 class="anchored" data-anchor-id="compare-with-top-job-market-skills">3.2 Compare with top job market skills</h3>
-<div id="dcad8717" class="cell" data-results="hide" data-execution_count="4">
+<div id="7f6c9ee2" class="cell" data-results="hide" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
@@ -292,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="72cbd01a" class="cell" data-results="hide" data-execution_count="5">
+<div id="aafbe3c7" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>job_descriptions <span class="op">=</span> df[<span class="st">"BODY"</span>].dropna().tolist()</span>
