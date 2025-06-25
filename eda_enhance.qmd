@@ -1,14 +1,25 @@
 ---
-title: "Exploratory Data Analysis"
+title: "Extended EDA: Geographic Distribution"
+format: 
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
+execute:
+  echo: true
+  eval: false
+  code-fold: true
+  freeze: auto
 ---
 
 
 
-# Exploratory Data Analysis
+This section presents an enhanced exploratory data analysis of job postings in the United States, with particular attention to remote work types and geographic patterns across industries, states, and cities. The objective is to examine how the distribution of remote, hybrid, and onsite jobs differs across regions, and how industry-specific trends reflect broader labor market shifts. Through this analysis, we aim to capture regional disparities, identify emerging hiring hubs, and understand how remote work adoption is reshaping spatial dynamics in the 2024 job market.
+
 
 
 ```{python}
-#| echo: true
+#| echo: false
 #| eval: false  
 #| code-fold: true
 #| results: hide
@@ -18,12 +29,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from collections import Counter
 import re
+import textwrap
+
+import plotly.express as px
 
 ```
 
 ```{python}
 
-#| echo: true
+#| echo: false
 #| eval: false  
 #| code-fold: true
 #| results: hide
@@ -33,6 +47,8 @@ df = pd.read_csv("data/lightcast_job_postings.csv", encoding="utf-8", on_bad_lin
 ```
 
 
+# Job Distribution by Industry (NAICS Level 2)
+
 ```{python}
 #| echo: true
 #| eval: false  
@@ -40,128 +56,138 @@ df = pd.read_csv("data/lightcast_job_postings.csv", encoding="utf-8", on_bad_lin
 #| fig-cap: "Job count by industry"
 #| fig-align: center
 
-industry_counts = df['NAICS_2022_2_NAME'].value_counts().reset_index()
-industry_counts.columns = ['Industry', 'Job_Count']
+wrapped_labels = ['\n'.join(textwrap.wrap(label, width=10)) for label in industry_counts["Industry"]]
 
-plt.figure(figsize=(12, 8))
-sns.barplot(data=industry_counts, x="Industry", y="Job_Count")
+plt.figure(figsize=(18, 12))
+ax = sns.barplot(data=industry_counts, x="Industry", y="Job_Count", width=0.8)
+
+ax.set_xticklabels(wrapped_labels, rotation=0, ha='center')
+
 plt.title("Job Count by Industry (NAICS Level 2)")
-plt.xticks(rotation=45, ha='right')
+plt.xticks(rotation=45, fontsize=8)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figurestyj/job_count_by_industry.png",dpi=300,  bbox_inches='tight')
+plt.savefig("figurestyj/job_count_by_industry.png", dpi=300, bbox_inches='tight')
 plt.show()
 
-```
 
+```
 
 ![](figurestyj/job_count_by_industry.png){width=100% fig-align='center'}
 
 
 
 
-### Salary by State ??
+# Job Count by City (Top 15)
 ```{python}
 #| echo: true
 #| eval: false  
 #| code-fold: true
 #| fig-align: center
-#| fig-cap: "Top skills from job description"
+#| fig-cap: "Job Count by City"
 
+city_counts = df["CITY_NAME"].value_counts().head(15).reset_index()
+city_counts.columns = ["City", "Job_Count"]
 
-job_descriptions = df['BODY'].dropna().tolist()
-all_text = " ".join(job_descriptions).lower()
-
-skills_keywords = ["python", "sql", "machine learning", "cloud", "aws",
-                   "docker", "java", "excel", "r", "linux"]
-skill_counts = Counter()
-
-for skill in skills_keywords:
-    matches = re.findall(rf"\b{re.escape(skill)}\b", all_text)
-    skill_counts[skill] = len(matches)
-
-top_skills_sorted = skill_counts.most_common(5)
-skills, counts = zip(*top_skills_sorted)
-
-plt.figure(figsize=(8, 4))
-sns.barplot(x=list(skills), y=list(counts), palette="Blues_d")
-plt.title("Top 5 In-Demand Skills from Job Descriptions")
-plt.ylabel("Frequency")
+plt.figure(figsize=(12, 6))
+sns.barplot(data=city_counts, x="City", y="Job_Count", palette="Accent")
+plt.title("Top 15 Cities by Job Count")
+plt.xticks(rotation=45, ha="right")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-plt.savefig("figurestyj/top_skills_from_description.png", dpi=300,  bbox_inches='tight')
+plt.savefig("figurestyj/top_cities_job_count.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
 
+![](figurestyj/top_cities_job_count.png){width=100% fig-align='center'}
 
 
-
+# Job Count by State
 ```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Job Count by State"
+
+state_counts = df["STATE_NAME"].value_counts().reset_index()
+state_counts.columns = ["State", "Job_Count"]
+
+plt.figure(figsize=(12, 6))
+sns.barplot(data=state_counts.head(15), x="State", y="Job_Count", palette="Set2")
+plt.title("Top 15 States by Job Count")
+plt.xticks(rotation=30)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("figurestyj/top_states_job_count.png", dpi=300, bbox_inches='tight')
+plt.show()
+```
+
+![](figurestyj/top_states_job_count.png){width=100% fig-align='center'}
+
+
+
+# Heatmap: State × Industry (Cross Tab)
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "State × Industry Heatmap"
+
+cross_tab = pd.crosstab(df["STATE_NAME"], df["NAICS_2022_2_NAME"])
+top_states = df["STATE_NAME"].value_counts().head(10).index
+top_industries = df["NAICS_2022_2_NAME"].value_counts().head(6).index
+filtered_heatmap = cross_tab.loc[top_states, top_industries]
+
+plt.figure(figsize=(10, 6))
+ax = sns.heatmap(filtered_heatmap, annot=True, fmt="d", cmap="YlGnBu")
+
+
+xtick_labels = ax.get_xticklabels()
+wrapped_labels = [
+    '\n'.join(textwrap.wrap(label.get_text(), width=15)) for label in xtick_labels
+]
+ax.set_xticklabels(wrapped_labels, rotation=0)
+plt.xlabel("NAICS_2022_2_NAME", fontsize=14) 
+pli.ylabel("State Name", fontsize=14)
+plt.title("Top Industries in Top 10 States")
+plt.tight_layout()
+plt.savefig("figurestyj/state_industry_heatmap.png", dpi=300, bbox_inches='tight')
+plt.show()
 
 
 ```
 
+![](figurestyj/state_industry_heatmap.png){width=100% fig-align='center'}
 
+
+# Remote Job Distribution by State
 ```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: true
+#| fig-align: center
+#| fig-cap: "Remote Job Distribution by State"
+
+remote_by_state = df.groupby(["STATE_NAME", "REMOTE_TYPE_NAME"]).size().unstack(fill_value=0)
+remote_by_state = remote_by_state.loc[remote_by_state.sum(axis=1).sort_values(ascending=False).head(10).index]
+
+remote_by_state.plot(kind="bar", stacked=True, figsize=(12, 6), colormap="Dark2")
+plt.title("Remote Job Distribution by State")
+plt.xlabel("State")
+plt.ylabel("Number of Job Postings")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.xticks(rotation=30)
+plt.tight_layout()
+plt.savefig("figurestyj/remote_by_state.png", dpi=300, bbox_inches='tight')
+plt.show()
 
 ```
 
+![](figurestyj/remote_by_state.png){width=100% fig-align='center'}
 
 
-```{python}
-
-```
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-
-```{python}
-
-```
 
 
