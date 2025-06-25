@@ -9,6 +9,11 @@ format:
     toc: true
     number-sections: true
     df-print: paged
+execute:
+  echo: true
+  eval: true
+  code-fold: true
+  freeze: auto
 ---
 
 
@@ -21,7 +26,7 @@ _Content will be added here._
 
 
 
-## 1. Load Dataset
+## Load Dataset
 ```{python}
 #| echo: true
 #| eval: false 
