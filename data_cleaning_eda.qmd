@@ -25,9 +25,8 @@ _Content will be added here._
 
 
 
-## Load Dataset
 ```{python}
-#| echo: true
+#| echo: false
 #| eval: false 
 #| code-fold: true
 #| results: hide
@@ -37,7 +36,7 @@ df1 = pd.read_csv("./data/lightcast_job_postings.csv")
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 #| eval: false 
 #| code-fold: true
 #| results: hide
@@ -48,9 +47,8 @@ df1.describe()
 ```
 
 
-##  Check Columns' Information 
 ```{python}
-#| echo: true
+#| echo: false
 #| eval: false  
 #| code-fold: true
 #| results: hide

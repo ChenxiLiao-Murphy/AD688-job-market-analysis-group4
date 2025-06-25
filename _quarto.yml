@@ -12,7 +12,7 @@ website:
       - href: data_cleaning_eda.qmd
         text: "Data Cleaning & EDA"
       - href: eda_enhance.qmd
-        text: "Exploratory Data Analysis (Enhanced)"
+        text: "EDA (Enhanced)"
       - href: skill_gap_analysis.qmd
         text: "Skill Gap Analysis"
       - href: nlp_methods.qmd
