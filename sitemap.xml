@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/ml_analysis.html</loc>
-    <lastmod>2025-06-26T22:40:42.822Z</lastmod>
+    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/skill_gap_analysis.html</loc>
+    <lastmod>2025-06-26T22:46:59.747Z</lastmod>
   </url>
   <url>
     <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/index.html</loc>
-    <lastmod>2025-06-26T22:40:42.822Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/skill_gap_analysis.html</loc>
-    <lastmod>2025-06-26T22:40:42.823Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/nlp_methods.html</loc>
-    <lastmod>2025-06-26T22:40:42.823Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/about.html</loc>
-    <lastmod>2025-06-26T22:40:42.784Z</lastmod>
+    <lastmod>2025-06-26T22:46:59.746Z</lastmod>
   </url>
   <url>
     <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/introduction.html</loc>
-    <lastmod>2025-06-26T22:40:42.822Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/data_cleaning_eda.html</loc>
-    <lastmod>2025-06-26T22:40:42.784Z</lastmod>
+    <lastmod>2025-06-26T22:46:59.747Z</lastmod>
   </url>
   <url>
     <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/eda_enhance.html</loc>
-    <lastmod>2025-06-26T22:40:42.784Z</lastmod>
+    <lastmod>2025-06-26T22:46:59.708Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/ml_analysis.html</loc>
+    <lastmod>2025-06-26T22:46:59.747Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/nlp_methods.html</loc>
+    <lastmod>2025-06-26T22:46:59.747Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/data_cleaning_eda.html</loc>
+    <lastmod>2025-06-26T22:46:59.708Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ChenxiLiao-Murphy.github.io/AD688-job-market-analysis-group4/about.html</loc>
+    <lastmod>2025-06-26T22:46:59.708Z</lastmod>
   </url>
 </urlset>
