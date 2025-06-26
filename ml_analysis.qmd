@@ -75,6 +75,10 @@ plt.show()
 
 **Interpretation:**
 The PCA scatter plot reveals four distinct clusters of job postings, segmented by location (STATE_NAME),  remote type (REMOTE_TYPE_NAME), and occupation code (SOC_2021_4).
+
+**What role does PCA plays here?**
+PCA can simplify your complex data into just 2 main features - while retaining as much of the variation in the data as possible. In this situation, the complex KMeans algorithm can be simplified into a two-dimensional graph, mainly focusing on the structure and differences among the career categories.
+
 We see a clear separation among the clusters—three are relatively compact,  while one appears more dispersed. This indicates that job characteristics like remote work availability and occupation  type tend to align closely with geographic regions and specific industries. The tightly grouped clusters likely  represent roles with consistent remote work policies,  while the spread-out cluster may include a broader mix of job types.
 
 
