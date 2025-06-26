@@ -63,7 +63,8 @@ skills_data = {
     "SQL": [4, 2, 3],
     "Machine Learning": [1, 2, 4],
     "Cloud Computing": [3, 1, 2],
-    "AWS": [2, 4, 3]
+    "AWS": [2, 4, 3],
+    "Docker": [2,2,2]
 }
 
 
@@ -97,21 +98,6 @@ plt.show()
 
 
 ## Personalized Upskilling Recommendations
-```{python}
-
-recommendations = {
-    "Eugenia": ["Machine Learning", "AWS"],
-    "Chenxi": ["Cloud Computing", "Python"],
-    "Xiangwen": ["Docker", "Cloud Computing"]
-}
-
-df_recommend = pd.DataFrame([
-    {"Name": name, "Recommended Skills to Improve": ", ".join(skills)}
-    for name, skills in recommendations.items()
-])
-df_recommend
-
-```
 
 To close the observed skill gaps, we provide the following individualized upskilling plans:
 
