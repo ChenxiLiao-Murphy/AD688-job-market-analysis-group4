@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-58669c723890bbf731c346d0ef1150dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ef57da73084a24729f80a0f1749ada6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="unsupervised-learning-kmeans-clustering" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Unsupervised Learning: KMeans Clustering</h1>
 <p>To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: <code>STATE_NAME</code>, <code>REMOTE_TYPE_NAME</code>, and <code>SOC_2021_4</code>. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.</p>
-<div id="888f63a1" class="cell" data-execution_count="1">
+<div id="d73d8bc1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -224,43 +224,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="5cd89aa4" class="cell" data-execution_count="2">
+<div id="6f826872" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 1: Load your cleaned dataset</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>) </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 2: Select columns</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'SOC_2021_4'</span>]</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df_cluster <span class="op">=</span> df[cols].dropna()</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>df_cluster_encoded <span class="op">=</span> pd.get_dummies(df_cluster)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 3: Scale and cluster</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(df_cluster_encoded)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> kmeans.fit_predict(X_scaled)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df_cluster[<span class="st">'Cluster'</span>] <span class="op">=</span> clusters</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 4: Visualize with PCA</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> pca.fit_transform(X_scaled)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.scatter(components[:, <span class="dv">0</span>], components[:, <span class="dv">1</span>], c<span class="op">=</span>clusters, cmap<span class="op">=</span><span class="st">'Set2'</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"KMeans Clusters by Location and Remote Type"</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"PCA Component 1"</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"PCA Component 2"</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># save the figure</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 1: Load your cleaned dataset</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 2: Select columns</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'SOC_2021_4'</span>]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df_cluster <span class="op">=</span> df[cols].dropna()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df_cluster_encoded <span class="op">=</span> pd.get_dummies(df_cluster)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 3: Scale and cluster</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(df_cluster_encoded)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> kmeans.fit_predict(X_scaled)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>df_cluster[<span class="st">'Cluster'</span>] <span class="op">=</span> clusters</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># STEP 4: Visualize with PCA</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> pca.fit_transform(X_scaled)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">7</span>))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.scatter(components[:, <span class="dv">0</span>], components[:, <span class="dv">1</span>], c<span class="op">=</span>clusters, cmap<span class="op">=</span><span class="st">'Set1'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"KMeans Clusters by Location and Remote Type"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"PCA Component 1"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"PCA Component 2"</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># save the figure</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>) </span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/kmeans_location_remote_pca.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -277,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="supervised-learning-classification-predict-remote-type" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="supervised-learning-classification-predict-remote-type"><span class="header-section-number">2.1</span> Supervised Learning: Classification – Predict Remote Type</h2>
 <p>To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: <code>STATE_NAME</code> (location), <code>SOC_2021_4</code> (job category), and <code>MAX_YEARS_EXPERIENCE</code> (seniority level).The model’s performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.</p>
-<div id="e3efa2c3" class="cell" data-execution_count="3">
+<div id="66283bc2" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize confusion matrix</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">5</span>))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">7</span>))</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>sns.heatmap(confusion_matrix(y_test, y_pred), annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix - Remote Work Type Classifier"</span>)</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="supervised-learning-regression-predict-salary" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="supervised-learning-regression-predict-salary"><span class="header-section-number">2.2</span> Supervised Learning: Regression – Predict Salary</h2>
 <p>We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.</p>
-<div id="d531d97a" class="cell" data-execution_count="4">
+<div id="6e69381e" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create AVERAGE_SALARY if not already in df</span></span>
@@ -354,29 +354,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Train Random Forest Regressor</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: Predict</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 8: Evaluate</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error, r2_score</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error:"</span>, mean_squared_error(y_test, y_pred))</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean Absolute Error:"</span>, mean_absolute_error(y_test, y_pred))</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R2 Score:"</span>, r2_score(y_test, y_pred))</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: Predict</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 8: Evaluate</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error, r2_score</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error:"</span>, mean_squared_error(y_test, y_pred))</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean Absolute Error:"</span>, mean_absolute_error(y_test, y_pred))</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R2 Score:"</span>, r2_score(y_test, y_pred))</span>
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">6</span>))</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'r--'</span>)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Actual Salary"</span>)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Salary"</span>)</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Actual vs Predicted Salary"</span>)</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/actual_vs_predicted_salary.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.plot([y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], [y_test.<span class="bu">min</span>(), y_test.<span class="bu">max</span>()], <span class="st">'r--'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Actual Salary"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Salary"</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Actual vs Predicted Salary"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>) </span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/actual_vs_predicted_salary.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -388,28 +390,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
-<div id="c8e9ce72" class="cell" data-execution_count="5">
+<div id="cb33e7d3" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>）</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>state_remote_counts <span class="op">=</span> pd.crosstab(df_geo[<span class="st">'STATE_NAME'</span>], df_geo[<span class="st">'REMOTE_TYPE_NAME'</span>])</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># visualization</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>state_remote_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, stacked<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">8</span>))</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Remote Work Type Distribution by State"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"State"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>state_remote_counts <span class="op">=</span> pd.crosstab(df_geo[<span class="st">'STATE_NAME'</span>], df_geo[<span class="st">'REMOTE_TYPE_NAME'</span>])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># visualization</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>state_remote_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, stacked<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">7</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Remote Work Type Distribution by State"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"State"</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>) </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/remote_type_by_state.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/remote_type_by_state.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -424,26 +425,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="which-type-of-remote-work-offers-a-higher-salary" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Which type of remote work offers a higher salary?</h1>
 <p>We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.</p>
-<div id="a684cf36" class="cell" data-execution_count="6">
+<div id="46ab2970" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># deal with salary list</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df[[<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'SALARY'</span>]].dropna()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df_salary[df_salary[<span class="st">'SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_salary, x<span class="op">=</span><span class="st">'REMOTE_TYPE_NAME'</span>, y<span class="op">=</span><span class="st">'SALARY'</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Salary Distribution by Remote Work Type"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Work Type"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Salary"</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/salary_by_remote_type.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deal with salary list</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df[[<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'SALARY'</span>]].dropna()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df_salary[df_salary[<span class="st">'SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_salary, x<span class="op">=</span><span class="st">'REMOTE_TYPE_NAME'</span>, y<span class="op">=</span><span class="st">'SALARY'</span>, palette<span class="op">=</span><span class="st">'Set2'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Salary Distribution by Remote Work Type"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Work Type"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Salary"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/salary_by_remote_type.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -453,7 +452,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider, indicating more salary volatility. On-site jobs show tighter salary ranges, likely due to standardized pay scales in location-bound industries.</p>
-<div id="ad25c008" class="cell" data-execution_count="7">
+<div id="c1273c60" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.sort_values(<span class="st">'REMOTE_RATIO'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -462,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="choropleth-or-map-based-visualizations" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="choropleth-or-map-based-visualizations"><span class="header-section-number">3.1</span> Choropleth or map-based visualizations</h2>
 <p>We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.</p>
-<div id="5327b6c7" class="cell" data-execution_count="8">
+<div id="4bcb567b" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -485,30 +484,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'West Virginia'</span>: <span class="st">'WV'</span>, <span class="st">'Wisconsin'</span>: <span class="st">'WI'</span>, <span class="st">'Wyoming'</span>: <span class="st">'WY'</span></span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Add a column of state abbreviations</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state[<span class="st">'STATE_ABBR'</span>] <span class="op">=</span> remote_ratio_by_state[<span class="st">'STATE_NAME'</span>].<span class="bu">map</span>(state_abbrev_map)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(remote_ratio_by_state[[<span class="st">'STATE_NAME'</span>, <span class="st">'STATE_ABBR'</span>]].head())</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.choropleth(</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    remote_ratio_by_state,</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    locations<span class="op">=</span><span class="st">'STATE_ABBR'</span>,</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    locationmode<span class="op">=</span><span class="st">'USA-states'</span>,</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'REMOTE_RATIO'</span>,</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    scope<span class="op">=</span><span class="st">'usa'</span>,</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    color_continuous_scale<span class="op">=</span><span class="st">'Blues'</span>,</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Proportion of Remote Jobs by State (Using State Abbreviations)'</span>,</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">1000</span>,      </span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">600</span>       </span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"figuresmurphy/choropleth.png"</span>, scale<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="9265aaa5" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df_geo[df_geo[<span class="st">'REMOTE_TYPE_NAME'</span>] <span class="op">==</span> <span class="st">'Remote'</span>].groupby(<span class="st">'STATE_NAME'</span>).size()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>total_counts <span class="op">=</span> df_geo.groupby(<span class="st">'STATE_NAME'</span>).size()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state <span class="op">=</span> (remote_counts <span class="op">/</span> total_counts).reset_index()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.columns <span class="op">=</span> [<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_RATIO'</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state[<span class="st">'STATE_ABBR'</span>] <span class="op">=</span> remote_ratio_by_state[<span class="st">'STATE_NAME'</span>].<span class="bu">map</span>(state_abbrev_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="46e3f63e" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 加载美国州边界 shapefile（事先下载过）</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gpd.read_file(<span class="st">"shapefiles/cb_2021_us_state_20m.shp"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 去掉非主要州</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gdf[<span class="op">~</span>gdf[<span class="st">'STUSPS'</span>].isin([<span class="st">'AS'</span>, <span class="st">'GU'</span>, <span class="st">'MP'</span>, <span class="st">'PR'</span>, <span class="st">'VI'</span>])]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 合并你的远程比例数据</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gdf.merge(remote_ratio_by_state, left_on<span class="op">=</span><span class="st">'NAME'</span>, right_on<span class="op">=</span><span class="st">'STATE_NAME'</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 画图</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>contiguous <span class="op">=</span> gdf[<span class="op">~</span>gdf[<span class="st">'STUSPS'</span>].isin([<span class="st">'AK'</span>, <span class="st">'HI'</span>, <span class="st">'PR'</span>])]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>contiguous.plot(</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'REMOTE_RATIO'</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'Blues'</span>,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'0.9'</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"Remote Job Ratio"</span>, <span class="st">'shrink'</span>: <span class="fl">0.5</span>}</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Remote Work Ratio by State (Contiguous U.S.)'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>ax.axis(<span class="st">'off'</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/us_remote_ratio_contiguous.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/choropleth.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Choropleth Map: Proportion of Remote Jobs by State"></p>
+<p><img src="figuresmurphy/us_remote_ratio_contiguous.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Choropleth Map: Proportion of Remote Jobs by State"></p>
 </figure>
 </div>
 <p>The map highlights that coastal and urban states like California, New York, and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings, likely due to a stronger focus on in-person or manufacturing jobs.</p>
@@ -516,54 +546,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">3.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
 <p>To identify what influences whether a job is remote, we used a logistic regression model. The confusion matrix below summarizes how well the model classifies remote and non-remote roles.</p>
-<div id="71b19c03" class="cell" data-execution_count="9">
+<div id="09210481" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, confusion_matrix</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocessing</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>df_logistic <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'MAX_YEARS_EXPERIENCE'</span>, <span class="st">'AVERAGE_SALARY'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>df_logistic[<span class="st">'REMOTE_TYPE_CLEANED'</span>] <span class="op">=</span> df_logistic[<span class="st">'REMOTE_TYPE_NAME'</span>].<span class="bu">map</span>({</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Remote'</span>: <span class="st">'Remote'</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hybrid Remote'</span>: <span class="st">'Hybrid'</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Not Remote'</span>: <span class="st">'Onsite'</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="st">'Onsite'</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create binary classification target</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>df_logistic[<span class="st">'IS_REMOTE'</span>] <span class="op">=</span> df_logistic[<span class="st">'REMOTE_TYPE_CLEANED'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">'Remote'</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot encode state name</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df_logistic, columns<span class="op">=</span>[<span class="st">'STATE_NAME'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Split data</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_encoded.drop([<span class="st">'IS_REMOTE'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'REMOTE_TYPE_CLEANED'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_encoded[<span class="st">'IS_REMOTE'</span>]</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Train model</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 5.  Evaluation</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, confusion_matrix(y_test, y_pred))</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification Report:</span><span class="ch">\n</span><span class="st">"</span>, classification_report(y_test, y_pred))</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Visualize confusion matrix</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>sns.heatmap(confusion_matrix(y_test, y_pred), annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix 热力图"</span>)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Actual"</span>)</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/logistic_confusion_matrix.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, confusion_matrix</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocessing</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>df_logistic <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'MAX_YEARS_EXPERIENCE'</span>, <span class="st">'AVERAGE_SALARY'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>df_logistic[<span class="st">'REMOTE_TYPE_CLEANED'</span>] <span class="op">=</span> df_logistic[<span class="st">'REMOTE_TYPE_NAME'</span>].<span class="bu">map</span>({</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Remote'</span>: <span class="st">'Remote'</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hybrid Remote'</span>: <span class="st">'Hybrid'</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Not Remote'</span>: <span class="st">'Onsite'</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="st">'Onsite'</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create binary classification target</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>df_logistic[<span class="st">'IS_REMOTE'</span>] <span class="op">=</span> df_logistic[<span class="st">'REMOTE_TYPE_CLEANED'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">'Remote'</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot encode state name</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df_logistic, columns<span class="op">=</span>[<span class="st">'STATE_NAME'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Split data</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_encoded.drop([<span class="st">'IS_REMOTE'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'REMOTE_TYPE_CLEANED'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_encoded[<span class="st">'IS_REMOTE'</span>]</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Train model</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 5.  Evaluation</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, confusion_matrix(y_test, y_pred))</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification Report:</span><span class="ch">\n</span><span class="st">"</span>, classification_report(y_test, y_pred))</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Visualize confusion matrix</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>sns.heatmap(confusion_matrix(y_test, y_pred), annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'YlGnBu'</span>)</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix"</span>)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Actual"</span>)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/logistic_confusion_matrix.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -579,60 +609,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="linear-regression" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">4.1</span> Linear Regression</h2>
 <p>We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs.&nbsp;predicted plot and residuals histogram below show the model’s performance.</p>
-<div id="df9f7d43" class="cell" data-execution_count="10">
+<div id="566c5f37" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocessing</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'MAX_YEARS_EXPERIENCE'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>]].dropna()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df_reg[df_reg[<span class="st">'AVERAGE_SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  <span class="co">#  Remove salary outliers</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df_reg[<span class="st">'REMOTE_TYPE_CLEANED'</span>] <span class="op">=</span> df_reg[<span class="st">'REMOTE_TYPE_NAME'</span>].<span class="bu">map</span>({</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Remote'</span>: <span class="st">'Remote'</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hybrid Remote'</span>: <span class="st">'Hybrid'</span>,</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Not Remote'</span>: <span class="st">'Onsite'</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="st">'Onsite'</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot encode</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df_reg_encoded <span class="op">=</span> pd.get_dummies(df_reg, columns<span class="op">=</span>[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_CLEANED'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Split data</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_reg_encoded.drop([<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_reg_encoded[<span class="st">'AVERAGE_SALARY'</span>]</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.Train model</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>reg_model <span class="op">=</span> LinearRegression()</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>reg_model.fit(X_train, y_train)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> reg_model.predict(X_test)</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Evaluation</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE:"</span>, mean_squared_error(y_test, y_pred))</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R-squared:"</span>, r2_score(y_test, y_pred))</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Scatterplot of actual vs predicted</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Actual Salary"</span>)</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Salary"</span>)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">" Actual vs. Predicted Salary"</span>)</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_actual_vs_predicted.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Residuals histogram</span></span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> y_test <span class="op">-</span> y_pred</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>plt.hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'orange'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Residuals Histogram"</span>)</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Residuals"</span>)</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_residuals.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocessing</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'MAX_YEARS_EXPERIENCE'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>]].dropna()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df_reg[df_reg[<span class="st">'AVERAGE_SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  <span class="co">#  Remove salary outliers</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>df_reg[<span class="st">'REMOTE_TYPE_CLEANED'</span>] <span class="op">=</span> df_reg[<span class="st">'REMOTE_TYPE_NAME'</span>].<span class="bu">map</span>({</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Remote'</span>: <span class="st">'Remote'</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hybrid Remote'</span>: <span class="st">'Hybrid'</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Not Remote'</span>: <span class="st">'Onsite'</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="st">'Onsite'</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot encode</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>df_reg_encoded <span class="op">=</span> pd.get_dummies(df_reg, columns<span class="op">=</span>[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_CLEANED'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Split data</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_reg_encoded.drop([<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_reg_encoded[<span class="st">'AVERAGE_SALARY'</span>]</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.Train model</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>reg_model <span class="op">=</span> LinearRegression()</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>reg_model.fit(X_train, y_train)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> reg_model.predict(X_test)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Evaluation</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE:"</span>, mean_squared_error(y_test, y_pred))</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R-squared:"</span>, r2_score(y_test, y_pred))</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Scatterplot of actual vs predicted</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">7</span>))</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Actual Salary"</span>)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Salary"</span>)</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">" Actual vs. Predicted Salary"</span>)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_actual_vs_predicted.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -641,9 +661,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.</p>
+<div id="96b41287" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Residuals histogram</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> y_test <span class="op">-</span> y_pred</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'orange'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Residuals Histogram"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Residuals"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_residuals.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/regression_residuals.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Residuals Histogram of Linear Regression"></p>
+<p><img src="figuresmurphy/regression_residuals.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Residuals Histogram of Linear Regression"></p>
 </figure>
 </div>
 <p>The residuals histogram is roughly normal and centered around zero, suggesting no major bias. However, the spread shows that predictions can vary by several thousand dollars based on the input features.</p>
