@@ -229,7 +229,7 @@ div.csl-indent {
 <section id="team-score-dataframe" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Team score DataFrame</h1>
 <p>Firstly, presents a structured evaluation of the current technical skill levels across all team members. The aim is to understand the team’s collective readiness for data and IT-related roles by profiling their strengths and identifying potential gaps.</p>
-<div id="b518cd8f" class="cell" data-results="hide" data-execution_count="1">
+<div id="bc288cac" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -240,7 +240,7 @@ div.csl-indent {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="83093a1d" class="cell" data-results="hide" data-execution_count="2">
+<div id="114b19b3" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, on_bad_lines<span class="op">=</span><span class="st">'skip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -248,7 +248,7 @@ div.csl-indent {
 </div>
 <section id="team-members-current-skill-levels" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="team-members-current-skill-levels"><span class="header-section-number">1.1</span> Team Members’ Current Skill Levels</h2>
-<div id="a3a533fe" class="cell" data-results="hide" data-execution_count="3">
+<div id="c93debe9" class="cell" data-results="hide" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skills_data <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name"</span>: [<span class="st">"Eugenia"</span>, <span class="st">"Chenxi"</span>, <span class="st">"Xiangwen"</span>],</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Python"</span>: [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>],</span>
@@ -270,7 +270,7 @@ div.csl-indent {
 </section>
 <section id="current-skill-heatmap" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="current-skill-heatmap"><span class="header-section-number">1.2</span> Current Skill Heatmap</h2>
-<div id="d5dc9255" class="cell" data-results="hide" data-execution_count="4">
+<div id="963a72c5" class="cell" data-results="hide" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -306,7 +306,7 @@ div.csl-indent {
 <p>To identify potential skill gaps, we compare our team’s average skills with those most in demand across job descriptions.</p>
 <section id="compute-average-team-skills-vs-industry-expectations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="compute-average-team-skills-vs-industry-expectations"><span class="header-section-number">2.1</span> Compute Average Team Skills vs Industry Expectations</h2>
-<div id="12c1b406" class="cell" data-results="hide" data-execution_count="5">
+<div id="9a6a1344" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>top_skills <span class="op">=</span> [<span class="st">"Python"</span>, <span class="st">"SQL"</span>, <span class="st">"Machine Learning"</span>, <span class="st">"Cloud Computing"</span>, <span class="st">"Docker"</span>, <span class="st">"AWS"</span>]</span>
@@ -354,7 +354,7 @@ div.csl-indent {
 <section id="extract-top-in-demand-skills-from-job-descriptions" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Extract Top In-Demand Skills from Job Descriptions</h1>
 <p>Examine the actual job postings to extract which skills are most frequently requested using keyword matching.</p>
-<div id="cf0e725f" class="cell" data-results="hide" data-execution_count="6">
+<div id="fa400ce6" class="cell" data-results="hide" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>job_descriptions <span class="op">=</span> df[<span class="st">"BODY"</span>].dropna().tolist()</span>
@@ -372,7 +372,7 @@ div.csl-indent {
 </section>
 <section id="visualize-top-5-industry-skills" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Visualize Top 5 Industry Skills</h1>
-<div id="426c2bbe" class="cell" data-results="hide" data-execution_count="7">
+<div id="ce166482" class="cell" data-results="hide" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>top_skills_freq <span class="op">=</span> skill_counts.most_common(<span class="dv">5</span>)</span>
@@ -400,12 +400,14 @@ div.csl-indent {
 <h1 data-number="5"><span class="header-section-number">5</span> Summary</h1>
 <p>This skill gap analysis reveals that while our team possesses a well-rounded technical foundation, critical gaps remain in advanced and deployment-focused domains. Python stands out as the strongest collective skill, consistently supporting core workflows such as data manipulation, automation, and model prototyping (Salas et al., 2015). Intermediate proficiency in SQL and AWS indicates a solid baseline for database querying and cloud-based operations.</p>
 <p>However, average scores in Machine Learning, Cloud Computing, and Docker remain below expectations. These areas are essential for implementing AI models and managing scalable, cloud-native solutions. The absence of stronger proficiency here may constrain the team’s ability to meet the evolving demands of data-driven, production-ready environments (<span class="citation" data-cites="shuffler2015team">Shuffler et al. (<a href="#ref-shuffler2015team" role="doc-biblioref">2015</a>)</span>).</p>
+<p>Individual profiles offer valuable insight into team strengths：</p>
 <ul>
-<li><p>Individual profiles offer valuable insight into team strengths：</p></li>
 <li><p>Xiangwen demonstrates consistently high performance across all evaluated domains, suggesting readiness for full-stack technical roles.</p></li>
 <li><p>Eugenia specializes in SQL, positioning her well for data transformation and querying tasks.</p></li>
 <li><p>Chenxi shows notable competence in AWS, aligning with infrastructure and cloud deployment support.</p></li>
-<li><p>While these complementary strengths support internal collaboration, the team would benefit from structured upskilling efforts：</p></li>
+</ul>
+<p>While these complementary strengths support internal collaboration, the team would benefit from structured upskilling efforts：</p>
+<ul>
 <li><p>Docker &amp; Containerization: Include not only Docker but also related tools like AWS ECS and Kubernetes, emphasizing real-world deployment scenarios.</p></li>
 <li><p>Cloud Certifications: Programs like AWS Certified Solutions Architect can reinforce core cloud architecture and scalability practices.</p></li>
 <li><p>Machine Learning: Project-based training on platforms like fast.ai or Coursera, focusing on real-world applications using Scikit-learn or TensorFlow.</p></li>

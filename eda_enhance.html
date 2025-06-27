@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -172,6 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#job-count-by-state" id="toc-job-count-by-state" class="nav-link" data-scroll-target="#job-count-by-state"><span class="header-section-number">3</span> Job Count by State</a></li>
   <li><a href="#heatmap-state-industry-cross-tab" id="toc-heatmap-state-industry-cross-tab" class="nav-link" data-scroll-target="#heatmap-state-industry-cross-tab"><span class="header-section-number">4</span> Heatmap: State × Industry (Cross Tab)</a></li>
   <li><a href="#remote-job-distribution-by-state" id="toc-remote-job-distribution-by-state" class="nav-link" data-scroll-target="#remote-job-distribution-by-state"><span class="header-section-number">5</span> Remote Job Distribution by State</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -200,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This section presents an enhanced exploratory data analysis of job postings in the United States, with particular attention to remote work types and geographic patterns across industries, states, and cities. The objective is to examine how the distribution of remote, hybrid, and onsite jobs differs across regions, and how industry-specific trends reflect broader labor market shifts. Through this analysis, we aim to capture regional disparities, identify emerging hiring hubs, and understand how remote work adoption is reshaping spatial dynamics in the 2024 job market.</p>
 <section id="job-distribution-by-industry-naics-level-2" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Job Distribution by Industry (NAICS Level 2)</h1>
-<div id="09b468ee" class="cell" data-execution_count="3">
+<div id="ab8a297a" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wrapped_labels <span class="op">=</span> [<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join(textwrap.wrap(label, width<span class="op">=</span><span class="dv">10</span>)) <span class="cf">for</span> label <span class="kw">in</span> industry_counts[<span class="st">"Industry"</span>]]</span>
@@ -223,10 +244,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/job_count_by_industry.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The bar chart illustrates the distribution of job postings by industry based on NAICS Level 2 classifications. Professional, Scientific, and Technical Services leads with over 20,000 postings, highlighting continued demand for high-skilled roles in fields such as software development, data analytics, and consultancy. In second place, Administrative and Support and Waste Management Services records approximately 9,000 postings, suggesting consistent labor needs in operational and support functions. Notably, over 11,000 jobs are grouped under “Unclassified Industry”, indicating either a lack of proper NAICS tagging or alternative sourcing paths. This limits interpretability and cross-sector benchmarking. Researchers including CBRE (2023) (<span class="citation" data-cites="cbre2023tech">Research (<a href="#ref-cbre2023tech" role="doc-biblioref">2023</a>)</span>) and the Brookings Institution (2020) (<span class="citation" data-cites="brookings2020jobs">Institution (<a href="#ref-brookings2020jobs" role="doc-biblioref">2020</a>)</span>) advocate for improving classification accuracy to enable better labor market diagnostics.</p>
 </section>
 <section id="job-count-by-city-top-15" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Job Count by City (Top 15)</h1>
-<div id="f6c67400" class="cell" data-execution_count="4">
+<div id="17fb0f66" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>city_counts <span class="op">=</span> df[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">15</span>).reset_index()</span>
@@ -247,10 +269,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/top_cities_job_count.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The chart ranks the top 15 cities by job volume. New York, NY tops the list with more than 2,100 postings, reinforcing its status as a diversified employment center. Chicago, IL and Atlanta, GA follow with approximately 1,800–1,900 postings, reflecting strong hiring across urban hubs. Mid-sized cities like Austin, Dallas, and Charlotte maintain substantial job flows, each reporting over 1,400 roles, highlighting their rise as regional economic centers. By contrast, San Francisco shows fewer than 1,000 postings, which may reflect data inconsistencies in city naming conventions or broader decentralization of hiring (<span class="citation" data-cites="cbre2023tech">Research (<a href="#ref-cbre2023tech" role="doc-biblioref">2023</a>)</span>). These patterns support the view that talent is dispersing from traditional tech clusters.</p>
 </section>
 <section id="job-count-by-state" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Job Count by State</h1>
-<div id="29b292b2" class="cell" data-execution_count="5">
+<div id="9b4c8faf" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>state_counts <span class="op">=</span> df[<span class="st">"STATE_NAME"</span>].value_counts().reset_index()</span>
@@ -271,10 +294,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/top_states_job_count.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The bar chart summarizes job volumes by state, with Texas and California firmly in the lead—reporting over 8,000 and 7,000 postings, respectively. Florida, Virginia, and Illinois follow with between 4,000–5,000, showing robust job demand in both coastal and inland economies. Several mid-sized states such as Michigan, Arizona, and Massachusetts also appear, each posting around 2,000–2,500 jobs, confirming their growing role in the distributed labor landscape. These findings align with post-pandemic observations that workforce opportunities are diversifying geographically (<span class="citation" data-cites="brookings2020jobs">Institution (<a href="#ref-brookings2020jobs" role="doc-biblioref">2020</a>)</span>).</p>
 </section>
 <section id="heatmap-state-industry-cross-tab" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Heatmap: State × Industry (Cross Tab)</h1>
-<div id="d2236ba6" class="cell" data-execution_count="6">
+<div id="b7a69808" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cross_tab <span class="op">=</span> pd.crosstab(df[<span class="st">"STATE_NAME"</span>], df[<span class="st">"NAICS_2022_2_NAME"</span>])</span>
@@ -304,10 +328,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/state_industry_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The heatmap presents cross-tabulated job postings by industry and state. Texas dominates in Professional, Scientific, and Technical Services (3,046 postings), followed by California (2,303), suggesting a concentration of high-value roles. Texas also registers significant numbers in Administrative Services (860) and Finance and Insurance (703), illustrating sectoral diversity. New York, although lower in total volume, ranks second in Finance and Insurance (483)—a reflection of its enduring strength in financial services. Meanwhile, California demonstrates notable demand in Information (480) and Administrative Services (949), pointing to its dual focus on technology and operational infrastructure. These distributions are consistent with Bureau of Labor Statistics (2024) (<span class="citation" data-cites="bls2024industry">U.S. Bureau of Labor Statistics (<a href="#ref-bls2024industry" role="doc-biblioref">2024</a>)</span>) data on regional industry specialization.</p>
 </section>
 <section id="remote-job-distribution-by-state" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Remote Job Distribution by State</h1>
-<div id="94e1ffb7" class="cell" data-execution_count="7">
+<div id="7aa3ea0e" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>remote_by_state <span class="op">=</span> df.groupby([<span class="st">"STATE_NAME"</span>, <span class="st">"REMOTE_TYPE_NAME"</span>]).size().unstack(fill_value<span class="op">=</span><span class="dv">0</span>)</span>
@@ -329,11 +354,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/remote_by_state.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>This stacked bar chart illustrates the distribution of remote, hybrid, and on-site jobs across states. Texas again ranks first, posting over 8,000 jobs, with more than 2,000 labeled as Remote or Hybrid Remote. California and Florida closely follow, both exceeding 7,000 total postings, and California alone has over 1,800 Remote jobs. Virginia, Illinois, and New York show balanced adoption of flexible work types, with Virginia particularly strong in hybrid arrangements. These results mirror national trends highlighting the growth of remote work, especially in knowledge-intensive occupations (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span> ). The state-level differences may reflect varying industry compositions and remote-readiness infrastructure.</p>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<p>This geographic analysis reveals several core dynamics shaping the U.S. labor market. Texas and California consistently lead in job count, sector diversity, and remote job availability. At the city level, New York, Chicago, and Atlanta remain dominant, yet the emergence of mid-sized cities such as Austin and Charlotte signals a shift toward regional diffusion of opportunities. Professional, Scientific, and Technical Services remains the top industry nationwide, while categories like Administrative Support and Information exhibit state-level specialization. The widespread presence of remote work, especially in high-demand states, reinforces research on post-pandemic labor decentralization (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>). However, the prevalence of the “Unclassified Industry” label continues to limit granularity, emphasizing the need for improved data standardization to support informed policy and workforce planning.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Hsu2024" class="csl-entry" role="listitem">
+Hsu, D. H., &amp; Tambe, P. (2024). Remote work and job applicant diversity: Evidence from technology startups. <em>Management Science</em>. <a href="https://doi.org/10.1287/mnsc.2022.03391">https://doi.org/10.1287/mnsc.2022.03391</a>
+</div>
+<div id="ref-brookings2020jobs" class="csl-entry" role="listitem">
+Institution, B. (2020). <em>The geography of jobs in the COVID-19 era</em>. <a href="https://www.brookings.edu/articles/the-geography-of-jobs-in-the-covid-19-era/">https://www.brookings.edu/articles/the-geography-of-jobs-in-the-covid-19-era/</a>
+</div>
+<div id="ref-cbre2023tech" class="csl-entry" role="listitem">
+Research, C. (2023). <em>2023 scoring tech talent report</em>. <a href="https://www.cbre.com/insights/books/scoring-tech-talent-2023">https://www.cbre.com/insights/books/scoring-tech-talent-2023</a>
+</div>
+<div id="ref-Tan2023" class="csl-entry" role="listitem">
+Tan, S., Fang, K., &amp; Lester, T. (2023). Post-pandemic travel patterns of remote tech workers. <em>Transportation Research Interdisciplinary Perspectives</em>, <em>19</em>, 100804. <a href="https://doi.org/10.1016/j.trip.2023.100804">https://doi.org/10.1016/j.trip.2023.100804</a>
+</div>
+<div id="ref-bls2024industry" class="csl-entry" role="listitem">
+U.S. Bureau of Labor Statistics. (2024). <em>Employment by major industry sector</em>. <a href="https://www.bls.gov/emp/tables/employment-by-major-industry-sector.htm">https://www.bls.gov/emp/tables/employment-by-major-industry-sector.htm</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
