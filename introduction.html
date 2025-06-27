@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -39,7 +59,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e8e7f22aa491a340a4a2b467ac92f79a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e1bd24da9971e0159f6ebbe195a403b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -152,10 +172,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>The rise of remote work, accelerated by the COVID-19 pandemic, has significantly reshaped the labour market and job geography in the United States and beyond. This shift has introduced new dynamics in how and where work is performed, with important implications for job accessibility, regional economies, and employment equity ( <span class="citation" data-cites="Hansen2023">Hansen et al. (<a href="#ref-Hansen2023" role="doc-biblioref">2023</a>)</span>). Geographic patterns now play a key role in determining access to job opportunities. Remote work adoption has been uneven across industries and cities, presenting both challenges and opportunities for regional development.</p>
+<p>At the same time, the growth of artificial intelligence (AI) is changing the types of jobs that are available. AI-related jobs may either cluster in a few established tech hubs, such as Boston, New York City, and Los Angeles, or spread more evenly across regions, influencing regional economic balance (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>). These trends could either reinforce or reduce geographic inequalities. Understanding these shifts is essential, as they affect job seekers’ decisions, employer location strategies, and regional economic resilience.</p>
+<p>The year 2024 represents a critical moment in these developments. Hybrid work has become more common, and some companies are encouraging employees to return to the office (<span class="citation" data-cites="Tahlyan2024">Tahlyan et al. (<a href="#ref-Tahlyan2024" role="doc-biblioref">2024</a>)</span>). At the same time, new tech hubs are emerging outside of traditional centers like Silicon Valley. These emerging hubs may offer fresh opportunities for regions that have not been tech leaders in the past (<span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>). Remote work trends and the decentralisation of AI-related and other high-skill jobs could reshape the distribution of employment and economic activity.</p>
+<p>This project aims to analyze geographic variations in AI and non-AI job growth, the prevalence of remote work across locations, and the evolving role of traditional and emerging tech hubs in the 2024 labor market. We expect to identify leading metropolitan statistical areas (MSAs) for both AI and non-AI jobs, assess whether remote work opportunities are continuing to expand or plateau, and determine if job growth is becoming more geographically dispersed or remains concentrated. These findings will help job seekers and employers make informed decisions on where to focus their efforts, based on the changing interplay of AI adoption, remote work, and regional economic trends (<span class="citation" data-cites="Zheng2024">Zheng et al. (<a href="#ref-Zheng2024" role="doc-biblioref">2024</a>)</span>).</p>
 
 
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Hansen2023" class="csl-entry" role="listitem">
+Hansen, S., Lambert, P., Bloom, N., Davis, S. J., Sadun, R., &amp; Taska, B. (2023). Remote work across jobs, companies, and space. <em>SSRN Electronic Journal</em>. <a href="https://doi.org/10.2139/ssrn.4380734">https://doi.org/10.2139/ssrn.4380734</a>
+</div>
+<div id="ref-Hsu2024" class="csl-entry" role="listitem">
+Hsu, D. H., &amp; Tambe, P. (2024). Remote work and job applicant diversity: Evidence from technology startups. <em>Management Science</em>. <a href="https://doi.org/10.1287/mnsc.2022.03391">https://doi.org/10.1287/mnsc.2022.03391</a>
+</div>
+<div id="ref-Tahlyan2024" class="csl-entry" role="listitem">
+Tahlyan, D., Mahmassani, H., Stathopoulos, A., Said, M., Shaheen, S. A., Walker, J., &amp; Johnson, B. (2024). In-person, hybrid or remote? Employers’ perspectives on the future of work post-pandemic. <em>Transportation Research Part A: Policy and Practice</em>. <a href="https://doi.org/10.1016/j.tra.2024.104273">https://doi.org/10.1016/j.tra.2024.104273</a>
+</div>
+<div id="ref-Tan2023" class="csl-entry" role="listitem">
+Tan, S., Fang, K., &amp; Lester, T. (2023). Post-pandemic travel patterns of remote tech workers. <em>Transportation Research Interdisciplinary Perspectives</em>. <a href="https://doi.org/10.1016/j.trip.2023.100804">https://doi.org/10.1016/j.trip.2023.100804</a>
+</div>
+<div id="ref-Zheng2024" class="csl-entry" role="listitem">
+Zheng, Y., Wang, S., Liu, L., Aloisi, J., &amp; Zhao, J. (2024). Impacts of remote work on vehicle miles traveled and transit ridership in the USA. <em>Nature Cities</em>. <a href="https://doi.org/10.1038/s44284-024-00057-1">https://doi.org/10.1038/s44284-024-00057-1</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

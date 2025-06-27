@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e8e7f22aa491a340a4a2b467ac92f79a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8e1bd24da9971e0159f6ebbe195a403b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="unsupervised-learning-kmeans-clustering" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Unsupervised Learning: KMeans Clustering</h1>
 <p>To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: <code>STATE_NAME</code>, <code>REMOTE_TYPE_NAME</code>, and <code>SOC_2021_4</code>. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.</p>
-<div id="85886d77" class="cell" data-execution_count="1">
+<div id="ce4f308f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="e46f10c7" class="cell" data-execution_count="2">
+<div id="925e0461" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> pca.fit_transform(X_scaled)</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.scatter(components[:, <span class="dv">0</span>], components[:, <span class="dv">1</span>], c<span class="op">=</span>clusters, cmap<span class="op">=</span><span class="st">'Set2'</span>)</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"KMeans Clusters by Location and Remote Type"</span>)</span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"PCA Component 1"</span>)</span>
@@ -268,16 +268,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figuresmurphy/kmeans_location_remote_pca.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-cap="KMeans Clusters by Location and Remote Type"></p>
+<p><img src="figuresmurphy/kmeans_location_remote_pca.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="KMeans Clusters by Location and Remote Type"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The PCA scatter plot reveals four distinct clusters of job postings, segmented by location (STATE_NAME), remote type (REMOTE_TYPE_NAME), and occupation code (SOC_2021_4).</p>
-<p><strong>What role does PCA plays here?</strong> PCA can simplify your complex data into just 2 main features - while retaining as much of the variation in the data as possible. In this situation, the complex KMeans algorithm can be simplified into a two-dimensional graph, mainly focusing on the structure and differences among the career categories.</p>
-<p>We see a clear separation among the clusters—three are relatively compact, while one appears more dispersed. This indicates that job characteristics like remote work availability and occupation type tend to align closely with geographic regions and specific industries. The tightly grouped clusters likely represent roles with consistent remote work policies, while the spread-out cluster may include a broader mix of job types.</p>
+<p>To visualize job clusters effectively, we applied Principal Component Analysis (PCA) to reduce the dimensionality of structured features such as SOC and NAICS classifications. PCA helps retain the most informative components of the data while discarding noise and redundancy. This preprocessing step allowed us to map the high-dimensional job features into a two-dimensional space, making it easier to visualize and separate patterns.</p>
+<p>After applying PCA, we used the first two principal components as input to the KMeans clustering algorithm. The scatter plot shows each job as a point positioned based on its compressed features. Clear separation between clusters suggests that similar job types—based on classification and other structured attributes—tend to group together, confirming the presence of meaningful structure in the job market data.</p>
+<p>The resulting clusters roughly correspond to different career types, such as technical vs.&nbsp;non-technical roles or AI-related vs.&nbsp;non-AI-related jobs. For instance, one cluster shows strong concentration of remote, high-skill positions (such as software and data science roles), while another cluster aggregates more localized, on-site service-oriented positions. This structure supports further analysis on geographic and remote work trends and validates that job types do indeed form distinct groups in the latent feature space.</p>
 <section id="supervised-learning-classification-predict-remote-type" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="supervised-learning-classification-predict-remote-type"><span class="header-section-number">2.1</span> Supervised Learning: Classification – Predict Remote Type</h2>
 <p>To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: <code>STATE_NAME</code> (location), <code>SOC_2021_4</code> (job category), and <code>MAX_YEARS_EXPERIENCE</code> (seniority level).The model’s performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.</p>
-<div id="fe47cd00" class="cell" data-execution_count="3">
+<div id="b26c3824" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -325,12 +325,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figuresmurphy/confusion_matrix_remote_type.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3, showing a bias toward the most common remote type. Job seekers should clearly state remote preferences, as nuanced roles may be missed by automated systems.</p>
+<p>The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3, showing a bias toward the most common remote type. Job seekers should clearly state remote preferences, as nuanced roles may be missed by automated systems.</p>
 </section>
 <section id="supervised-learning-regression-predict-salary" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="supervised-learning-regression-predict-salary"><span class="header-section-number">2.2</span> Supervised Learning: Regression – Predict Salary</h2>
 <p>We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.</p>
-<div id="1d73226c" class="cell" data-execution_count="4">
+<div id="5deb2175" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create AVERAGE_SALARY if not already in df</span></span>
@@ -384,11 +384,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figuresmurphy/actual_vs_predicted_salary.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Actual vs. Predicted Salary by Random Forest"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The plot shows a strong alignment between predicted and actual salaries, with most points near the red dashed line—indicating good model performance. Some deviations, especially in higher salary ranges, reflect the difficulty of predicting roles with greater variability in seniority and industry.</p>
+<p>The plot shows a strong alignment between predicted and actual salaries, with most points near the red dashed line—indicating good model performance. Some deviations, especially in higher salary ranges, reflect the difficulty of predicting roles with greater variability in seniority and industry.</p>
 </section>
 <section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
-<div id="2a690610" class="cell" data-execution_count="5">
+<div id="774303e3" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -400,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>state_remote_counts <span class="op">=</span> pd.crosstab(df_geo[<span class="st">'STATE_NAME'</span>], df_geo[<span class="st">'REMOTE_TYPE_NAME'</span>])</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># visualization</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>state_remote_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, stacked<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">6</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>state_remote_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, stacked<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="dv">8</span>))</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Remote Work Type Distribution by State"</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"State"</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
@@ -418,13 +418,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Remote Work Type by State</figcaption>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The bar chart shows that states like California, New York, and Texas have a high volume of job postings across all remote types. Remote roles are especially common in tech-focused states like California and Washington, while on-site jobs are more prevalent in states with stronger manufacturing industries.</p>
+<p>The bar chart shows that states like California, New York, and Texas have a high volume of job postings across all remote types. Remote roles are especially common in tech-focused states like California and Washington, while on-site jobs are more prevalent in states with stronger manufacturing industries.</p>
 </section>
 </section>
 <section id="which-type-of-remote-work-offers-a-higher-salary" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Which type of remote work offers a higher salary?</h1>
 <p>We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.</p>
-<div id="ed256d7a" class="cell" data-execution_count="6">
+<div id="97d2e26b" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -432,10 +432,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># deal with salary list</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df[[<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'SALARY'</span>]].dropna()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df_salary[df_salary[<span class="st">'SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  <span class="co"># 过滤异常值（可选）</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_salary <span class="op">=</span> df_salary[df_salary[<span class="st">'SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  </span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_salary, x<span class="op">=</span><span class="st">'REMOTE_TYPE_NAME'</span>, y<span class="op">=</span><span class="st">'SALARY'</span>)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Salary Distribution by Remote Work Type"</span>)</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Work Type"</span>)</span>
@@ -452,8 +452,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Salary by Remote Type</figcaption>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider, indicating more salary volatility. On-site jobs show tighter salary ranges, likely due to standardized pay scales in location-bound industries.</p>
-<div id="1a458a71" class="cell" data-execution_count="7">
+<p>Remote roles generally show a higher median salary than hybrid or on-site positions. However, the range is wider, indicating more salary volatility. On-site jobs show tighter salary ranges, likely due to standardized pay scales in location-bound industries.</p>
+<div id="6dfb0d9c" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.sort_values(<span class="st">'REMOTE_RATIO'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -462,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="choropleth-or-map-based-visualizations" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="choropleth-or-map-based-visualizations"><span class="header-section-number">3.1</span> Choropleth or map-based visualizations</h2>
 <p>We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.</p>
-<div id="1554c09d" class="cell" data-execution_count="8">
+<div id="5629aaaa" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -511,12 +511,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figuresmurphy/choropleth.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Choropleth Map: Proportion of Remote Jobs by State"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The map highlights that coastal and urban states like California, New York, and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings, likely due to a stronger focus on in-person or manufacturing jobs.</p>
+<p>The map highlights that coastal and urban states like California, New York, and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings, likely due to a stronger focus on in-person or manufacturing jobs.</p>
 </section>
 <section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">3.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
 <p>To identify what influences whether a job is remote, we used a logistic regression model. The confusion matrix below summarizes how well the model classifies remote and non-remote roles.</p>
-<div id="ff4c3122" class="cell" data-execution_count="9">
+<div id="50652e4b" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -556,11 +556,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification Report:</span><span class="ch">\n</span><span class="st">"</span>, classification_report(y_test, y_pred))</span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Visualize confusion matrix</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">4</span>))</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">8</span>))</span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>sns.heatmap(confusion_matrix(y_test, y_pred), annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix 热力图"</span>)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"预测值 Predicted"</span>)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"实际值 Actual"</span>)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Actual"</span>)</span>
 <span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/logistic_confusion_matrix.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -571,7 +571,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figuresmurphy/logistic_confusion_matrix.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Logistic Regression Confusion Matrix"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The model accurately distinguishes remote from non-remote jobs, performing better on non-remote roles. Some misclassifications remain, so job seekers in flexible roles should clearly state their work preferences.</p>
+<p>The model accurately distinguishes remote from non-remote jobs, performing better on non-remote roles. Some misclassifications remain, so job seekers in flexible roles should clearly state their work preferences.</p>
 </section>
 </section>
 <section id="modeling-requirements" class="level1" data-number="4">
@@ -579,16 +579,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="linear-regression" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">4.1</span> Linear Regression</h2>
 <p>We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs.&nbsp;predicted plot and residuals histogram below show the model’s performance.</p>
-<div id="9af26821" class="cell" data-execution_count="10">
+<div id="7af245f6" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 预处理 Preprocessing</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocessing</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'MAX_YEARS_EXPERIENCE'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>]].dropna()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df_reg[df_reg[<span class="st">'AVERAGE_SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  <span class="co"># 去除极端值 Remove salary outliers</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df_reg[df_reg[<span class="st">'AVERAGE_SALARY'</span>] <span class="op">&lt;</span> <span class="dv">300000</span>]  <span class="co">#  Remove salary outliers</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df_reg[<span class="st">'REMOTE_TYPE_CLEANED'</span>] <span class="op">=</span> df_reg[<span class="st">'REMOTE_TYPE_NAME'</span>].<span class="bu">map</span>({</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Remote'</span>: <span class="st">'Remote'</span>,</span>
@@ -596,40 +596,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Not Remote'</span>: <span class="st">'Onsite'</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="st">'Onsite'</span>)</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot 编码 One-hot encode</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. One-hot encode</span></span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df_reg_encoded <span class="op">=</span> pd.get_dummies(df_reg, columns<span class="op">=</span>[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_CLEANED'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 拆分数据 Split data</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Split data</span></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_reg_encoded.drop([<span class="st">'REMOTE_TYPE_NAME'</span>, <span class="st">'AVERAGE_SALARY'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_reg_encoded[<span class="st">'AVERAGE_SALARY'</span>]</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 建模 Train model</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.Train model</span></span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>reg_model <span class="op">=</span> LinearRegression()</span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>reg_model.fit(X_train, y_train)</span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> reg_model.predict(X_test)</span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 评估 Evaluation</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Evaluation</span></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE:"</span>, mean_squared_error(y_test, y_pred))</span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R-squared:"</span>, r2_score(y_test, y_pred))</span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 可视化 - 实际 vs 预测工资散点图 Scatterplot of actual vs predicted</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Scatterplot of actual vs predicted</span></span>
 <span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
 <span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>plt.scatter(y_test, y_pred, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"实际工资 Actual Salary"</span>)</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"预测工资 Predicted Salary"</span>)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"实际 vs 预测工资散点图 (Actual vs. Predicted Salary)"</span>)</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Actual Salary"</span>)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Salary"</span>)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">" Actual vs. Predicted Salary"</span>)</span>
 <span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_actual_vs_predicted.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 可视化 - 残差分布图 Residuals histogram</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Residuals histogram</span></span>
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> y_test <span class="op">-</span> y_pred</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>plt.hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'orange'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"残差分布图 Residuals Histogram"</span>)</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"残差 Residuals"</span>)</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"频率 Frequency"</span>)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Residuals Histogram"</span>)</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Residuals"</span>)</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
 <span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figuresmurphy/regression_residuals.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -640,13 +640,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figuresmurphy/regression_actual_vs_predicted.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Actual vs. Predicted Salary by Linear Regression"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.</p>
+<p>The plot shows a clear linear trend but with greater dispersion compared to the random forest model, indicating that linear regression struggles to capture more complex salary patterns.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figuresmurphy/regression_residuals.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" data-fig-cap="Residuals Histogram of Linear Regression"></p>
 </figure>
 </div>
-<p><strong>Interpretation:</strong> The residuals histogram is roughly normal and centered around zero, suggesting no major bias. However, the spread shows that predictions can vary by several thousand dollars based on the input features.</p>
+<p>The residuals histogram is roughly normal and centered around zero, suggesting no major bias. However, the spread shows that predictions can vary by several thousand dollars based on the input features.</p>
 
 
 </section>
