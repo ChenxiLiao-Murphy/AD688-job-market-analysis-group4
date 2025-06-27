@@ -96,7 +96,7 @@ tfidf_df.head(10)
 #| fig-cap: "Top TF-IDF Keywords in Job Descriptions"
 #| fig-align: center
 
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(14, 7))
 sns.barplot(data=tfidf_df.head(15), x="Score", y="Term", palette="viridis")
 plt.title("Top TF-IDF Keywords in Job Descriptions")
 plt.grid(axis='x', linestyle='--', alpha=0.7)
@@ -133,7 +133,7 @@ wordcloud = WordCloud(width=1000, height=400, background_color="white", max_word
 #| fig-cap: "Word Cloud of Job Descriptions"
 #| fig-align: center
 
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(14, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis("off")
 plt.title("Word Cloud of Job Description Terms")

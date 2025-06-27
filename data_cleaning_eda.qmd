@@ -16,6 +16,10 @@ execute:
 ---
 
 
+
+
+
+
 # Data Cleaning 
 
 
@@ -447,7 +451,7 @@ if {"Urban_Rural", "IS_AI"}.issubset(df1.columns):
     ax = pivot_urban.plot(
         kind="bar",
         stacked=True,
-        figsize=(8, 5),
+        figsize=(10, 6),
         color=["#ff9999", "#66b3ff"],
         edgecolor="black"
     )
@@ -487,7 +491,7 @@ import matplotlib.pyplot as plt
 if {"Urban_Rural", "IS_AI"}.issubset(df1.columns):
     pivot_urban = df1.groupby(["Urban_Rural", "IS_AI"]).size().unstack(fill_value=0)
 
-    fig, axes = plt.subplots(1, 2, figsize=(8, 4))  
+    fig, axes = plt.subplots(1, 2, figsize=(10, 6))  
 
     for ax, region in zip(axes, ["Urban", "Rural"]):
         data = pivot_urban.loc[region]

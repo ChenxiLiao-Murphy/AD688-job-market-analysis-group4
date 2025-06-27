@@ -93,7 +93,7 @@ plt.show()
 city_counts = df["CITY_NAME"].value_counts().head(15).reset_index()
 city_counts.columns = ["City", "Job_Count"]
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(14, 7))
 sns.barplot(data=city_counts, x="City", y="Job_Count", palette="Accent")
 plt.title("Top 15 Cities by Job Count")
 plt.xticks(rotation=45, ha="right")
@@ -118,7 +118,7 @@ plt.show()
 state_counts = df["STATE_NAME"].value_counts().reset_index()
 state_counts.columns = ["State", "Job_Count"]
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(14, 7))
 sns.barplot(data=state_counts.head(15), x="State", y="Job_Count", palette="Set2")
 plt.title("Top 15 States by Job Count")
 plt.xticks(rotation=30)
