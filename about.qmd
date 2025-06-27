@@ -32,3 +32,8 @@ This project was developed as part of AD688 Web Analytics and Big Data Tools at 
 
 * Xiangwen(Rosa) Wang      <wxwrosa@bu.edu>
 
+
+
+
+
+![](figureswxw/BU_logo1.png.png){width=50% fig-align='center'}
