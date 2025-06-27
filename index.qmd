@@ -8,13 +8,22 @@ format:
     toc: true
 ---
 
-# Topic: Geographic and Remote Work Analysis
-1. Which cities or states have the highest job growth for AI vs. non-AI careers?
-2. Are remote jobs increasing or decreasing across industries?
-3. Do tech hubs (e.g., Silicon Valley, Austin, Boston) still dominate hiring, or are other locations emerging?
-4. How do urban vs. rural job markets differ for AI and non-AI careers?
 
 
 
+# Welcome
 
+This project analyzes recent trends in job market geography, remote work, and AI-related employment across the United States.  
+It is part of the AD688 Summer 2025 Group Project conducted by Group 4.
+
+
+# Table of Contents
+Explore the following sections:
+- [About the Project](about.qmd)
+- [Introduction & Motivation](introduction.qmd)
+- [Data Cleaning & EDA](data_cleaning_eda.qmd)
+- [Enhanced EDA (Geographic Focus)](eda_enhance.qmd)
+- [Skill Gap Analysis](skill_gap_analysis.qmd)
+- [NLP Methods](nlp_methods.qmd)
+- [Machine Learning Analysis](ml_analysis.qmd)
 
