@@ -117,7 +117,7 @@ print(confusion_matrix(y_test, y_pred))
 
 
 # Visualize confusion matrix
-plt.figure(figsize=(14,7))
+plt.figure(figsize=(14,8))
 sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
 plt.title("Confusion Matrix - Remote Work Type Classifier")
 plt.xlabel("Predicted")
@@ -129,7 +129,7 @@ plt.savefig("figuresmurphy/confusion_matrix_remote_type.png", dpi=300)
 plt.show()
 ```
 
-![](figuresmurphy/confusion_matrix_remote_type.png){width=100% fig-align='center' fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"}
+![](figuresmurphy/confusion_matrix_remote_type.png){width=120% fig-align='center' fig-cap="Confusion Matrix of Random Forest Classifier for Remote Work Type"}
 
 
 The model accurately predicts class 3, but often misclassifies classes 0, 1, and 2 as 3,  showing a bias toward the most common remote type. Job seekers should clearly state remote preferences,  as nuanced roles may be missed by automated systems.
