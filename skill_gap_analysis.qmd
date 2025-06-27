@@ -1,7 +1,7 @@
 ---
 title: "Skill Gap Analysis"
 bibliography: references.bib
-csl: csl/apa.csl.csl
+csl: csl/apa.csl
 format: 
   html:
     toc: true
