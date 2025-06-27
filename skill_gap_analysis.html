@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -179,6 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#extract-top-in-demand-skills-from-job-descriptions" id="toc-extract-top-in-demand-skills-from-job-descriptions" class="nav-link" data-scroll-target="#extract-top-in-demand-skills-from-job-descriptions"><span class="header-section-number">3</span> Extract Top In-Demand Skills from Job Descriptions</a></li>
   <li><a href="#visualize-top-5-industry-skills" id="toc-visualize-top-5-industry-skills" class="nav-link" data-scroll-target="#visualize-top-5-industry-skills"><span class="header-section-number">4</span> Visualize Top 5 Industry Skills</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -207,8 +228,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This section presents the skill gap analysis between job requirements and available workforce skills.</p>
 <section id="team-score-dataframe" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Team score DataFrame</h1>
-<p>Evaluating the current skill levels of each team member in key technical areas relevant to IT and data analytics roles.</p>
-<div id="972737e1" class="cell" data-results="hide" data-execution_count="1">
+<p>Firstly, presents a structured evaluation of the current technical skill levels across all team members. The aim is to understand the team’s collective readiness for data and IT-related roles by profiling their strengths and identifying potential gaps.</p>
+<div id="b518cd8f" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -219,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="5be08af2" class="cell" data-results="hide" data-execution_count="2">
+<div id="83093a1d" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, on_bad_lines<span class="op">=</span><span class="st">'skip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -227,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="team-members-current-skill-levels" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="team-members-current-skill-levels"><span class="header-section-number">1.1</span> Team Members’ Current Skill Levels</h2>
-<div id="731a0e8a" class="cell" data-results="hide" data-execution_count="3">
+<div id="a3a533fe" class="cell" data-results="hide" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skills_data <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name"</span>: [<span class="st">"Eugenia"</span>, <span class="st">"Chenxi"</span>, <span class="st">"Xiangwen"</span>],</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Python"</span>: [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>],</span>
@@ -243,10 +264,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df_skills.set_index(<span class="st">"Name"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df_skills</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The table below contains self-assessed skill scores provided by each team member across seven key technical areas: Python；SQL ；Machine Learning ；Cloud Computing ；AWS；Docker. Each score reflects the individual’s current proficiency on a scale from 1 to 5.</p>
+<p>Each team member rated their own proficiency in these 6 tech skills. These self-assessments allow the team to identify strengths, weaknesses, and areas for upskilling.</p>
+<p>The “Docker” skill area, in particular, deserves clarification. Although it is labeled as “Docker,” the term here is used broadly. It covers foundational and practical knowledge in containerization technologies—not limited strictly to Docker itself. Skills such as writing Dockerfiles, managing containers, using images, and deploying containers on cloud-native services like AWS ECS or Kubernetes all fall under this category. Consequently, coursework or experience that didn’t explicitly use the word “Docker” but involved equivalent technologies was still treated as contributing to this category.</p>
 </section>
 <section id="current-skill-heatmap" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="current-skill-heatmap"><span class="header-section-number">1.2</span> Current Skill Heatmap</h2>
-<div id="f5c03bbb" class="cell" data-results="hide" data-execution_count="4">
+<div id="d5dc9255" class="cell" data-results="hide" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -265,14 +289,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/team_skill_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>Overall, the heatmap shows that our team demonstrates a moderately balanced technical profile, though notable disparities highlight areas for potential growth.</p>
+<p>Python emerges as the strongest skill across the team, with all members scoring at or above intermediate levels. This indicates a solid foundation in programming, which is essential for data analysis, automation, and model development. In contrast, Cloud Computing and Machine Learning show lower average scores, pointing to critical skill gaps that may hinder the team’s readiness for cloud-based or AI-driven projects.</p>
+<p>Individual performance patterns further refine this picture. Xiangwen displays consistent strength across all categories, positioning him as a reliable contributor in both software and infrastructure tasks. Eugenia shows a clear specialization in SQL, which aligns well with database querying and data wrangling tasks. Meanwhile, Chenxi demonstrates particular strength in AWS, suggesting familiarity with cloud deployment tools.</p>
+<p>These observations suggest that while the team has core technical capabilities in place, targeted upskilling in Cloud and Machine Learning could significantly enhance overall competency.</p>
 </section>
 <section id="personalized-upskilling-recommendations" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="personalized-upskilling-recommendations"><span class="header-section-number">1.3</span> Personalized Upskilling Recommendations</h2>
-<p>To close the observed skill gaps, we provide the following individualized upskilling plans:</p>
-<p>Eugenia is advised to focus on Machine Learning and AWS to better align with industry expectations.</p>
-<p>Chenxi would benefit from strengthening her Cloud Computing and Python skills.</p>
-<p>Xiangwen is recommended to enhance his proficiency in Docker and Cloud-related technologies.</p>
-<p>These suggestions are based on both internal team comparisons and external job market demands, and they aim to improve overall team balance and job readiness.</p>
+<p>To address the observed skill gaps, the team should implement a structured upskilling strategy focusing on Cloud Computing and Machine Learning. First, team members can enroll in targeted online certification programs such as AWS Certified Cloud Practitioner, which provide foundational knowledge in cloud infrastructure, deployment, and security. These platforms often include hands-on labs, allowing members to apply concepts in real-world scenarios.</p>
+<p>For Machine Learning, it is recommended that the team engage with project-based learning resources (e.g., Coursera’s “Applied Machine Learning” or fast.ai), which emphasize practical model development using Python libraries like scikit-learn and TensorFlow. Additionally, collaborative mini-projects—such as building small-scale predictive models or experimenting with cloud-based ML tools—can reinforce learning through application.</p>
+<p>By following these strategies, the team can elevate its technical capacity, meet evolving job market demands, and position itself for success in AI-driven and cloud-enabled environments.</p>
 </section>
 </section>
 <section id="compare-with-top-job-market-skills" class="level1" data-number="2">
@@ -280,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To identify potential skill gaps, we compare our team’s average skills with those most in demand across job descriptions.</p>
 <section id="compute-average-team-skills-vs-industry-expectations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="compute-average-team-skills-vs-industry-expectations"><span class="header-section-number">2.1</span> Compute Average Team Skills vs Industry Expectations</h2>
-<div id="8affbf5c" class="cell" data-results="hide" data-execution_count="5">
+<div id="12c1b406" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>top_skills <span class="op">=</span> [<span class="st">"Python"</span>, <span class="st">"SQL"</span>, <span class="st">"Machine Learning"</span>, <span class="st">"Cloud Computing"</span>, <span class="st">"Docker"</span>, <span class="st">"AWS"</span>]</span>
@@ -319,12 +345,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/team_vs_industry_skills.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The bar chart illustrates the team’s average proficiency across six essential technical competencies, offering insights into current capabilities and potential development areas. Python ranks as the team’s strongest skill, with an average score exceeding 3.5. This reflects a robust foundation in programming across the group, which supports core functions such as data processing, automation, and algorithm development—an alignment consistent with modern analytics expectations (<span class="citation" data-cites="salas2015teamwork">Salas et al. (<a href="#ref-salas2015teamwork" role="doc-biblioref">2015</a>)</span>).</p>
+<p>SQL and AWS follow closely with average scores of 3.0, indicating moderate proficiency in database querying and cloud infrastructure. These skills are increasingly critical for managing large-scale data pipelines and deploying solutions on scalable platforms, particularly in cloud-first environments (<span class="citation" data-cites="shuffler2015team">Shuffler et al. (<a href="#ref-shuffler2015team" role="doc-biblioref">2015</a>)</span>).</p>
+<p>By contrast, the team exhibits lower proficiency in Machine Learning, Cloud Computing, and Docker, each with average scores ranging between 2.0 and 2.3. These areas represent skill gaps that may limit the team’s ability to implement and operationalize advanced analytics models or containerized applications. Given industry-wide demand for cloud-native and AI-integrated solutions, targeted upskilling in these domains would significantly enhance the team’s readiness for high-impact roles (<span class="citation" data-cites="shuffler2015team">Shuffler et al. (<a href="#ref-shuffler2015team" role="doc-biblioref">2015</a>)</span>).</p>
+<p>Therefore, this distribution suggests a need for strategic skill investment. According to Salas et al.&nbsp;(2015) (<span class="citation" data-cites="salas2015teamwork">Salas et al. (<a href="#ref-salas2015teamwork" role="doc-biblioref">2015</a>)</span>), leveraging individual strengths while addressing group-level deficiencies is essential for building cohesive and adaptable teams in complex, knowledge-driven environments. Focusing development efforts on underrepresented but industry-critical areas such as cloud platforms and machine learning will bridge internal capability gaps while aligning with current job market expectations.</p>
 </section>
 </section>
 <section id="extract-top-in-demand-skills-from-job-descriptions" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Extract Top In-Demand Skills from Job Descriptions</h1>
 <p>Examine the actual job postings to extract which skills are most frequently requested using keyword matching.</p>
-<div id="3f929f2b" class="cell" data-results="hide" data-execution_count="6">
+<div id="cf0e725f" class="cell" data-results="hide" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>job_descriptions <span class="op">=</span> df[<span class="st">"BODY"</span>].dropna().tolist()</span>
@@ -342,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="visualize-top-5-industry-skills" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Visualize Top 5 Industry Skills</h1>
-<div id="d061f905" class="cell" data-results="hide" data-execution_count="7">
+<div id="426c2bbe" class="cell" data-results="hide" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>top_skills_freq <span class="op">=</span> skill_counts.most_common(<span class="dv">5</span>)</span>
@@ -364,11 +394,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figurestyj/top_5_in_demand_skills.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The bar chart presents the top five in-demand technical skills as identified from job postings. “Cloud” technologies rank highest, reflecting the widespread adoption of cloud infrastructure and its central role in modern IT and analytics workflows. SQL follows as a foundational skill for data management and querying across industries. Excel continues to be valued for its versatility in business analytics and operational reporting. Python and R, both widely used in data science and machine learning, indicate a growing demand for analytical and statistical programming capabilities. Collectively, these findings emphasize the importance of cloud proficiency, data handling expertise, and programming fluency for job seekers aiming to remain competitive in a rapidly evolving labor market.</p>
+</section>
+<section id="summary" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Summary</h1>
+<p>This skill gap analysis reveals that while our team possesses a well-rounded technical foundation, critical gaps remain in advanced and deployment-focused domains. Python stands out as the strongest collective skill, consistently supporting core workflows such as data manipulation, automation, and model prototyping (Salas et al., 2015). Intermediate proficiency in SQL and AWS indicates a solid baseline for database querying and cloud-based operations.</p>
+<p>However, average scores in Machine Learning, Cloud Computing, and Docker remain below expectations. These areas are essential for implementing AI models and managing scalable, cloud-native solutions. The absence of stronger proficiency here may constrain the team’s ability to meet the evolving demands of data-driven, production-ready environments (<span class="citation" data-cites="shuffler2015team">Shuffler et al. (<a href="#ref-shuffler2015team" role="doc-biblioref">2015</a>)</span>).</p>
+<ul>
+<li><p>Individual profiles offer valuable insight into team strengths：</p></li>
+<li><p>Xiangwen demonstrates consistently high performance across all evaluated domains, suggesting readiness for full-stack technical roles.</p></li>
+<li><p>Eugenia specializes in SQL, positioning her well for data transformation and querying tasks.</p></li>
+<li><p>Chenxi shows notable competence in AWS, aligning with infrastructure and cloud deployment support.</p></li>
+<li><p>While these complementary strengths support internal collaboration, the team would benefit from structured upskilling efforts：</p></li>
+<li><p>Docker &amp; Containerization: Include not only Docker but also related tools like AWS ECS and Kubernetes, emphasizing real-world deployment scenarios.</p></li>
+<li><p>Cloud Certifications: Programs like AWS Certified Solutions Architect can reinforce core cloud architecture and scalability practices.</p></li>
+<li><p>Machine Learning: Project-based training on platforms like fast.ai or Coursera, focusing on real-world applications using Scikit-learn or TensorFlow.</p></li>
+</ul>
+<p>By building on current proficiencies and systematically addressing critical skill gaps, the team can enhance its technical readiness and align more closely with high-demand roles in today’s competitive job market.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-salas2015teamwork" class="csl-entry" role="listitem">
+Salas, E., Shuffler, M. L., Thayer, A. L., Bedwell, W. L., &amp; Lazzara, E. H. (2015). Teamwork in multiteam systems. <em>Small Group Research</em>, <em>46</em>(2), 155–193.
+</div>
+<div id="ref-shuffler2015team" class="csl-entry" role="listitem">
+Shuffler, M. L., Bedwell, W. L., Lazzara, E. H., &amp; Salas, E. (2015). Team development interventions: Evidence-based approaches for improving teamwork. <em>American Psychologist</em>, <em>70</em>(6), 532–548.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
