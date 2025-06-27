@@ -18,7 +18,7 @@ execute:
 
 This section presents our machine learning models to analyze geographic and remote work patterns in the 2024 U.S. job market. We apply both **unsupervised** and **supervised** learning methods to gain insights into how job locations and remote types impact salaries and job classifications.
 
----
+
 
 # Unsupervised Learning: KMeans Clustering
 
@@ -258,7 +258,7 @@ remote_ratio_by_state.sort_values('REMOTE_RATIO', ascending=False).head(10)
 ```
 
 
-## Choropleth or map-based visualizations
+## Map-based visualizations
 We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.
 
 
@@ -300,18 +300,19 @@ remote_ratio_by_state['STATE_ABBR'] = remote_ratio_by_state['STATE_NAME'].map(st
 ```
 
 ```{python}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| results: hide
+
 import geopandas as gpd
 
-# 1. 加载美国州边界 shapefile（事先下载过）
 gdf = gpd.read_file("shapefiles/cb_2021_us_state_20m.shp")
 
-# 2. 去掉非主要州
 gdf = gdf[~gdf['STUSPS'].isin(['AS', 'GU', 'MP', 'PR', 'VI'])]
 
-# 3. 合并你的远程比例数据
 gdf = gdf.merge(remote_ratio_by_state, left_on='NAME', right_on='STATE_NAME')
 
-# 4. 画图
 contiguous = gdf[~gdf['STUSPS'].isin(['AK', 'HI', 'PR'])]
 
 fig, ax = plt.subplots(1, 1, figsize=(14, 8))
