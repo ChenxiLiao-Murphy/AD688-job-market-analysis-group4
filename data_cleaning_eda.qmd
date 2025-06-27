@@ -2,7 +2,7 @@
 title: "Data Cleaning & EDA"
 
 bibliography: references.bib
-csl: csl/econometrica.csl
+csl: csl/apa.csl
 format: 
   html:
     toc: true

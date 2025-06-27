@@ -1,5 +1,7 @@
 ---
 title: "Modeling & Analysis"
+bibliography: references.bib
+csl: csl/apa.csl
 format:
   html:
     toc: true
