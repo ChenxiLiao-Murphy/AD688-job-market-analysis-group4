@@ -19,6 +19,7 @@ It is part of the AD688 Summer 2025 Group Project conducted by Group 4.
 
 # Table of Contents
 Explore the following sections:
+
 - [About the Project](about.qmd)
 - [Introduction & Motivation](introduction.qmd)
 - [Data Cleaning & EDA](data_cleaning_eda.qmd)
