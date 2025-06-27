@@ -22,8 +22,9 @@ execute:
 
 # Data Cleaning 
 
+The data cleaning process was designed to improve data quality and provide a reliable foundation for analysis. 
 
-
+We began by removing irrelevant and redundant columns. These included tracking metadata (such as `ID`, `URL`, and `LAST_UPDATED_TIMESTAMP`) and raw text-heavy fields (like `BODY` and `TITLE_RAW`) that added noise without offering analytical value. Multiple versions of `NAICS` and `SOC codes were also removed, keeping only the most detailed levels to ensure clarity while reducing duplication.
 
 
 ```{python}
@@ -82,6 +83,7 @@ df1.drop(columns=columns_to_drop, inplace=True, errors="ignore")
 df1.head()
 ```
 
+The dataset was first reviewed to identify redundant or irrelevant columns. Tracking and metadata fields (such as ID, URL, LAST_UPDATED_TIMESTAMP, SOURCE_TYPES), raw text-heavy fields (BODY, TITLE_RAW), derived or modeled fields (MODELED_EXPIRED, MODELED_DURATION), company-specific tags, and multiple redundant education or occupation code versions (e.g., NAICS_2022_2_NAME, SOC_5) were dropped to reduce dimensional noise and simplify downstream processing. This step was guided by a predefined drop list and executed with safeguards to ignore missing columns.
 
 
 ##  Handling Missing Values
@@ -97,6 +99,7 @@ import os
 os.makedirs("figureswxw", exist_ok=True)
 
 ```
+
 
 
 ```{python}
@@ -119,6 +122,10 @@ plt.show()
 
 ![](figureswxw/missing_values_heatmap.png){width=100% fig-align='center'}
 
+A missing values heatmap revealed that many columns—especially those related to occupations, certifications, and specialized skills (e.g., `ONET`, `LOT_OCCUPATION`, `SPECIALIZED_SKILLS_NAME`)—had substantial missing data. Columns with over 50% missing values were dropped, particularly those with overlapping or overly granular content. This step helped reduce redundancy and potential multicollinearity in the dataset.
+
+
+Key numeric fields such as SALARY and DURATION were imputed using median values to reduce the effect of outliers. For categorical variables like `REMOTE_TYPE_NAME`, `EMPLOYMENT_TYPE_NAME`, and `COMPANY_NAME`, missing values were replaced with “Unknown” to preserve data completeness.
 
 
 
@@ -163,6 +170,8 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts(dropna=False)
 
 ```
 
+Duplicate job postings were removed using a composite key made up of `TITLE_CLEAN`, `COMPANY_NAME`, `CITY_NAME`, and `POSTED_DATE`. We also excluded records with invalid or conflicting industry or occupation codes to ensure consistency.
+
 
 ```{python}
 #| echo: true
@@ -181,10 +190,38 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 
 ```
 
+Duplicate job postings were removed using a composite key made up of `TITLE_CLEAN`, `COMPANY_NAME`, `CITY_NAME`, and `POSTED_DATE`. We also excluded records with invalid or conflicting industry or occupation codes to ensure consistency.
+
+```{python}
+#| echo: true
+#| eval: false  
+#| code-fold: false
+#| results: hide
+
+
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df1["IS_AI"] = df1["NAICS_2022_6_NAME"].fillna("").str.contains("AI|Artificial Intelligence", case=False) | \
+               df1["LOT_OCCUPATION"].fillna("").str.contains("AI|Artificial Intelligence", case=False)
+
+df1["IS_AI"] = df1["IS_AI"].map({True: "AI", False: "Non-AI"})
+
+
+```
+
+To support analysis goals, we created two derived variables. The first, `IS_AI`, classified jobs as AI-related based on keywords such as “AI,” “Artificial Intelligence,” or “Machine Learning.” The second grouped job locations as either “Urban” or “Rural” based on a predefined list of major metro areas.
+
+
+This structured cleaning approach produced a streamlined, consistent dataset ready for accurate modeling, visualization, and geographic insight generation.
+
 
 
 # Exploratory Data Analysis
 
+The exploratory data analysis phase focused on uncovering key structural patterns, trends, and relationships within the cleaned dataset. This step served as a bridge between raw data and informed modelling decisions. We conducted univariate and bivariate analyses to assess variable distributions, identify dominant job types, and detect potential outliers or data skewness.
 
 ##   Remote Type distribution
 ```{python}
@@ -215,28 +252,23 @@ plt.show()
 
 ![](figureswxw/remote_type_distribution.png){width=100% fig-align='center'}
 
+The bar chart illustrates the distribution of job postings by remote type, allowing us to evaluate how different work arrangements are represented in the dataset. The five categories include Remote, Hybrid Remote, Not Remote, Unknown, and [None] (where no remote type is specified).
+
+The most prominent finding is that the majority of job postings—approximately 55,000 entries—are labeled as [None], meaning no remote type was recorded. This accounts for roughly 75% of all postings, indicating a significant inconsistency or gap in how remote work arrangements are captured in job listings.
+
+Among the postings that do specify a remote type:
+* Remote jobs make up about 12,000 postings, representing roughly 16% of the total dataset.
+
+* Hybrid Remote roles total around 2,500 postings, or approximately 3%.
+
+* Not Remote (fully on-site) roles account for fewer than 1,000 entries, making up less than 2% of the dataset.
+
+* Unknown entries are minimal, with fewer than 500 postings.
 
 
-```{python}
-#| echo: true
-#| eval: false  
-#| code-fold: true
-#| results: hide
+These results suggest that while remote roles are clearly present in the dataset, their actual prevalence may be underreported due to missing or incomplete labeling. Additionally, fully on-site jobs appear to be less frequently tagged or advertised as such, possibly reflecting a shift in employer focus or changes in how job flexibility is communicated.
 
 
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-df1["IS_AI"] = df1["NAICS_2022_6_NAME"].fillna("").str.contains("AI|Artificial Intelligence", case=False) | \
-               df1["LOT_OCCUPATION"].fillna("").str.contains("AI|Artificial Intelligence", case=False)
-
-df1["IS_AI"] = df1["IS_AI"].map({True: "AI", False: "Non-AI"})
-
-
-
-```
 
 
 ##  Top 10 states : AI vs Non-AI Job Postings
@@ -268,6 +300,14 @@ plt.show()
 ![](figureswxw/top_states_ai_nonai.png){width=100% fig-align='center'}
 
 
+The stacked bar chart illustrates the distribution of AI and non-AI job postings across the ten states with the highest total job postings in the dataset.
+From the chart, we can see that Texas has the highest total job postings, with approximately 8,000 positions. Among these, AI-related jobs account for a small portion, estimated at around 400–500 postings, representing roughly 5% to 6% of the total in Texas. California follows closely, with about 7,000 total postings and approximately 200–300 AI-related jobs, or roughly 3% to 4% of its total. Other states in the top 10, such as Florida, Illinois, and New York, each have between 3,000 and 4,000 total postings, with AI-related roles making up an even smaller share, generally under 3%.
+
+The visualization reveals that non-AI jobs dominate in all top states, emphasizing that while AI hiring is present, it constitutes only a small fraction of overall job demand. 
+
+States like Texas and California, while leaders in AI job volume, still offer significant room for AI job expansion relative to overall hiring activity.
+
+
 
 ##  Top 10 cities: AI vs Non-AI Job Postings 
 ```{python}
@@ -295,6 +335,14 @@ plt.show()
 ```
 
 ![](figureswxw/top_cities_ai_nonai.png){width=100% fig-align='center'}
+
+
+The stacked bar chart illustrates the distribution of AI and non-AI job postings across the ten cities with the highest total job postings in the dataset.
+
+Among major U.S. cities, New York, NY leads with the highest number of job postings, totaling approximately 2,100, of which AI-related roles account for 5% to 7% (roughly 100–150 listings). Chicago, IL and Austin, TX follow closely, each with 1,800 to 1,900 postings, where AI positions represent about 4% to 6% of the total. Atlanta, GA reports around 1,700 listings, with AI jobs making up approximately 5%. Interestingly, San Francisco, CA, despite being a recognized tech hub, shows a comparatively lower total of about 900 postings, though AI roles still constitute around 4%. Other top cities—Boston, MA; Dallas, TX; Houston, TX; Charlotte, NC; and Washington, DC—each feature 1,000 to 1,400 job postings, with AI-related jobs comprising 3% to 6%. These figures highlight that while AI roles are emerging across urban markets, they remain a modest share of overall job opportunities, even in traditionally tech-focused regions.
+
+Overall, the chart reveals that in all top cities, non-AI job postings dominate. However, cities like New York, Austin, and Chicago demonstrate a slightly higher share of AI-related jobs compared to others. This suggests that while AI hiring is present across major urban centers, it remains a small subset of total job demand.
+
 
 
 ##  Time Trend of Remote Work Types
@@ -328,6 +376,22 @@ else:
 
 ![](figureswxw/remote_trend_over_time.png){width=100% fig-align='center'}
 
+This line chart compares monthly hiring trends in tech hubs versus other locations from May to September 2024. Cities designated as “tech hubs” include San Francisco, Austin, and Boston, based on their historical dominance in the U.S. technology sector. These were manually classified using the `CITY_NAME` variable. All remaining cities were grouped under the “Other” category.
+
+
+The chart displays only the “Other” trend line because job postings from designated tech hubs were either minimal or not present in the dataset during the selected period. This may suggest a temporary drop in hiring activity within traditional hubs or limitations in how `CITY_NAME` values are recorded and parsed in the raw data.
+
+
+Key observations emerge from the “Other” category:
+
+* Job postings exhibited a noticeable fluctuation over the observed period, starting at approximately 15,000 in May, dipping to around 12,400 in July, and then rebounding to over 15,000 by September. This pattern reflects a typical mid-year hiring slowdown followed by a Q3 recovery, consistent with known seasonal trends in recruitment cycles. 
+
+* The relatively low job volume from traditional tech hubs, such as San Francisco, may point to either a genuine geographic shift in hiring or issues related to data consistency—for instance, inconsistent city name formats (e.g., “San Francisco, CA” vs. “San Francisco”). Broadening the definition of tech hubs to include cities like Seattle or New York could offer a clearer picture of regional dynamics. 
+
+Notably, this trend supports recent research suggesting a decentralization of high-skill and AI-related job opportunities beyond traditional innovation centers (@Hsu2024). As remote and hybrid work arrangements become more embedded in organizational strategies, emerging cities may increasingly attract top talent and cultivate localized innovation ecosystems.
+
+
+
 
 
 ##  Tech Hubs vs Other Locations Hiring Trends  
@@ -356,6 +420,13 @@ plt.show()
 
 ![](figureswxw/techhub_vs_other_trend.png){width=100% fig-align='center'}
 
+A line plot tracking hiring trends from May to September 2024 reveals notable patterns in job postings across non-tech hub cities compared to traditional tech hubs. Cities were categorized using the CITY_NAME field into "Hub" (San Francisco, Austin, Boston) or "Other", with the classification stored in a new IS_HUB column. However, the resulting visualization only displays the “Other” group, with no visible data for “Hub” cities—likely due to data sparsity or inconsistent city naming conventions (e.g., “San Francisco” vs. “San Francisco, CA”) that inadvertently filtered out hub entries.
+
+
+For non-hub cities, the data shows a clear seasonal pattern: job postings peaked at 15,000 in May, dipped to 12,400 by July, then rebounded sharply to over 15,200 by September. This trajectory aligns with typical summer hiring slowdowns followed by a Q3 recovery, suggesting sustained and dynamic labor demand in non-traditional locations.
+
+
+Despite the lack of visible data from tech hubs, the strong activity among non-hub cities supports the hypothesis that job growth—particularly for remote and hybrid roles—is shifting beyond legacy innovation centers. As companies explore cost-effective expansion and distributed workforce models, emerging cities are becoming increasingly attractive for both employers and job seekers. This trend reinforces findings from recent research on the geographic decentralization of knowledge work (@Hsu2024; @Tan2023).
 
 
 
@@ -407,6 +478,21 @@ plt.show()
 
 ![](figureswxw/remote_trend_top5_industry.png){width=100% fig-align='center'}
 
+This section examines the temporal dynamics of remote job postings across the top 10 industries, as classified by the `NAICS_2022_6_NAME`  field, from May to September 2024. The analysis leverages monthly aggregation based on the POSTED date to detect changes in hiring patterns over time.
+
+
+To identify the most active sectors, the dataset was grouped by industry and sorted by total job postings. The top 10 industries were then isolated for visualization. These include a diverse set of sectors such as Administrative Management and General Management Consulting Services, Computer Systems Design Services, Commercial Banking, and Employment Placement Agencies, among others.
+
+
+The resulting line chart reveals several key trends in remote job postings by industry from May to September 2024. Administrative Management and Consulting consistently led in remote hiring activity, exceeding 1,800 postings per month and peaking at over 2,000 in September. Computer-related industries, such as Computer Systems Design Services and Custom Computer Programming Services, followed closely. Though these sectors experienced a slight decline in July, they steadily recovered through August and September, reflecting sustained demand for remote tech talent.
+
+
+Other industries, including finance (Commercial Banking) and healthcare (Direct Health and Medical Insurance Carriers), maintained moderate yet stable levels of remote job postings—typically between 700 and 1,000 per month—signaling ongoing digital transformation in these sectors. In contrast, employment services industries (e.g., Temporary Help Services and Employment Placement Agencies) exhibited greater volatility, with postings fluctuating between 250 and 600 monthly, suggesting heightened sensitivity to short-term labor market conditions.
+
+
+A broad decline in remote job postings across all sectors was observed in July, likely tied to seasonal hiring slowdowns, but most industries showed a robust recovery in August and September. Overall, the data confirms that while technology continues to dominate remote hiring, consulting, finance, and healthcare are also playing substantial roles in the expansion of remote work opportunities.
+
+
 
 ## Urban/Rural Region: AI vs Non-AI Job Postings
 
@@ -429,8 +515,6 @@ df1["Urban_Rural"] = df1["CITY_NAME_CLEAN"].apply(
 print(df1["Urban_Rural"].value_counts())
 
 ```
-
-
 
 
 
@@ -475,8 +559,6 @@ else:
 ![](figureswxw/urban_rural_ai_nonai_bar.png){width=100% fig-align='center' fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings (Stacked Bar Chart)"}
 
 
-
-
 ### Pie Chart
 ```{python}
 #| echo: true
@@ -516,3 +598,11 @@ else:
 ```
 
  ![](figureswxw/urban_rural_ai_nonai_pie_combined.png){width=100% fig-align='center' fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings"}
+
+ This part compares the distribution of AI and non-AI job postings between urban and rural regions. The stacked bar chart shows that rural areas account for a significantly higher total volume of job postings, with approximately 58,000 postings, compared to about 14,000 in urban regions. However, this difference in volume does not translate to a significant disparity in the share of AI roles.
+
+
+The pie charts provide a more precise view of the proportion of AI jobs in each region. In urban areas, AI postings represent 3.9% of all job listings, while in rural areas, the share is 4.0%. Despite the substantial gap in absolute job counts, the proportion of AI-related positions is nearly identical between the two regions. This indicates that AI jobs are being adopted at a comparable rate, regardless of regional setting.
+
+
+These findings suggest that while urban centres no longer hold a dominant lead in AI hiring volume, rural regions are not significantly lagging behind in AI adoption rate either. This aligns with recent research showing that AI-related opportunities are beginning to diffuse beyond traditional tech hubs, enabling more balanced geographic access to emerging roles (@Hsu2024).
