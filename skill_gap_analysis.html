@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="team-score-dataframe" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Team score DataFrame</h1>
 <p>Evaluating the current skill levels of each team member in key technical areas relevant to IT and data analytics roles.</p>
-<div id="b3c96fd9" class="cell" data-results="hide" data-execution_count="1">
+<div id="972737e1" class="cell" data-results="hide" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="a5245f9b" class="cell" data-results="hide" data-execution_count="2">
+<div id="5be08af2" class="cell" data-results="hide" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, on_bad_lines<span class="op">=</span><span class="st">'skip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="team-members-current-skill-levels" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="team-members-current-skill-levels"><span class="header-section-number">1.1</span> Team Members’ Current Skill Levels</h2>
-<div id="505b9fb7" class="cell" data-results="hide" data-execution_count="3">
+<div id="731a0e8a" class="cell" data-results="hide" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skills_data <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name"</span>: [<span class="st">"Eugenia"</span>, <span class="st">"Chenxi"</span>, <span class="st">"Xiangwen"</span>],</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Python"</span>: [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>],</span>
@@ -246,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="current-skill-heatmap" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="current-skill-heatmap"><span class="header-section-number">1.2</span> Current Skill Heatmap</h2>
-<div id="7ce4bbde" class="cell" data-results="hide" data-execution_count="4">
+<div id="f5c03bbb" class="cell" data-results="hide" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To identify potential skill gaps, we compare our team’s average skills with those most in demand across job descriptions.</p>
 <section id="compute-average-team-skills-vs-industry-expectations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="compute-average-team-skills-vs-industry-expectations"><span class="header-section-number">2.1</span> Compute Average Team Skills vs Industry Expectations</h2>
-<div id="381900be" class="cell" data-results="hide" data-execution_count="5">
+<div id="8affbf5c" class="cell" data-results="hide" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>top_skills <span class="op">=</span> [<span class="st">"Python"</span>, <span class="st">"SQL"</span>, <span class="st">"Machine Learning"</span>, <span class="st">"Cloud Computing"</span>, <span class="st">"Docker"</span>, <span class="st">"AWS"</span>]</span>
@@ -324,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="extract-top-in-demand-skills-from-job-descriptions" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Extract Top In-Demand Skills from Job Descriptions</h1>
 <p>Examine the actual job postings to extract which skills are most frequently requested using keyword matching.</p>
-<div id="f386f48d" class="cell" data-results="hide" data-execution_count="6">
+<div id="3f929f2b" class="cell" data-results="hide" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>job_descriptions <span class="op">=</span> df[<span class="st">"BODY"</span>].dropna().tolist()</span>
@@ -342,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="visualize-top-5-industry-skills" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Visualize Top 5 Industry Skills</h1>
-<div id="963559d7" class="cell" data-results="hide" data-execution_count="7">
+<div id="d061f905" class="cell" data-results="hide" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>top_skills_freq <span class="op">=</span> skill_counts.most_common(<span class="dv">5</span>)</span>
