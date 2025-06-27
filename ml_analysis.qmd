@@ -33,7 +33,7 @@ print(df.columns.tolist())
 ```
 
 ```{python}
-import pandas as pd
+
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
@@ -59,14 +59,15 @@ df_cluster['Cluster'] = clusters
 pca = PCA(n_components=2)
 components = pca.fit_transform(X_scaled)
 
-plt.figure(figsize=(10,8))
-plt.scatter(components[:, 0], components[:, 1], c=clusters, cmap='Set2')
+plt.figure(figsize=(14,7))
+plt.scatter(components[:, 0], components[:, 1], c=clusters, cmap='Set1')
 plt.title("KMeans Clusters by Location and Remote Type")
 plt.xlabel("PCA Component 1")
 plt.ylabel("PCA Component 2")
 
 # save the figure
 plt.tight_layout()
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray') 
 plt.savefig("figuresmurphy/kmeans_location_remote_pca.png", dpi=300)
 
 plt.show()
@@ -116,7 +117,7 @@ print(confusion_matrix(y_test, y_pred))
 
 
 # Visualize confusion matrix
-plt.figure(figsize=(6,5))
+plt.figure(figsize=(14,7))
 sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
 plt.title("Confusion Matrix - Remote Work Type Classifier")
 plt.xlabel("Predicted")
@@ -161,6 +162,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # Step 6: Train Random Forest Regressor
 from sklearn.ensemble import RandomForestRegressor
+
 model = RandomForestRegressor(random_state=42)
 model.fit(X_train, y_train)
 
@@ -169,18 +171,19 @@ y_pred = model.predict(X_test)
 
 # Step 8: Evaluate
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
 print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
 print("Mean Absolute Error:", mean_absolute_error(y_test, y_pred))
 print("R2 Score:", r2_score(y_test, y_pred))
 
-import matplotlib.pyplot as plt
 
-plt.figure(figsize=(6,6))
+plt.figure(figsize=(14, 8))
 plt.scatter(y_test, y_pred, alpha=0.5)
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
 plt.xlabel("Actual Salary")
 plt.ylabel("Predicted Salary")
 plt.title("Actual vs Predicted Salary")
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray') 
 plt.tight_layout()
 plt.savefig("figuresmurphy/actual_vs_predicted_salary.png", dpi=300)
 plt.show()
@@ -195,22 +198,21 @@ The plot shows a strong alignment between predicted and actual salaries, with mo
 
 ## Which states are more inclined to offer Remote/Hybrid/Onsite jobs?
 ```{python}
-import pandas as pd
 import matplotlib.pyplot as plt
 
 df_geo = df[['STATE_NAME', 'REMOTE_TYPE_NAME']].dropna()
 
-）
+
 state_remote_counts = pd.crosstab(df_geo['STATE_NAME'], df_geo['REMOTE_TYPE_NAME'])
 
 # visualization
-state_remote_counts.plot(kind='bar', stacked=True, figsize=(14,8))
+state_remote_counts.plot(kind='bar', stacked=True, figsize=(14,7))
 plt.title("Remote Work Type Distribution by State")
-plt.xlabel("State")
+plt.xlabel("State", fontsize=8)
+plt.xticks(rotation=45, ha='right')
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray') 
 plt.ylabel("Number of Job Postings")
-plt.xticks(rotation=90)
 plt.tight_layout()
-
 
 plt.savefig("figuresmurphy/remote_type_by_state.png", dpi=300)
 plt.show()
@@ -226,8 +228,6 @@ The bar chart shows that states like California, New York, and Texas have a high
 # Which type of remote work offers a higher salary? 
 We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.
 ```{python}
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # deal with salary list
 df_salary = df[['REMOTE_TYPE_NAME', 'SALARY']].dropna()
@@ -235,10 +235,11 @@ df_salary = df_salary[df_salary['SALARY'] < 300000]
 
 
 plt.figure(figsize=(10,8))
-sns.boxplot(data=df_salary, x='REMOTE_TYPE_NAME', y='SALARY')
+sns.boxplot(data=df_salary, x='REMOTE_TYPE_NAME', y='SALARY', palette='Set2')
 plt.title("Salary Distribution by Remote Work Type")
 plt.xlabel("Remote Work Type")
 plt.ylabel("Salary")
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray')
 plt.tight_layout()
 
 plt.savefig("figuresmurphy/salary_by_remote_type.png", dpi=300)
@@ -255,6 +256,7 @@ Remote roles generally show a higher median salary than hybrid or on-site positi
 ```{python}
 remote_ratio_by_state.sort_values('REMOTE_RATIO', ascending=False).head(10)
 ```
+
 
 ## Choropleth or map-based visualizations
 We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.
@@ -282,28 +284,57 @@ state_abbrev_map = {
     'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY'
 }
 
-# 2. Add a column of state abbreviations
-remote_ratio_by_state['STATE_ABBR'] = remote_ratio_by_state['STATE_NAME'].map(state_abbrev_map)
-
-print(remote_ratio_by_state[['STATE_NAME', 'STATE_ABBR']].head())
-
-fig = px.choropleth(
-    remote_ratio_by_state,
-    locations='STATE_ABBR',
-    locationmode='USA-states',
-    color='REMOTE_RATIO',
-    scope='usa',
-    color_continuous_scale='Blues',
-    title='Proportion of Remote Jobs by State (Using State Abbreviations)',
-    width=1000,      
-    height=600       
-)
-fig.write_image("figuresmurphy/choropleth.png", scale=2)
-
-fig.show()
+df_geo = df[['STATE_NAME', 'REMOTE_TYPE_NAME']].dropna()
 ```
 
-![](figuresmurphy/choropleth.png){width=100% fig-align='center' fig-cap="Choropleth Map: Proportion of Remote Jobs by State"}
+```{python}
+df_geo = df[['STATE_NAME', 'REMOTE_TYPE_NAME']].dropna()
+
+remote_counts = df_geo[df_geo['REMOTE_TYPE_NAME'] == 'Remote'].groupby('STATE_NAME').size()
+total_counts = df_geo.groupby('STATE_NAME').size()
+
+remote_ratio_by_state = (remote_counts / total_counts).reset_index()
+remote_ratio_by_state.columns = ['STATE_NAME', 'REMOTE_RATIO']
+
+remote_ratio_by_state['STATE_ABBR'] = remote_ratio_by_state['STATE_NAME'].map(state_abbrev_map)
+```
+
+```{python}
+import geopandas as gpd
+
+# 1. 加载美国州边界 shapefile（事先下载过）
+gdf = gpd.read_file("shapefiles/cb_2021_us_state_20m.shp")
+
+# 2. 去掉非主要州
+gdf = gdf[~gdf['STUSPS'].isin(['AS', 'GU', 'MP', 'PR', 'VI'])]
+
+# 3. 合并你的远程比例数据
+gdf = gdf.merge(remote_ratio_by_state, left_on='NAME', right_on='STATE_NAME')
+
+# 4. 画图
+contiguous = gdf[~gdf['STUSPS'].isin(['AK', 'HI', 'PR'])]
+
+fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+contiguous.plot(
+    column='REMOTE_RATIO',
+    cmap='Blues',
+    linewidth=0.5,
+    ax=ax,
+    edgecolor='0.9',
+    legend=True,
+    legend_kwds={'label': "Remote Job Ratio", 'shrink': 0.5}
+)
+
+ax.set_title('Remote Work Ratio by State (Contiguous U.S.)', fontsize=16, fontweight='bold')
+ax.axis('off')
+plt.tight_layout()
+plt.savefig("figuresmurphy/us_remote_ratio_contiguous.png", dpi=300)
+plt.show()
+
+
+```
+
+![](figuresmurphy/us_remote_ratio_contiguous.png){width=100% fig-align='center' fig-cap="Choropleth Map: Proportion of Remote Jobs by State"}
 
 
 The map highlights that coastal and urban states like California, New York,  and Massachusetts have more remote roles. In contrast, Midwest and Southern states show fewer remote postings,  likely due to a stronger focus on in-person or manufacturing jobs.
@@ -354,8 +385,8 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 # 6. Visualize confusion matrix
 plt.figure(figsize=(10,8))
-sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
-plt.title("Confusion Matrix 热力图")
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='YlGnBu')
+plt.title("Confusion Matrix")
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.tight_layout()
@@ -407,24 +438,14 @@ print("MSE:", mean_squared_error(y_test, y_pred))
 print("R-squared:", r2_score(y_test, y_pred))
 
 # 6. Scatterplot of actual vs predicted
-plt.figure(figsize=(6, 5))
+plt.figure(figsize=(14, 7))
 plt.scatter(y_test, y_pred, alpha=0.5)
 plt.xlabel("Actual Salary")
 plt.ylabel("Predicted Salary")
 plt.title(" Actual vs. Predicted Salary")
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray')
 plt.tight_layout()
 plt.savefig("figuresmurphy/regression_actual_vs_predicted.png", dpi=300)
-plt.show()
-
-# 7. Residuals histogram
-residuals = y_test - y_pred
-plt.figure(figsize=(10, 6))
-plt.hist(residuals, bins=30, color='orange', edgecolor='black')
-plt.title("Residuals Histogram")
-plt.xlabel("Residuals")
-plt.ylabel("Frequency")
-plt.tight_layout()
-plt.savefig("figuresmurphy/regression_residuals.png", dpi=300)
 plt.show()
 ```
 
@@ -436,9 +457,23 @@ The plot shows a clear linear trend but with greater dispersion compared to the 
 
 
 
+```{python}
+# 7. Residuals histogram
+residuals = y_test - y_pred
+plt.figure(figsize=(10, 6))
+plt.hist(residuals, bins=30, color='orange', edgecolor='black')
+plt.title("Residuals Histogram")
+plt.xlabel("Residuals")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.grid(True, linestyle='--', linewidth=0.5, color='gray')
+plt.savefig("figuresmurphy/regression_residuals.png", dpi=300)
+plt.show()
+```
 
 
-![](figuresmurphy/regression_residuals.png){width=70% fig-align='center' fig-cap="Residuals Histogram of Linear Regression"}
+
+![](figuresmurphy/regression_residuals.png){width=100% fig-align='center' fig-cap="Residuals Histogram of Linear Regression"}
 
 
 The residuals histogram is roughly normal and centered around zero, suggesting no major bias. However, the spread shows that predictions can vary by several thousand dollars based on the input features.
