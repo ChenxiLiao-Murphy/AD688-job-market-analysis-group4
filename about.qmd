@@ -25,10 +25,10 @@ By combining Exploratory Data Analysis (EDA), Spark SQL, Natural Language Proces
 
 This project was developed as part of AD688 Web Analytics and Big Data Tools at Boston University, integrating large-scale data processing and visualization techniques to inform real-world workforce decisions.
 
-# Team Members:
-* Chenxi(Murphy) Liao   <murphyy@bu.edu> 
+# Team Members
+* Chenxi(Murphy) Liao      <murphyy@bu.edu>
 
 *  Yijiun(Eugenia) Tseng   <yijiun@bu.edu>
 
-* Xiangwen(Rosa) Wang   <wxwrosa@bu.edu>
+* Xiangwen(Rosa) Wang      <wxwrosa@bu.edu>
 
