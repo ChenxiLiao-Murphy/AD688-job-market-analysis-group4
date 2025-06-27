@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -214,9 +234,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="data-cleaning" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Data Cleaning</h1>
+<p>The data cleaning process was designed to improve data quality and provide a reliable foundation for analysis.</p>
+<p>We began by removing irrelevant and redundant columns. These included tracking metadata (such as <code>ID</code>, <code>URL</code>, and <code>LAST_UPDATED_TIMESTAMP</code>) and raw text-heavy fields (like <code>BODY</code> and <code>TITLE_RAW</code>) that added noise without offering analytical value. Multiple versions of <code>NAICS</code> and `SOC codes were also removed, keeping only the most detailed levels to ensure clarity while reducing duplication.</p>
 <section id="dropping-unnecessary-columns" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="dropping-unnecessary-columns"><span class="header-section-number">1.1</span> Dropping Unnecessary Columns</h2>
-<div id="2d16d2b1" class="cell" data-results="hide" data-execution_count="2">
+<div id="96760edf" class="cell" data-results="hide" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define columns that are irrelevant or redundant for our analysis</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tracking and metadata</span></span>
@@ -248,10 +270,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows to confirm</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>df1.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The dataset was first reviewed to identify redundant or irrelevant columns. Tracking and metadata fields (such as ID, URL, LAST_UPDATED_TIMESTAMP, SOURCE_TYPES), raw text-heavy fields (BODY, TITLE_RAW), derived or modeled fields (MODELED_EXPIRED, MODELED_DURATION), company-specific tags, and multiple redundant education or occupation code versions (e.g., NAICS_2022_2_NAME, SOC_5) were dropped to reduce dimensional noise and simplify downstream processing. This step was guided by a predefined drop list and executed with safeguards to ignore missing columns.</p>
 </section>
 <section id="handling-missing-values" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="handling-missing-values"><span class="header-section-number">1.2</span> Handling Missing Values</h2>
-<div id="c9c0797a" class="cell" data-results="hide" data-execution_count="3">
+<div id="ab579ae3" class="cell" data-results="hide" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -260,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"figureswxw"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="e3a8359b" class="cell" data-execution_count="4">
+<div id="f259ac8d" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> missingno <span class="im">as</span> msno</span>
@@ -278,7 +301,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/missing_values_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<div id="64b02d29" class="cell" data-results="show" data-execution_count="5">
+<p>A missing values heatmap revealed that many columns—especially those related to occupations, certifications, and specialized skills (e.g., <code>ONET</code>, <code>LOT_OCCUPATION</code>, <code>SPECIALIZED_SKILLS_NAME</code>)—had substantial missing data. Columns with over 50% missing values were dropped, particularly those with overlapping or overly granular content. This step helped reduce redundancy and potential multicollinearity in the dataset.</p>
+<p>Key numeric fields such as SALARY and DURATION were imputed using median values to reduce the effect of outliers. For categorical variables like <code>REMOTE_TYPE_NAME</code>, <code>EMPLOYMENT_TYPE_NAME</code>, and <code>COMPANY_NAME</code>, missing values were replaced with “Unknown” to preserve data completeness.</p>
+<div id="1c7ec286" class="cell" data-results="show" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop columns with &gt;50% missing values</span></span>
@@ -303,13 +328,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="remove-duplicates" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="remove-duplicates"><span class="header-section-number">1.3</span> Remove Duplicates</h2>
-<div id="3170553c" class="cell" data-results="hide" data-execution_count="6">
+<div id="0117edfd" class="cell" data-results="hide" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df1.drop_duplicates(subset<span class="op">=</span>[<span class="st">"TITLE_CLEAN"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"CITY_NAME"</span>, <span class="st">"POSTED"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e620ef11" class="cell" data-results="show" data-execution_count="7">
+<p>Duplicate job postings were removed using a composite key made up of <code>TITLE_CLEAN</code>, <code>COMPANY_NAME</code>, <code>CITY_NAME</code>, and <code>POSTED_DATE</code>. We also excluded records with invalid or conflicting industry or occupation codes to ensure consistency.</p>
+<div id="507dc704" class="cell" data-results="show" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#improve</span></span>
@@ -322,30 +348,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"EMPLOYMENT_TYPE_NAME"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>Duplicate job postings were removed using a composite key made up of <code>TITLE_CLEAN</code>, <code>COMPANY_NAME</code>, <code>CITY_NAME</code>, and <code>POSTED_DATE</code>. We also excluded records with invalid or conflicting industry or occupation codes to ensure consistency.</p>
+<div id="de8821f9" class="cell" data-results="hide" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_AI"</span>] <span class="op">=</span> df1[<span class="st">"NAICS_2022_6_NAME"</span>].fillna(<span class="st">""</span>).<span class="bu">str</span>.contains(<span class="st">"AI|Artificial Intelligence"</span>, case<span class="op">=</span><span class="va">False</span>) <span class="op">|</span> <span class="op">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>               df1[<span class="st">"LOT_OCCUPATION"</span>].fillna(<span class="st">""</span>).<span class="bu">str</span>.contains(<span class="st">"AI|Artificial Intelligence"</span>, case<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_AI"</span>] <span class="op">=</span> df1[<span class="st">"IS_AI"</span>].<span class="bu">map</span>({<span class="va">True</span>: <span class="st">"AI"</span>, <span class="va">False</span>: <span class="st">"Non-AI"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To support analysis goals, we created two derived variables. The first, <code>IS_AI</code>, classified jobs as AI-related based on keywords such as “AI,” “Artificial Intelligence,” or “Machine Learning.” The second grouped job locations as either “Urban” or “Rural” based on a predefined list of major metro areas.</p>
+<p>This structured cleaning approach produced a streamlined, consistent dataset ready for accurate modeling, visualization, and geographic insight generation.</p>
 </section>
 </section>
 <section id="exploratory-data-analysis" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analysis</h1>
+<p>The exploratory data analysis phase focused on uncovering key structural patterns, trends, and relationships within the cleaned dataset. This step served as a bridge between raw data and informed modelling decisions. We conducted univariate and bivariate analyses to assess variable distributions, identify dominant job types, and detect potential outliers or data skewness.</p>
 <section id="remote-type-distribution" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="remote-type-distribution"><span class="header-section-number">2.1</span> Remote Type distribution</h2>
-<div id="d4fa1373" class="cell" data-execution_count="8">
+<div id="6932f11a" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>remote_counts.index, </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>remote_counts.values, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Remote Type Distribution"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Type"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figureswxw/remote_type_distribution.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>,  bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>remote_counts <span class="op">=</span> df1[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>remote_counts.index, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>remote_counts.values, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Set2"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Remote Type Distribution"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Remote Type"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"figureswxw/remote_type_distribution.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>,  bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -353,24 +394,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/remote_type_distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<div id="0a37c4c1" class="cell" data-results="hide" data-execution_count="9">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_AI"</span>] <span class="op">=</span> df1[<span class="st">"NAICS_2022_6_NAME"</span>].fillna(<span class="st">""</span>).<span class="bu">str</span>.contains(<span class="st">"AI|Artificial Intelligence"</span>, case<span class="op">=</span><span class="va">False</span>) <span class="op">|</span> <span class="op">\</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>               df1[<span class="st">"LOT_OCCUPATION"</span>].fillna(<span class="st">""</span>).<span class="bu">str</span>.contains(<span class="st">"AI|Artificial Intelligence"</span>, case<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_AI"</span>] <span class="op">=</span> df1[<span class="st">"IS_AI"</span>].<span class="bu">map</span>({<span class="va">True</span>: <span class="st">"AI"</span>, <span class="va">False</span>: <span class="st">"Non-AI"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<p>The bar chart illustrates the distribution of job postings by remote type, allowing us to evaluate how different work arrangements are represented in the dataset. The five categories include Remote, Hybrid Remote, Not Remote, Unknown, and [None] (where no remote type is specified).</p>
+<p>The most prominent finding is that the majority of job postings—approximately 55,000 entries—are labeled as [None], meaning no remote type was recorded. This accounts for roughly 75% of all postings, indicating a significant inconsistency or gap in how remote work arrangements are captured in job listings.</p>
+<p>Among the postings that do specify a remote type: * Remote jobs make up about 12,000 postings, representing roughly 16% of the total dataset.</p>
+<ul>
+<li><p>Hybrid Remote roles total around 2,500 postings, or approximately 3%.</p></li>
+<li><p>Not Remote (fully on-site) roles account for fewer than 1,000 entries, making up less than 2% of the dataset.</p></li>
+<li><p>Unknown entries are minimal, with fewer than 500 postings.</p></li>
+</ul>
+<p>These results suggest that while remote roles are clearly present in the dataset, their actual prevalence may be underreported due to missing or incomplete labeling. Additionally, fully on-site jobs appear to be less frequently tagged or advertised as such, possibly reflecting a shift in employer focus or changes in how job flexibility is communicated.</p>
 </section>
 <section id="top-10-states-ai-vs-non-ai-job-postings" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="top-10-states-ai-vs-non-ai-job-postings"><span class="header-section-number">2.2</span> Top 10 states : AI vs Non-AI Job Postings</h2>
-<div id="98fa7fac" class="cell" data-execution_count="10">
+<div id="0a5eea23" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>top_states <span class="op">=</span> df1[<span class="st">"STATE_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
@@ -394,10 +430,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/top_states_ai_nonai.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The stacked bar chart illustrates the distribution of AI and non-AI job postings across the ten states with the highest total job postings in the dataset. From the chart, we can see that Texas has the highest total job postings, with approximately 8,000 positions. Among these, AI-related jobs account for a small portion, estimated at around 400–500 postings, representing roughly 5% to 6% of the total in Texas. California follows closely, with about 7,000 total postings and approximately 200–300 AI-related jobs, or roughly 3% to 4% of its total. Other states in the top 10, such as Florida, Illinois, and New York, each have between 3,000 and 4,000 total postings, with AI-related roles making up an even smaller share, generally under 3%.</p>
+<p>The visualization reveals that non-AI jobs dominate in all top states, emphasizing that while AI hiring is present, it constitutes only a small fraction of overall job demand.</p>
+<p>States like Texas and California, while leaders in AI job volume, still offer significant room for AI job expansion relative to overall hiring activity.</p>
 </section>
 <section id="top-10-cities-ai-vs-non-ai-job-postings" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="top-10-cities-ai-vs-non-ai-job-postings"><span class="header-section-number">2.3</span> Top 10 cities: AI vs Non-AI Job Postings</h2>
-<div id="c1d7ea56" class="cell" data-execution_count="11">
+<div id="4fcca713" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>top_cities <span class="op">=</span> df1[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
@@ -421,10 +460,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/top_cities_ai_nonai.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>The stacked bar chart illustrates the distribution of AI and non-AI job postings across the ten cities with the highest total job postings in the dataset.</p>
+<p>Among major U.S. cities, New York, NY leads with the highest number of job postings, totaling approximately 2,100, of which AI-related roles account for 5% to 7% (roughly 100–150 listings). Chicago, IL and Austin, TX follow closely, each with 1,800 to 1,900 postings, where AI positions represent about 4% to 6% of the total. Atlanta, GA reports around 1,700 listings, with AI jobs making up approximately 5%. Interestingly, San Francisco, CA, despite being a recognized tech hub, shows a comparatively lower total of about 900 postings, though AI roles still constitute around 4%. Other top cities—Boston, MA; Dallas, TX; Houston, TX; Charlotte, NC; and Washington, DC—each feature 1,000 to 1,400 job postings, with AI-related jobs comprising 3% to 6%. These figures highlight that while AI roles are emerging across urban markets, they remain a modest share of overall job opportunities, even in traditionally tech-focused regions.</p>
+<p>Overall, the chart reveals that in all top cities, non-AI job postings dominate. However, cities like New York, Austin, and Chicago demonstrate a slightly higher share of AI-related jobs compared to others. This suggests that while AI hiring is present across major urban centers, it remains a small subset of total job demand.</p>
 </section>
 <section id="time-trend-of-remote-work-types" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="time-trend-of-remote-work-types"><span class="header-section-number">2.4</span> Time Trend of Remote Work Types</h2>
-<div id="fbe1ee89" class="cell" data-execution_count="12">
+<div id="170c6c8b" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"POSTED"</span> <span class="kw">in</span> df1.columns:</span>
@@ -451,10 +493,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/remote_trend_over_time.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>This line chart compares monthly hiring trends in tech hubs versus other locations from May to September 2024. Cities designated as “tech hubs” include San Francisco, Austin, and Boston, based on their historical dominance in the U.S. technology sector. These were manually classified using the <code>CITY_NAME</code> variable. All remaining cities were grouped under the “Other” category.</p>
+<p>The chart displays only the “Other” trend line because job postings from designated tech hubs were either minimal or not present in the dataset during the selected period. This may suggest a temporary drop in hiring activity within traditional hubs or limitations in how <code>CITY_NAME</code> values are recorded and parsed in the raw data.</p>
+<p>Key observations emerge from the “Other” category:</p>
+<ul>
+<li><p>Job postings exhibited a noticeable fluctuation over the observed period, starting at approximately 15,000 in May, dipping to around 12,400 in July, and then rebounding to over 15,000 by September. This pattern reflects a typical mid-year hiring slowdown followed by a Q3 recovery, consistent with known seasonal trends in recruitment cycles.</p></li>
+<li><p>The relatively low job volume from traditional tech hubs, such as San Francisco, may point to either a genuine geographic shift in hiring or issues related to data consistency—for instance, inconsistent city name formats (e.g., “San Francisco, CA” vs.&nbsp;“San Francisco”). Broadening the definition of tech hubs to include cities like Seattle or New York could offer a clearer picture of regional dynamics.</p></li>
+</ul>
+<p>Notably, this trend supports recent research suggesting a decentralization of high-skill and AI-related job opportunities beyond traditional innovation centers (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>). As remote and hybrid work arrangements become more embedded in organizational strategies, emerging cities may increasingly attract top talent and cultivate localized innovation ecosystems.</p>
 </section>
 <section id="tech-hubs-vs-other-locations-hiring-trends" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="tech-hubs-vs-other-locations-hiring-trends"><span class="header-section-number">2.5</span> Tech Hubs vs Other Locations Hiring Trends</h2>
-<div id="5941cc6b" class="cell" data-execution_count="13">
+<div id="33422ac3" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">"IS_HUB"</span>] <span class="op">=</span> df1[<span class="st">"CITY_NAME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"Hub"</span> <span class="cf">if</span> x <span class="kw">in</span> [<span class="st">"San Francisco"</span>, <span class="st">"Austin"</span>, <span class="st">"Boston"</span>] <span class="cf">else</span> <span class="st">"Other"</span>)</span>
@@ -476,10 +526,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/techhub_vs_other_trend.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>A line plot tracking hiring trends from May to September 2024 reveals notable patterns in job postings across non-tech hub cities compared to traditional tech hubs. Cities were categorized using the CITY_NAME field into “Hub” (San Francisco, Austin, Boston) or “Other”, with the classification stored in a new IS_HUB column. However, the resulting visualization only displays the “Other” group, with no visible data for “Hub” cities—likely due to data sparsity or inconsistent city naming conventions (e.g., “San Francisco” vs.&nbsp;“San Francisco, CA”) that inadvertently filtered out hub entries.</p>
+<p>For non-hub cities, the data shows a clear seasonal pattern: job postings peaked at 15,000 in May, dipped to 12,400 by July, then rebounded sharply to over 15,200 by September. This trajectory aligns with typical summer hiring slowdowns followed by a Q3 recovery, suggesting sustained and dynamic labor demand in non-traditional locations.</p>
+<p>Despite the lack of visible data from tech hubs, the strong activity among non-hub cities supports the hypothesis that job growth—particularly for remote and hybrid roles—is shifting beyond legacy innovation centers. As companies explore cost-effective expansion and distributed workforce models, emerging cities are becoming increasingly attractive for both employers and job seekers. This trend reinforces findings from recent research on the geographic decentralization of knowledge work (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>).</p>
 </section>
 <section id="remote-job-trend-by-industry" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="remote-job-trend-by-industry"><span class="header-section-number">2.6</span> Remote Job Trend by Industry</h2>
-<div id="69e23cb4" class="cell" data-execution_count="14">
+<div id="227f5734" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>top_industries <span class="op">=</span> (</span>
@@ -522,10 +575,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/remote_trend_top5_industry.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
+<p>This section examines the temporal dynamics of remote job postings across the top 10 industries, as classified by the <code>NAICS_2022_6_NAME</code> field, from May to September 2024. The analysis leverages monthly aggregation based on the POSTED date to detect changes in hiring patterns over time.</p>
+<p>To identify the most active sectors, the dataset was grouped by industry and sorted by total job postings. The top 10 industries were then isolated for visualization. These include a diverse set of sectors such as Administrative Management and General Management Consulting Services, Computer Systems Design Services, Commercial Banking, and Employment Placement Agencies, among others.</p>
+<p>The resulting line chart reveals several key trends in remote job postings by industry from May to September 2024. Administrative Management and Consulting consistently led in remote hiring activity, exceeding 1,800 postings per month and peaking at over 2,000 in September. Computer-related industries, such as Computer Systems Design Services and Custom Computer Programming Services, followed closely. Though these sectors experienced a slight decline in July, they steadily recovered through August and September, reflecting sustained demand for remote tech talent.</p>
+<p>Other industries, including finance (Commercial Banking) and healthcare (Direct Health and Medical Insurance Carriers), maintained moderate yet stable levels of remote job postings—typically between 700 and 1,000 per month—signaling ongoing digital transformation in these sectors. In contrast, employment services industries (e.g., Temporary Help Services and Employment Placement Agencies) exhibited greater volatility, with postings fluctuating between 250 and 600 monthly, suggesting heightened sensitivity to short-term labor market conditions.</p>
+<p>A broad decline in remote job postings across all sectors was observed in July, likely tied to seasonal hiring slowdowns, but most industries showed a robust recovery in August and September. Overall, the data confirms that while technology continues to dominate remote hiring, consulting, finance, and healthcare are also playing substantial roles in the expansion of remote work opportunities.</p>
 </section>
 <section id="urbanrural-region-ai-vs-non-ai-job-postings" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="urbanrural-region-ai-vs-non-ai-job-postings"><span class="header-section-number">2.7</span> Urban/Rural Region: AI vs Non-AI Job Postings</h2>
-<div id="685d8b5b" class="cell" data-results="hide" data-execution_count="15">
+<div id="ea608dc8" class="cell" data-results="hide" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>urban_cities <span class="op">=</span> [</span>
@@ -544,7 +602,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="stacked-bar-chart" class="level3" data-number="2.7.1">
 <h3 data-number="2.7.1" class="anchored" data-anchor-id="stacked-bar-chart"><span class="header-section-number">2.7.1</span> Stacked Bar Chart</h3>
-<div id="39e7db95" class="cell" data-results="hide" data-execution_count="16">
+<div id="d24820fc" class="cell" data-results="hide" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> {<span class="st">"Urban_Rural"</span>, <span class="st">"IS_AI"</span>}.issubset(df1.columns):</span>
@@ -579,7 +637,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pie-chart" class="level3" data-number="2.7.2">
 <h3 data-number="2.7.2" class="anchored" data-anchor-id="pie-chart"><span class="header-section-number">2.7.2</span> Pie Chart</h3>
-<div id="6585fa1d" class="cell" data-results="hide" data-execution_count="17">
+<div id="588aa6ae" class="cell" data-results="hide" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -614,13 +672,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="figureswxw/urban_rural_ai_nonai_pie_combined.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-cap="Urban and Rural Regions: AI vs Non-AI Job Postings"></p>
 </figure>
 </div>
+<p>This part compares the distribution of AI and non-AI job postings between urban and rural regions. The stacked bar chart shows that rural areas account for a significantly higher total volume of job postings, with approximately 58,000 postings, compared to about 14,000 in urban regions. However, this difference in volume does not translate to a significant disparity in the share of AI roles.</p>
+<p>The pie charts provide a more precise view of the proportion of AI jobs in each region. In urban areas, AI postings represent 3.9% of all job listings, while in rural areas, the share is 4.0%. Despite the substantial gap in absolute job counts, the proportion of AI-related positions is nearly identical between the two regions. This indicates that AI jobs are being adopted at a comparable rate, regardless of regional setting.</p>
+<p>These findings suggest that while urban centres no longer hold a dominant lead in AI hiring volume, rural regions are not significantly lagging behind in AI adoption rate either. This aligns with recent research showing that AI-related opportunities are beginning to diffuse beyond traditional tech hubs, enabling more balanced geographic access to emerging roles (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>).</p>
+
 
 
 </section>
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Hsu2024" class="csl-entry" role="listitem">
+Hsu, D. H., &amp; Tambe, P. (2024). Remote work and job applicant diversity: Evidence from technology startups. <em>Management Science</em>. <a href="https://doi.org/10.1287/mnsc.2022.03391">https://doi.org/10.1287/mnsc.2022.03391</a>
+</div>
+<div id="ref-Tan2023" class="csl-entry" role="listitem">
+Tan, S., Fang, K., &amp; Lester, T. (2023). Post-pandemic travel patterns of remote tech workers. <em>Transportation Research Interdisciplinary Perspectives</em>. <a href="https://doi.org/10.1016/j.trip.2023.100804">https://doi.org/10.1016/j.trip.2023.100804</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
