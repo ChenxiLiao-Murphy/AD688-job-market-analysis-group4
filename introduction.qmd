@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 bibliography: references.bib
-csl: csl/econometrica.csl
+csl: csl/apa.csl
 format:
   html:
     toc: true
@@ -10,3 +10,11 @@ format:
 ---
 
 
+
+The rise of remote work, accelerated by the COVID-19 pandemic, has significantly reshaped the labour market and job geography in the United States and beyond. This shift has introduced new dynamics in how and where work is performed, with important implications for job accessibility, regional economies, and employment equity ( @Hansen2023). Geographic patterns now play a key role in determining access to job opportunities. Remote work adoption has been uneven across industries and cities, presenting both challenges and opportunities for regional development.
+
+At the same time, the growth of artificial intelligence (AI) is changing the types of jobs that are available. AI-related jobs may either cluster in a few established tech hubs, such as Boston, New York City, and Los Angeles, or spread more evenly across regions, influencing regional economic balance (@Hsu2024). These trends could either reinforce or reduce geographic inequalities. Understanding these shifts is essential, as they affect job seekers’ decisions, employer location strategies, and regional economic resilience.
+
+The year 2024 represents a critical moment in these developments. Hybrid work has become more common, and some companies are encouraging employees to return to the office (@Tahlyan2024). At the same time, new tech hubs are emerging outside of traditional centers like Silicon Valley. These emerging hubs may offer fresh opportunities for regions that have not been tech leaders in the past (@Tan2023). Remote work trends and the decentralisation of AI-related and other high-skill jobs could reshape the distribution of employment and economic activity.
+
+This project aims to analyze geographic variations in AI and non-AI job growth, the prevalence of remote work across locations, and the evolving role of traditional and emerging tech hubs in the 2024 labor market. We expect to identify leading metropolitan statistical areas (MSAs) for both AI and non-AI jobs, assess whether remote work opportunities are continuing to expand or plateau, and determine if job growth is becoming more geographically dispersed or remains concentrated. These findings will help job seekers and employers make informed decisions on where to focus their efforts, based on the changing interplay of AI adoption, remote work, and regional economic trends (@Zheng2024).

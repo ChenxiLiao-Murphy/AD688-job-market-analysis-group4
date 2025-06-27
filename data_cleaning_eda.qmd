@@ -16,11 +16,8 @@ execute:
 ---
 
 
-# Data Cleaning & Exploration
+# Data Cleaning 
 
-This page provides an overview of the data cleaning and initial exploration process for the job market dataset.
-
-_Content will be added here._
 
 
 

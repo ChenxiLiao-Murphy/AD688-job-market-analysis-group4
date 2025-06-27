@@ -1,5 +1,34 @@
 ---
 title: "About"
+bibliography: references.bib
+csl: csl/apa.csl
+format:
+  html:
+    toc: true
+    number-sections: true
+    df-print: paged
 ---
 
-About this site
+
+# About This Project
+This project explores the evolving landscape of the U.S. job market through the lens of geographic distribution and remote work trends. Leveraging Lightcast's extensive job postings dataset, we analyze how employment patterns differ across regions, industries, and occupations, with a focus on:
+
+* The rise of AI-related job opportunities versus non-AI roles;
+
+* Regional shifts in job availability and growth across states and metropolitan areas;
+
+* The impact and distribution of remote, hybrid, and onsite work models;
+
+* Emerging career paths in both urban and rural labor markets.
+
+By combining Exploratory Data Analysis (EDA), Spark SQL, Natural Language Processing (NLP), and Machine Learning (including PCA and clustering), our project aims to uncover hidden structures in job posting data and generate actionable insights for students, job seekers, and policymakers navigating the post-pandemic workforce.
+
+This project was developed as part of AD688 Web Analytics and Big Data Tools at Boston University, integrating large-scale data processing and visualization techniques to inform real-world workforce decisions.
+
+# Team Members:
+* Chenxi(Murphy) Liao   <murphyy@bu.edu> 
+
+*  Yijiun(Eugenia) Tseng   <yijiun@bu.edu>
+
+* Xiangwen(Rosa) Wang   <wxwrosa@bu.edu>
+
