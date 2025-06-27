@@ -7,8 +7,7 @@ format:
     toc: true
     code-fold: true
     number-sections: true
-bibliography: references.bib
-csl: csl/econometrica.csl
+
 execute:
     echo: true
     eval: false
