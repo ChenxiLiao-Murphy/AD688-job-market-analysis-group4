@@ -26,14 +26,20 @@ By combining Exploratory Data Analysis (EDA), Spark SQL, Natural Language Proces
 This project was developed as part of AD688 Web Analytics and Big Data Tools at Boston University, integrating large-scale data processing and visualization techniques to inform real-world workforce decisions.
 
 # Team Members
-* Chenxi(Murphy) Liao      <murphyy@bu.edu>
+# Team Members and Contributions
 
-*  Yijiun(Eugenia) Tseng   <yijiun@bu.edu>
+This project was a collaborative effort conducted by a three-member team, with each member responsible for distinct technical and strategic modules:
 
-* Xiangwen(Rosa) Wang      <wxwrosa@bu.edu>
+- **Xiangwen (Rosa) Wang** (<wxwrosa@bu.edu>)  
+  Led the **Data Cleaning & EDA** phase, including preprocessing of raw datasets, remote/AI classification, and visualization of job distributions.  
+  Spearheaded the **NLP-based Skill Gap Analysis**, extracting in-demand skills and aligning them with team competencies.  
+  Oversaw the **entire project timeline**, coordinated team deliverables ahead of deadlines, and ensured design consistency across all `.qmd` files and the Quarto website.  
+  Played a central role in structuring the final report and presentation layout.
 
+- **Chenxi (Murphy) Liao** (<murphyy@bu.edu>)  
+  Responsible for both **Unsupervised Learning** and **Supervised Learning** modules.  
+  Applied **KMeans clustering** to identify job market segments based on occupational and geographic features, and implemented classification/regression models to analyze remote type and salary trends.
 
-
-
-
-![](figureswxw/BU_logo1.png.png){width=50% fig-align='center'}
+- **Yijiun (Eugenia) Tseng** (<yijiun@bu.edu>)  
+  Focused on the **Enhanced EDA** module, producing in-depth geographic visualizations of job type and remote patterns.  
+  Co-developed the **Skill Gap Analysis**, emphasizing skill demand trends and upskilling recommendations for target roles.
