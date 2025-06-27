@@ -22,7 +22,7 @@ website:
      
 format:
   html:
-    theme: morph
+    theme: vapor
     toc: true
     code-fold: true
 
