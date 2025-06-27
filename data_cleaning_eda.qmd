@@ -606,3 +606,9 @@ The pie charts provide a more precise view of the proportion of AI jobs in each 
 
 
 These findings suggest that while urban centres no longer hold a dominant lead in AI hiring volume, rural regions are not significantly lagging behind in AI adoption rate either. This aligns with recent research showing that AI-related opportunities are beginning to diffuse beyond traditional tech hubs, enabling more balanced geographic access to emerging roles (@Hsu2024).
+
+
+
+# Summary
+
+
