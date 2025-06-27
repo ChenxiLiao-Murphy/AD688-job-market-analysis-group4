@@ -240,7 +240,7 @@ This skill gap analysis reveals that while our team possesses a well-rounded tec
 
 However, average scores in Machine Learning, Cloud Computing, and Docker remain below expectations. These areas are essential for implementing AI models and managing scalable, cloud-native solutions. The absence of stronger proficiency here may constrain the team’s ability to meet the evolving demands of data-driven, production-ready environments (@shuffler2015team).
 
-* Individual profiles offer valuable insight into team strengths：
+Individual profiles offer valuable insight into team strengths：
 
 - Xiangwen demonstrates consistently high performance across all evaluated domains, suggesting readiness for full-stack technical roles.
 
@@ -248,7 +248,7 @@ However, average scores in Machine Learning, Cloud Computing, and Docker remain 
 
 - Chenxi shows notable competence in AWS, aligning with infrastructure and cloud deployment support.
 
-* While these complementary strengths support internal collaboration, the team would benefit from structured upskilling efforts：
+While these complementary strengths support internal collaboration, the team would benefit from structured upskilling efforts：
 
 - Docker & Containerization: Include not only Docker but also related tools like AWS ECS and Kubernetes, emphasizing real-world deployment scenarios.
 

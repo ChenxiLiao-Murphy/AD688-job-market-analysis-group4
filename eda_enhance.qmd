@@ -79,7 +79,7 @@ plt.show()
 
 ![](figurestyj/job_count_by_industry.png){width=100% fig-align='center'}
 
-
+The bar chart illustrates the distribution of job postings by industry based on NAICS Level 2 classifications. Professional, Scientific, and Technical Services leads with over 20,000 postings, highlighting continued demand for high-skilled roles in fields such as software development, data analytics, and consultancy. In second place, Administrative and Support and Waste Management Services records approximately 9,000 postings, suggesting consistent labor needs in operational and support functions. Notably, over 11,000 jobs are grouped under “Unclassified Industry”, indicating either a lack of proper NAICS tagging or alternative sourcing paths. This limits interpretability and cross-sector benchmarking. Researchers including CBRE (2023) (@cbre2023tech) and the Brookings Institution (2020) (@brookings2020jobs) advocate for improving classification accuracy to enable better labor market diagnostics.
 
 
 # Job Count by City (Top 15)
@@ -106,6 +106,9 @@ plt.show()
 
 ![](figurestyj/top_cities_job_count.png){width=100% fig-align='center'}
 
+The chart ranks the top 15 cities by job volume. New York, NY tops the list with more than 2,100 postings, reinforcing its status as a diversified employment center. Chicago, IL and Atlanta, GA follow with approximately 1,800–1,900 postings, reflecting strong hiring across urban hubs. Mid-sized cities like Austin, Dallas, and Charlotte maintain substantial job flows, each reporting over 1,400 roles, highlighting their rise as regional economic centers. By contrast, San Francisco shows fewer than 1,000 postings, which may reflect data inconsistencies in city naming conventions or broader decentralization of hiring (@cbre2023tech). These patterns support the view that talent is dispersing from traditional tech clusters.
+
+
 
 # Job Count by State
 ```{python}
@@ -129,6 +132,8 @@ plt.show()
 ```
 
 ![](figurestyj/top_states_job_count.png){width=100% fig-align='center'}
+
+The bar chart summarizes job volumes by state, with Texas and California firmly in the lead—reporting over 8,000 and 7,000 postings, respectively. Florida, Virginia, and Illinois follow with between 4,000–5,000, showing robust job demand in both coastal and inland economies. Several mid-sized states such as Michigan, Arizona, and Massachusetts also appear, each posting around 2,000–2,500 jobs, confirming their growing role in the distributed labor landscape. These findings align with post-pandemic observations that workforce opportunities are diversifying geographically (@brookings2020jobs).
 
 
 
@@ -166,6 +171,10 @@ plt.show()
 
 ![](figurestyj/state_industry_heatmap.png){width=100% fig-align='center'}
 
+The heatmap presents cross-tabulated job postings by industry and state. Texas dominates in Professional, Scientific, and Technical Services (3,046 postings), followed by California (2,303), suggesting a concentration of high-value roles. Texas also registers significant numbers in Administrative Services (860) and Finance and Insurance (703), illustrating sectoral diversity. New York, although lower in total volume, ranks second in Finance and Insurance (483)—a reflection of its enduring strength in financial services. Meanwhile, California demonstrates notable demand in Information (480) and Administrative Services (949), pointing to its dual focus on technology and operational infrastructure. These distributions are consistent with Bureau of Labor Statistics (2024) (@bls2024industry) data on regional industry specialization.
+
+
+
 
 # Remote Job Distribution by State
 ```{python}
@@ -194,4 +203,12 @@ plt.show()
 
 
 
+This stacked bar chart illustrates the distribution of remote, hybrid, and on-site jobs across states. Texas again ranks first, posting over 8,000 jobs, with more than 2,000 labeled as Remote or Hybrid Remote. California and Florida closely follow, both exceeding 7,000 total postings, and California alone has over 1,800 Remote jobs. Virginia, Illinois, and New York show balanced adoption of flexible work types, with Virginia particularly strong in hybrid arrangements. These results mirror national trends highlighting the growth of remote work, especially in knowledge-intensive occupations (@Hsu2024 ). The state-level differences may reflect varying industry compositions and remote-readiness infrastructure.
+
+
+
+
+# Summary 
+
+This geographic analysis reveals several core dynamics shaping the U.S. labor market. Texas and California consistently lead in job count, sector diversity, and remote job availability. At the city level, New York, Chicago, and Atlanta remain dominant, yet the emergence of mid-sized cities such as Austin and Charlotte signals a shift toward regional diffusion of opportunities. Professional, Scientific, and Technical Services remains the top industry nationwide, while categories like Administrative Support and Information exhibit state-level specialization. The widespread presence of remote work, especially in high-demand states, reinforces research on post-pandemic labor decentralization (@Hsu2024; @Tan2023). However, the prevalence of the “Unclassified Industry” label continues to limit granularity, emphasizing the need for improved data standardization to support informed policy and workforce planning.
 

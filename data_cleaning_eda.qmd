@@ -611,4 +611,10 @@ These findings suggest that while urban centres no longer hold a dominant lead i
 
 # Summary
 
+The data preprocessing and enhanced exploratory analysis revealed significant patterns and structural imbalances in job postings across geography, industry, and job type. Initial cleaning efforts ensured a streamlined dataset by removing redundant metadata, imputing missing values, and consolidating classification systems. A particularly critical finding was the inconsistency in how remote work types were recorded, with over 70% of postings lacking explicit labels—highlighting a key limitation in raw data quality.
 
+Subsequent analysis revealed that while remote jobs and AI-related roles are emerging, they still represent a minority across most states, cities, and industries. Major hubs like California, Texas, and New York dominate in absolute job volume, yet the proportion of AI jobs remains modest even in these tech-forward regions. Interestingly, rural areas contribute a larger share of total job postings than urban centers, although the adoption rate of AI-related roles remains consistent across both regions.
+
+Industry-level trends underscore the increasing importance of remote-friendly sectors such as consulting, IT services, and finance, with seasonal hiring slowdowns and rebounds observed over the summer. The clear separation of remote job patterns by industry and location reinforces the need for targeted policy and workforce development strategies, particularly in supporting emerging regions and industries.
+
+These insights laid a solid foundation for downstream machine learning and skill gap analysis by surfacing meaningful segmentation variables (e.g., job type, region, NAICS code) and highlighting structural gaps that require attention in future workforce planning.
