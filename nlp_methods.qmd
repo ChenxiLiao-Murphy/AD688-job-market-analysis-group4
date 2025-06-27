@@ -66,6 +66,9 @@ def clean_text(text):
 job_desc_clean = job_desc.apply(clean_text)
 ```
 
+The above steps load job description text from the `BODY` field and apply basic text preprocessing. This includes lowercasing, removal of numbers and special characters, which helps standardize the input for downstream natural language processing tasks such as TF-IDF vectorization or topic modeling.
+
+
 
 # TF-IDF Analysis: Top Keywords
 ```{python}
@@ -108,6 +111,21 @@ plt.show()
 
 ![](figurestyj/tfidf_keywords.png){width=120% fig-align="center"}
 
+The bar chart presents the 15 most prominent terms extracted through Term Frequency–Inverse Document Frequency (TF-IDF), a widely used technique in Natural Language Processing (NLP) for identifying important keywords in a collection of documents. In this case, the documents are job descriptions from the Lightcast dataset.
+
+Among the top-ranked terms, “data” stands out as the most significant, followed by “experience”, “business”, and “job”. These results highlight the central role of data-centric roles in the job market and emphasize the importance of relevant professional experience. Keywords such as “skills”, “SAP”, and “management” also appear frequently, suggesting that employers value proficiency in technical tools, leadership ability, and demonstrable skillsets.
+
+This distribution reveals several important trends:
+
+- Data proficiency is a core requirement across many industries, confirming the market’s increasing demand for data-literate professionals.
+
+- Experience and business understanding are consistently prioritized, reinforcing the need for candidates to demonstrate both domain knowledge and practical work exposure.
+
+- Soft and functional skills—such as teamwork, communication, and technical support—remain critical, as shown by the inclusion of terms like “team”, “support”, and “solutions”.
+
+Overall, the TF-IDF analysis provides useful insights into the real-world competencies most frequently emphasized by employers. These findings can inform job seekers on how to tailor their resumes and guide educators or training programs in designing relevant upskilling content.
+
+
 
 # Word Cloud Visualization
 ```{python}
@@ -145,10 +163,11 @@ plt.show()
 
 ![](figurestyj/jobdesc_wordcloud.png){width=120%}
 
-The results from the TF-IDF analysis reveal that the most distinctive keywords across job postings are "data", "experience", "business", and "job". These terms highlight the prevalence of data-centric roles in the current job market and underscore the significance of prior professional experience as a hiring criterion. Other frequently weighted terms include "skills", "management", and "team", which indicate that employers are seeking candidates who possess both technical competencies and the ability to collaborate effectively within organizational structures.
+
 
 In addition to the TF-IDF results, the word cloud visualization further enriches our understanding by emphasizing the recurring presence of phrases such as "bachelors degree", "data analyst", "support", and "ability". This aligns with expectations that many job postings include educational qualifications and role-specific technical terms. Moreover, the word cloud captures compliance-related language such as "gender identity", "sexual orientation", and "national origin". These terms are commonly found in equal opportunity employment disclosures and reflect widespread adherence to diversity and inclusion standards in job advertisements.
 
+# Conclusion
 Collectively, the TF-IDF scores and the word cloud suggest several dominant themes within job descriptions. First, there is a consistent emphasis on technical qualifications, including skills in data analysis, cloud platforms, and tools such as Python and SAP. Second, postings frequently reference soft skills such as management, communication, and teamwork. Third, many job ads incorporate legal or standardized phrasing associated with hiring equity and regulatory compliance. Lastly, there is a strong focus on candidates’ educational background and accumulated experience.
 
 These findings provide actionable guidance for job seekers, especially those pursuing roles in AI, tech, or data-related fields. Individuals are encouraged to showcase both technical expertise and interpersonal effectiveness in their resumes. Additionally, familiarity with standardized workplace language and professional communication expectations may enhance alignment with employer requirements.
