@@ -48,7 +48,6 @@ This project was a collaborative effort conducted by a three-member team, with e
 
 ## AI Job Growth: Which Cities and States Lead?
 
-- **Which cities or states have the highest job growth for AI vs. non-AI careers?**
 
 The job market for both AI and non-AI roles reveals a clear pattern of geographic concentration, particularly within a few dominant states and metropolitan areas. Texas stands out with the highest total number of job postings overall, driven primarily by non-AI roles, yet it still maintains a competitive presence in AI-related positions. California and New York also lead in AI job counts, underscoring their continued dominance in technology-driven employment. However, even in these leading states, AI roles comprise only a small fraction of total postings, reflecting the relatively slower expansion of AI-specific occupations compared to traditional roles.
 
@@ -58,7 +57,6 @@ At the city level, New York City, Chicago, and Austin emerge as top hubs for AI 
 
 ## Remote Job Trends: Increasing or Decreasing?
 
-- **Are remote jobs increasing or decreasing across industries?**
 
 Despite the growing visibility of remote work, current job market data reveals several inconsistencies and challenges in tracking remote job trends across industries. One of the major limitations lies in the inconsistency of remote job labeling—over 55,000 postings lack clear classification, significantly reducing the reliability of remote job trend analysis.
 
@@ -70,7 +68,6 @@ These findings indicate that while remote work remains an important part of the 
 
 ## Urban vs. Rural Job Markets for AI
 
-- **How do urban vs. rural job markets differ for AI and non-AI careers?**
 
 The primary distinction between urban and rural job markets lies in the volume of total job postings, rather than the relative share of AI jobs. As shown in the bar chart, rural areas post a significantly higher number of job openings overall, including both AI and non-AI roles. However, the proportion of AI jobs remains similar across regions—approximately 4% of total postings in both urban and rural areas, as reflected in the pie charts.
 
@@ -82,7 +79,6 @@ This insight implies that job seekers in rural areas may now access comparable A
 
 ## Are Tech Hubs Still Dominant?
 
-- **Do tech hubs (e.g., Silicon Valley, Austin, Boston) still dominate hiring, or are other locations emerging?**
 
 From the city perspective, New York, Chicago, and Atlanta lead in job counts, each with over 1,500 jobs. Interestingly, none of these cities are considered tech hubs. Instead, most tech hub cities fall into the medium range, with job counts between 1,000 and 1,500.
 

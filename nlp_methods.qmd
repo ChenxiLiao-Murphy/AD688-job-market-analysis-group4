@@ -167,7 +167,7 @@ plt.show()
 
 In addition to the TF-IDF results, the word cloud visualization further enriches our understanding by emphasizing the recurring presence of phrases such as "bachelors degree", "data analyst", "support", and "ability". This aligns with expectations that many job postings include educational qualifications and role-specific technical terms. Moreover, the word cloud captures compliance-related language such as "gender identity", "sexual orientation", and "national origin". These terms are commonly found in equal opportunity employment disclosures and reflect widespread adherence to diversity and inclusion standards in job advertisements.
 
-# Conclusion
+# Summery
 Collectively, the TF-IDF scores and the word cloud suggest several dominant themes within job descriptions. First, there is a consistent emphasis on technical qualifications, including skills in data analysis, cloud platforms, and tools such as Python and SAP. Second, postings frequently reference soft skills such as management, communication, and teamwork. Third, many job ads incorporate legal or standardized phrasing associated with hiring equity and regulatory compliance. Lastly, there is a strong focus on candidates’ educational background and accumulated experience.
 
 These findings provide actionable guidance for job seekers, especially those pursuing roles in AI, tech, or data-related fields. Individuals are encouraged to showcase both technical expertise and interpersonal effectiveness in their resumes. Additionally, familiarity with standardized workplace language and professional communication expectations may enhance alignment with employer requirements.
