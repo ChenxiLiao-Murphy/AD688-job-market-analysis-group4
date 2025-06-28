@@ -17,7 +17,7 @@ execute:
 
 This section presents the skill gap analysis between job requirements and available workforce skills.
 
-# Team score DataFrame
+# Team Score DataFrame
 
  Firstly, presents a structured evaluation of the current technical skill levels across all team members. 
  The aim is to understand the team’s collective readiness for data and IT-related roles by profiling their strengths and identifying potential gaps.
@@ -125,7 +125,7 @@ By following these strategies, the team can elevate its technical capacity, meet
 
 
 
-# Compare with top job market skills
+# Compare with Top Job Market Skills
 To identify potential skill gaps, we compare our team’s average skills with those most in demand across job descriptions.
 
 ## Compute Average Team Skills vs Industry Expectations
@@ -182,7 +182,7 @@ Therefore, this distribution suggests a need for strategic skill investment. Acc
 
 
 
-# Extract Top In-Demand Skills from Job Descriptions
+## Extract Top In-Demand Skills from Job Descriptions
 Examine the actual job postings to extract which skills are most frequently requested using keyword matching.
 ```{python}
 
@@ -204,7 +204,7 @@ top_skills = [skill for skill, count in skill_counts.most_common(5)]
 ```
 
 
-# Visualize Top 5 Industry Skills
+### Visualize Top 5 Industry Skills
 ```{python}
 
 #| echo: true

@@ -24,7 +24,7 @@ execute:
 
 The data cleaning process was designed to improve data quality and provide a reliable foundation for analysis. 
 
-We began by removing irrelevant and redundant columns. These included tracking metadata (such as `ID`, `URL`, and `LAST_UPDATED_TIMESTAMP`) and raw text-heavy fields (like `BODY` and `TITLE_RAW`) that added noise without offering analytical value. Multiple versions of `NAICS` and `SOC codes were also removed, keeping only the most detailed levels to ensure clarity while reducing duplication.
+We began by removing irrelevant and redundant columns. These included tracking metadata (such as `ID`, `URL`, and `LAST_UPDATED_TIMESTAMP`) and raw text-heavy fields (like `BODY` and `TITLE_RAW`) that added noise without offering analytical value. Multiple versions of `NAICS` and `SOC` codes were also removed, keeping only the most detailed levels to ensure clarity while reducing duplication.
 
 
 ```{python}
@@ -83,7 +83,7 @@ df1.drop(columns=columns_to_drop, inplace=True, errors="ignore")
 df1.head()
 ```
 
-The dataset was first reviewed to identify redundant or irrelevant columns. Tracking and metadata fields (such as ID, URL, LAST_UPDATED_TIMESTAMP, SOURCE_TYPES), raw text-heavy fields (BODY, TITLE_RAW), derived or modeled fields (MODELED_EXPIRED, MODELED_DURATION), company-specific tags, and multiple redundant education or occupation code versions (e.g., NAICS_2022_2_NAME, SOC_5) were dropped to reduce dimensional noise and simplify downstream processing. This step was guided by a predefined drop list and executed with safeguards to ignore missing columns.
+The dataset was first reviewed to identify redundant or irrelevant columns. Tracking and metadata fields (such as `ID`, `URL`, `LAST_UPDATED_TIMESTAMP`, `SOURCE_TYPES`), raw text-heavy fields (`BODY`, `TITLE_RAW`), derived or modeled fields (`MODELED_EXPIRED`, `MODELED_DURATION`), company-specific tags, and multiple redundant education or occupation code versions (e.g., `NAICS_2022_2_NAME`, `SOC_5`) were dropped to reduce dimensional noise and simplify downstream processing. This step was guided by a predefined drop list and executed with safeguards to ignore missing columns.
 
 
 ##  Handling Missing Values
@@ -190,8 +190,6 @@ df1["EMPLOYMENT_TYPE_NAME"].value_counts()
 
 ```
 
-Duplicate job postings were removed using a composite key made up of `TITLE_CLEAN`, `COMPANY_NAME`, `CITY_NAME`, and `POSTED_DATE`. We also excluded records with invalid or conflicting industry or occupation codes to ensure consistency.
-
 ```{python}
 #| echo: true
 #| eval: false  
@@ -257,6 +255,7 @@ The bar chart illustrates the distribution of job postings by remote type, allow
 The most prominent finding is that the majority of job postings—approximately 55,000 entries—are labeled as [None], meaning no remote type was recorded. This accounts for roughly 75% of all postings, indicating a significant inconsistency or gap in how remote work arrangements are captured in job listings.
 
 Among the postings that do specify a remote type:
+
 * Remote jobs make up about 12,000 postings, representing roughly 16% of the total dataset.
 
 * Hybrid Remote roles total around 2,500 postings, or approximately 3%.

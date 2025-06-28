@@ -17,7 +17,7 @@ execute:
 
 This section presents our machine learning models to analyze geographic and remote work patterns in the 2024 U.S. job market. We apply both **unsupervised** and **supervised** learning methods to gain insights into how job locations and remote types impact salaries and job classifications.
 
-# Unsupervised Learning: KMeans Clustering
+# Unsupervised Learning: K-Means Clustering
 
 To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: `STATE_NAME`, `REMOTE_TYPE_NAME`, and `SOC_2021_4`. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.
 
@@ -92,7 +92,7 @@ These patterns confirm that job roles exhibit both locational and functional gro
 
 # Supervised Learning
 
-## Classification – Predict Remote Type
+## Confusion Matrix Classification – Predict Remote Type
 
 To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: `STATE_NAME` (location), `SOC_2021_4` (job category), and `MAX_YEARS_EXPERIENCE` (seniority level).The model's performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.
 
@@ -163,7 +163,7 @@ To improve model performance, particularly for underrepresented classes (0–2),
 
 From a practical standpoint, this result emphasizes the importance of complete and standardized job metadata. For example, job seekers aiming for remote or hybrid roles may benefit from explicitly stating their preferences and ensuring that job listings or resumes clearly reflect remote work compatibility. Failure to do so may result in poor match rates by automated filtering systems trained on similarly imbalanced datasets.
 
-# Regression – Predict Salary
+## Random Forest Regression – Predict Salary
 
 We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.
 
@@ -223,9 +223,9 @@ plt.show()
 The scatter plot illustrates the predictive performance of a Random Forest Regressor trained to estimate job salaries based on structured features such as job location (`STATE_NAME`), experience level (`MAX_YEARS_EXPERIENCE`), remote work type (`REMOTE_TYPE_NAME`), and job category (`SOC_2021_4`). Each point in the plot represents a job posting, where the x-axis shows the actual salary and the y-axis reflects the model’s predicted salary. The dashed red diagonal line denotes perfect agreement between predicted and actual values.
 
 
-The model achieves an **R² score of approximately 0.82**, suggesting that **82% of the variance in salary outcomes** is explained by the selected features, indicating strong overall model performance (@Geron2019). The **Mean Absolute Error (MAE)** is approximately **$9,843**, meaning that, on average, the predicted salary deviates by around $9,800 from the actual value. The **Root Mean Squared Error (RMSE)** is approximately **$13,070**, providing a more sensitive measure of error magnitude, especially for extreme deviations.
+The model achieves an R² score of approximately 0.82, suggesting that 82% of the variance in salary outcomes is explained by the selected features, indicating strong overall model performance (@Geron2019). The Mean Absolute Error (MAE) is approximately $9,843, meaning that, on average, the predicted salary deviates by around $9,800 from the actual value. The Root Mean Squared Error (RMSE) is approximately $13,070, providing a more sensitive measure of error magnitude, especially for extreme deviations.
 
-In a comparable configuration from an earlier test run, the model achieved an R² of approximately **0.71**, with slightly higher MAE and RMSE values ($9,500 and $14,200, respectively). This variation underscores the importance of tuning model parameters and ensuring adequate data coverage, particularly at the tails of the salary distribution.
+In a comparable configuration from an earlier test run, the model achieved an R² of approximately 0.71, with slightly higher MAE and RMSE values ($9,500 and $14,200, respectively). This variation underscores the importance of tuning model parameters and ensuring adequate data coverage, particularly at the tails of the salary distribution.
 
 The strongest model performance is observed in the middle salary range (approximately $60,000 to $150,000), where most predictions closely follow the diagonal line. Within this range, the tightest clustering appears between $80,000 and $120,000, indicating that the model captures the underlying compensation dynamics well for common professional roles.
 
@@ -270,7 +270,7 @@ New York demonstrates a similar trend, with Remote and Hybrid roles comprising r
 
 Additionally, states like Washington and Massachusetts, both recognized for their innovation ecosystems and high-tech clusters, exhibit a noticeably higher concentration of Remote job roles than the national average. This pattern supports ongoing evidence of geographic decentralization in tech employment, with flexible work models increasingly embedded in knowledge-driven sectors (@Tan2023).
 
-# Which type of remote work offers a higher salary? 
+## Which type of remote work offers a higher salary? 
 We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.
 ```{python}
 
@@ -308,7 +308,7 @@ remote_ratio_by_state.sort_values('REMOTE_RATIO', ascending=False).head(10)
 ```
 
 
-## Map-based visualizations
+### Map-based Visualizations
 We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.
 
 
@@ -394,7 +394,7 @@ Conversely, states with lower remote job shares are primarily located in the Mid
 
 A clear regional pattern emerges from the data, characterized by higher remote work proportions in coastal and urbanized states and lower shares in rural or industrial inland states. This geographic divide corresponds with broader socioeconomic factors such as educational attainment, industry composition, and technological infrastructure. The observed pattern is consistent with findings from Tan et al. (2023), who note the concentration of remote job opportunities in major metropolitan areas.
 
-These results highlight the importance of geographic context in understanding access to remote employment. As noted by Hansen et al. (2023) and Tahlyan et al. (2024) (@Hansen2023; @Tahlyan2024), remote work is not evenly distributed and is influenced by structural factors such as broadband availability, regional industry specialization, and urban-rural disparities. For job seekers aiming to pursue remote roles, these geographic disparities may have meaningful implications for career planning and relocation decisions.
+These results highlight the importance of geographic context in understanding access to remote employment. As noted by Hansen et al. (2023) and Tahlyan et al. (2024), remote work is not evenly distributed and is influenced by structural factors such as broadband availability, regional industry specialization, and urban-rural disparities. For job seekers aiming to pursue remote roles, these geographic disparities may have meaningful implications for career planning and relocation decisions.
 
 
 
@@ -467,7 +467,7 @@ This means the model correctly classified 935 out of 938 non-remote jobs, but on
 
 Evaluation Metrics for the Remote Class (Positive Class)：
 
-- Precision**: `0.50`  
+- Precision: `0.50`  
   The model correctly predicts a job as remote 50% of the time when it does so. While this may seem balanced, it reflects the extremely small number of remote jobs detected (only 6 predictions total: 3 TP + 3 FP).
 
 - Recall: `0.012` (1.2%)  
@@ -481,13 +481,13 @@ The model demonstrates excellent specificity for non-remote jobs (Class 0) but p
 
 This outcome highlights a high false negative rate, which is particularly problematic for job seekers looking for remote opportunities. The model's conservative bias systematically underestimates the presence of remote postings.
 
-From a practical perspective, this underscores the importance of clearly labeling remote/hybrid status in job postings. Without explicit signals, even structured models struggle to differentiate remote roles. This aligns with Tahlyan et al. (2024)(@Tahlyan2024), who warn against the dangers of labeling ambiguity and feature sparsity in remote job classification.
+From a practical perspective, this underscores the importance of clearly labeling remote/hybrid status in job postings. Without explicit signals, even structured models struggle to differentiate remote roles. This aligns with @Tahlyan2024, who warn against the dangers of labeling ambiguity and feature sparsity in remote job classification.
 
 Ultimately, addressing class imbalance, improving labeling consistency, and expanding feature richness are critical to making predictive models more inclusive and accurate for modern job market needs.
 
 
-# Modeling Requirements
-## Linear Regression
+
+# Linear Regression
 We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs. predicted plot and residuals histogram below show the model’s performance.
 
 ```{python}
@@ -538,11 +538,11 @@ plt.show()
 
 The scatter plot compares actual salaries with predictions generated by a linear regression model. Most data points cluster around the ideal prediction line (red dashed), particularly within the $80,000–$130,000 range, indicating relatively accurate estimates in mid-salary bands. However, substantial deviations are observed at both extremes—especially above $200,000 or below $60,000—where prediction errors can exceed $50,000. These discrepancies highlight the model's limitations in handling outliers and complex interactions among features such as remote work type, experience level, and occupation category.
 
-This aligns with findings by Tan et al. (2023) (@Tan2023), who note that compensation in tech roles—especially those offering flexible work arrangements—is often subject to high variability driven by nonlinear market dynamics.
+This aligns with findings by Tan et al. (2023), who note that compensation in tech roles—especially those offering flexible work arrangements—is often subject to high variability driven by nonlinear market dynamics.
 
 
 
-
+## Residuals Histogram
 
 ```{python}
 # 7. Residuals histogram
@@ -564,7 +564,7 @@ plt.show()
 
 The residual histogram reveals the distribution of prediction errors. While the shape approximates a normal distribution centered around zero—suggesting no consistent over- or underestimation—its wide spread is notable. Several residuals exceed ±$100,000, indicating high volatility in prediction accuracy. These large deviations are particularly common in high-skill or flexible roles that combine specialized expertise with remote work options (Hansen et al., 2023).
 
-This pattern supports Hsu and Tambe’s (2024)(@Hsu2024) argument that remote and hybrid jobs exhibit greater salary elasticity, resulting in more complex compensation structures that simple linear models may struggle to capture effectively.
+This pattern supports Hsu & Tambe (2024) argument that remote and hybrid jobs exhibit greater salary elasticity, resulting in more complex compensation structures that simple linear models may struggle to capture effectively.
 
 
 While linear regression is useful for preliminary trend identification and interpretability, it lacks the flexibility to model salary distributions influenced by nonlinear factors such as geographic variation, remote status, and experience-level interactions.
@@ -578,10 +578,10 @@ This machine learning analysis explored how job characteristics—such as locati
 
 Using unsupervised learning techniques such as Principal Component Analysis (PCA) and KMeans clustering, we identified clear groupings of job postings. These clusters reflect consistent geographic and occupational structures: high-skill, remote-eligible jobs are disproportionately concentrated in urban, innovation-driven states, while on-site roles remain prevalent in manufacturing-heavy and rural regions.
 
-Both Random Forest and Logistic Regression classifiers demonstrated strong performance in distinguishing between “Remote” and “Not Remote” roles. However, “Hybrid Remote” jobs proved more difficult to classify accurately, likely due to inconsistent employer labeling and overlapping feature profiles—an issue also observed by Tahlyan et al. (2024) (@Tahlyan2024).
+Both Random Forest and Logistic Regression classifiers demonstrated strong performance in distinguishing between “Remote” and “Not Remote” roles. However, “Hybrid Remote” jobs proved more difficult to classify accurately, likely due to inconsistent employer labeling and overlapping feature profiles—an issue also observed by Tahlyan et al. (2024).
 
 
-The Random Forest Regressor achieved solid performance in predicting salaries within the $90,000–$140,000 range, but systematically underpredicted compensation for higher-end roles exceeding $200,000. In contrast, linear models such as Generalized Linear Regression offered more interpretability but struggled to capture non-linear compensation structures. These limitations mirror findings from Tan et al. (2023) and Hsu and Tambe (2024) (@Tan2023; @Hsu2024), who emphasize the complexity and variability of wages in remote-friendly, tech-intensive occupations.
+The Random Forest Regressor achieved solid performance in predicting salaries within the $90,000–$140,000 range, but systematically underpredicted compensation for higher-end roles exceeding $200,000. In contrast, linear models such as Generalized Linear Regression offered more interpretability but struggled to capture non-linear compensation structures. These limitations mirror findings from an et al. (2023) and Hsu and Tambe (2024), who emphasize the complexity and variability of wages in remote-friendly, tech-intensive occupations.
 
 
 Choropleth map visualizations revealed persistent geographic inequality in remote job distribution. States like California, New York, and Massachusetts exhibited higher proportions of remote postings, while many Southern and Midwestern states lagged behind. These patterns likely reflect differences in industrial composition, digital infrastructure, and remote-readiness (@Hansen2023).
