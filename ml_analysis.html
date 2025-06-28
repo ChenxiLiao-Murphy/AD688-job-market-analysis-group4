@@ -239,7 +239,7 @@ div.csl-indent {
 <section id="unsupervised-learning-kmeans-clustering" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Unsupervised Learning: KMeans Clustering</h1>
 <p>To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: <code>STATE_NAME</code>, <code>REMOTE_TYPE_NAME</code>, and <code>SOC_2021_4</code>. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.</p>
-<div id="ab6a8f2c" class="cell" data-execution_count="1">
+<div id="cac0b80c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -247,7 +247,7 @@ div.csl-indent {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="9265a7f3" class="cell" data-execution_count="2">
+<div id="50cf9a59" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -310,7 +310,7 @@ div.csl-indent {
 <section id="classification-predict-remote-type" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="classification-predict-remote-type"><span class="header-section-number">2.1</span> Classification – Predict Remote Type</h2>
 <p>To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: <code>STATE_NAME</code> (location), <code>SOC_2021_4</code> (job category), and <code>MAX_YEARS_EXPERIENCE</code> (seniority level).The model’s performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.</p>
-<div id="1262e979" class="cell" data-execution_count="3">
+<div id="5e4eccd1" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -376,7 +376,7 @@ div.csl-indent {
 <section id="regression-predict-salary" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Regression – Predict Salary</h1>
 <p>We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.</p>
-<div id="cabab1fc" class="cell" data-execution_count="4">
+<div id="9b905ede" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create AVERAGE_SALARY if not already in df</span></span>
@@ -443,7 +443,7 @@ div.csl-indent {
 <p>From a user standpoint, this model can provide a useful reference point for evaluating compensation expectations by role, seniority, and location. However, for high-end positions, reliance solely on algorithmic predictions should be avoided. Human judgment, domain expertise, and external market benchmarks remain critical to interpreting salary potential in these cases.</p>
 <section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">3.1</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
-<div id="57397d02" class="cell" data-execution_count="5">
+<div id="4211d12f" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -480,7 +480,7 @@ div.csl-indent {
 <section id="which-type-of-remote-work-offers-a-higher-salary" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Which type of remote work offers a higher salary?</h1>
 <p>We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.</p>
-<div id="3baea9d0" class="cell" data-execution_count="6">
+<div id="17349c04" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deal with salary list</span></span>
@@ -510,7 +510,7 @@ div.csl-indent {
 <p>However, the salary spread for Remote roles is also the widest, with outliers extending beyond $250,000, indicating greater volatility and variation in compensation. This could reflect the inclusion of both entry-level remote roles and elite, location-independent roles with premium pay.</p>
 <p>In contrast, On-site positions exhibit a narrower interquartile range (IQR), suggesting more standardized pay bands, possibly due to unionized roles, location-fixed salary bands, or industry norms (e.g., healthcare, manufacturing). Hybrid Remote positions fall in between, showing moderate median salary and variability.</p>
 <p>These trends support existing research suggesting that remote work offers both opportunity and inequality—while top-end salaries are more accessible, they also introduce greater variance and risk (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="Zheng2024">Zheng et al. (<a href="#ref-Zheng2024" role="doc-biblioref">2024</a>)</span>). For job seekers, this emphasizes the importance of evaluating role specifics rather than assuming remote work always confers higher pay.</p>
-<div id="f867948f" class="cell" data-execution_count="7">
+<div id="b2271a21" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.sort_values(<span class="st">'REMOTE_RATIO'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -519,7 +519,7 @@ div.csl-indent {
 <section id="map-based-visualizations" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="map-based-visualizations"><span class="header-section-number">4.1</span> Map-based visualizations</h2>
 <p>We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.</p>
-<div id="d6a601b3" class="cell" data-execution_count="8">
+<div id="146d514c" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -545,7 +545,7 @@ div.csl-indent {
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="75e3edc9" class="cell" data-execution_count="9">
+<div id="e6620597" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
@@ -559,7 +559,7 @@ div.csl-indent {
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state[<span class="st">'STATE_ABBR'</span>] <span class="op">=</span> remote_ratio_by_state[<span class="st">'STATE_NAME'</span>].<span class="bu">map</span>(state_abbrev_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="c5125526" class="cell" data-results="hide" data-execution_count="10">
+<div id="4bc94b39" class="cell" data-results="hide" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -604,7 +604,7 @@ div.csl-indent {
 <section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">4.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
 <p>This section analyzes the confusion matrix and key metrics for a binary logistic regression model developed to classify whether a job posting is remote (Remote = 1) or non-remote (Remote = 0). The model was trained using structured features such as job location (<code>STATE_NAME</code>) and occupational category (<code>SOC_2021_4</code>).</p>
-<div id="49982406" class="cell" data-execution_count="11">
+<div id="1c35baea" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -687,7 +687,7 @@ The harmonic mean of precision and recall is very low, confirming the model’s 
 <section id="linear-regression" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">5.1</span> Linear Regression</h2>
 <p>We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs.&nbsp;predicted plot and residuals histogram below show the model’s performance.</p>
-<div id="3ca44317" class="cell" data-execution_count="12">
+<div id="e81ad758" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -740,7 +740,7 @@ The harmonic mean of precision and recall is very low, confirming the model’s 
 </div>
 <p>The scatter plot compares actual salaries with predictions generated by a linear regression model. Most data points cluster around the ideal prediction line (red dashed), particularly within the $80,000–$130,000 range, indicating relatively accurate estimates in mid-salary bands. However, substantial deviations are observed at both extremes—especially above $200,000 or below $60,000—where prediction errors can exceed $50,000. These discrepancies highlight the model’s limitations in handling outliers and complex interactions among features such as remote work type, experience level, and occupation category.</p>
 <p>This aligns with findings by Tan et al.&nbsp;(2023) (<span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>), who note that compensation in tech roles—especially those offering flexible work arrangements—is often subject to high variability driven by nonlinear market dynamics.</p>
-<div id="38a02890" class="cell" data-execution_count="13">
+<div id="67d19110" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Residuals histogram</span></span>
