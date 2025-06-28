@@ -225,7 +225,7 @@ div.csl-indent {
 <p>This section presents an enhanced exploratory data analysis of job postings in the United States, with particular attention to remote work types and geographic patterns across industries, states, and cities. The objective is to examine how the distribution of remote, hybrid, and onsite jobs differs across regions, and how industry-specific trends reflect broader labor market shifts. Through this analysis, we aim to capture regional disparities, identify emerging hiring hubs, and understand how remote work adoption is reshaping spatial dynamics in the 2024 job market.</p>
 <section id="job-distribution-by-industry-naics-level-2" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Job Distribution by Industry (NAICS Level 2)</h1>
-<div id="5613daa4" class="cell" data-execution_count="3">
+<div id="b7f14858" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wrapped_labels <span class="op">=</span> [<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join(textwrap.wrap(label, width<span class="op">=</span><span class="dv">10</span>)) <span class="cf">for</span> label <span class="kw">in</span> industry_counts[<span class="st">"Industry"</span>]]</span>
@@ -248,11 +248,11 @@ div.csl-indent {
 <p><img src="figurestyj/job_count_by_industry.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<p>The bar chart illustrates the distribution of job postings by industry based on NAICS Level 2 classifications. Professional, Scientific, and Technical Services leads with over 20,000 postings, highlighting continued demand for high-skilled roles in fields such as software development, data analytics, and consultancy. In second place, Administrative and Support and Waste Management Services records approximately 9,000 postings, suggesting consistent labor needs in operational and support functions. Notably, over 11,000 jobs are grouped under “Unclassified Industry”, indicating either a lack of proper NAICS tagging or alternative sourcing paths. This limits interpretability and cross-sector benchmarking. Researchers including CBRE (2023) (<span class="citation" data-cites="cbre2023tech">Research (<a href="#ref-cbre2023tech" role="doc-biblioref">2023</a>)</span>) and the Brookings Institution (2020) (<span class="citation" data-cites="brookings2020jobs">Institution (<a href="#ref-brookings2020jobs" role="doc-biblioref">2020</a>)</span>) advocate for improving classification accuracy to enable better labor market diagnostics.</p>
+<p>The bar chart illustrates the distribution of job postings by industry based on NAICS Level 2 classifications. Professional, Scientific, and Technical Services leads with over 20,000 postings, highlighting continued demand for high-skilled roles in fields such as software development, data analytics, and consultancy. In second place, Administrative and Support and Waste Management Services records approximately 9,000 postings, suggesting consistent labor needs in operational and support functions. Notably, over 11,000 jobs are grouped under “Unclassified Industry”, indicating either a lack of proper NAICS tagging or alternative sourcing paths. This limits interpretability and cross-sector benchmarking. Researchers including CBRE (2023) and the Brookings Institution (2020) advocate for improving classification accuracy to enable better labor market diagnostics.</p>
 </section>
 <section id="job-count-by-city-top-15" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Job Count by City (Top 15)</h1>
-<div id="217c01ba" class="cell" data-execution_count="4">
+<div id="3f906c3a" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>city_counts <span class="op">=</span> df[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">15</span>).reset_index()</span>
@@ -277,7 +277,7 @@ div.csl-indent {
 </section>
 <section id="job-count-by-state" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Job Count by State</h1>
-<div id="4fa3ed2e" class="cell" data-execution_count="5">
+<div id="7b08377f" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>state_counts <span class="op">=</span> df[<span class="st">"STATE_NAME"</span>].value_counts().reset_index()</span>
@@ -302,7 +302,7 @@ div.csl-indent {
 </section>
 <section id="heatmap-state-industry-cross-tab" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Heatmap: State × Industry (Cross Tab)</h1>
-<div id="7605eff5" class="cell" data-execution_count="6">
+<div id="68386486" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cross_tab <span class="op">=</span> pd.crosstab(df[<span class="st">"STATE_NAME"</span>], df[<span class="st">"NAICS_2022_2_NAME"</span>])</span>
@@ -332,11 +332,11 @@ div.csl-indent {
 <p><img src="figurestyj/state_industry_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<p>The heatmap presents cross-tabulated job postings by industry and state. Texas dominates in Professional, Scientific, and Technical Services (3,046 postings), followed by California (2,303), suggesting a concentration of high-value roles. Texas also registers significant numbers in Administrative Services (860) and Finance and Insurance (703), illustrating sectoral diversity. New York, although lower in total volume, ranks second in Finance and Insurance (483)—a reflection of its enduring strength in financial services. Meanwhile, California demonstrates notable demand in Information (480) and Administrative Services (949), pointing to its dual focus on technology and operational infrastructure. These distributions are consistent with Bureau of Labor Statistics (2024) (<span class="citation" data-cites="bls2024industry">U.S. Bureau of Labor Statistics (<a href="#ref-bls2024industry" role="doc-biblioref">2024</a>)</span>) data on regional industry specialization.</p>
+<p>The heatmap presents cross-tabulated job postings by industry and state. Texas dominates in Professional, Scientific, and Technical Services (3,046 postings), followed by California (2,303), suggesting a concentration of high-value roles. Texas also registers significant numbers in Administrative Services (860) and Finance and Insurance (703), illustrating sectoral diversity. New York, although lower in total volume, ranks second in Finance and Insurance (483)—a reflection of its enduring strength in financial services. Meanwhile, California demonstrates notable demand in Information (480) and Administrative Services (949), pointing to its dual focus on technology and operational infrastructure. These distributions are consistent with <span class="citation" data-cites="bls2024industry">U.S. Bureau of Labor Statistics (<a href="#ref-bls2024industry" role="doc-biblioref">2024</a>)</span> data on regional industry specialization.</p>
 </section>
 <section id="remote-job-distribution-by-state" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Remote Job Distribution by State</h1>
-<div id="0edbb16d" class="cell" data-execution_count="7">
+<div id="86f9f26d" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>remote_by_state <span class="op">=</span> df.groupby([<span class="st">"STATE_NAME"</span>, <span class="st">"REMOTE_TYPE_NAME"</span>]).size().unstack(fill_value<span class="op">=</span><span class="dv">0</span>)</span>

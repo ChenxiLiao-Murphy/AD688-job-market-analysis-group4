@@ -191,25 +191,23 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#unsupervised-learning-kmeans-clustering" id="toc-unsupervised-learning-kmeans-clustering" class="nav-link active" data-scroll-target="#unsupervised-learning-kmeans-clustering"><span class="header-section-number">1</span> Unsupervised Learning: KMeans Clustering</a></li>
+  <li><a href="#unsupervised-learning-k-means-clustering" id="toc-unsupervised-learning-k-means-clustering" class="nav-link active" data-scroll-target="#unsupervised-learning-k-means-clustering"><span class="header-section-number">1</span> Unsupervised Learning: K-Means Clustering</a></li>
   <li><a href="#supervised-learning" id="toc-supervised-learning" class="nav-link" data-scroll-target="#supervised-learning"><span class="header-section-number">2</span> Supervised Learning</a>
   <ul class="collapse">
-  <li><a href="#classification-predict-remote-type" id="toc-classification-predict-remote-type" class="nav-link" data-scroll-target="#classification-predict-remote-type"><span class="header-section-number">2.1</span> Classification – Predict Remote Type</a></li>
-  </ul></li>
-  <li><a href="#regression-predict-salary" id="toc-regression-predict-salary" class="nav-link" data-scroll-target="#regression-predict-salary"><span class="header-section-number">3</span> Regression – Predict Salary</a>
+  <li><a href="#confusion-matrix-classification-predict-remote-type" id="toc-confusion-matrix-classification-predict-remote-type" class="nav-link" data-scroll-target="#confusion-matrix-classification-predict-remote-type"><span class="header-section-number">2.1</span> Confusion Matrix Classification – Predict Remote Type</a></li>
+  <li><a href="#random-forest-regression-predict-salary" id="toc-random-forest-regression-predict-salary" class="nav-link" data-scroll-target="#random-forest-regression-predict-salary"><span class="header-section-number">2.2</span> Random Forest Regression – Predict Salary</a></li>
+  <li><a href="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" id="toc-which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="nav-link" data-scroll-target="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</a></li>
+  <li><a href="#which-type-of-remote-work-offers-a-higher-salary" id="toc-which-type-of-remote-work-offers-a-higher-salary" class="nav-link" data-scroll-target="#which-type-of-remote-work-offers-a-higher-salary"><span class="header-section-number">2.4</span> Which type of remote work offers a higher salary?</a>
   <ul class="collapse">
-  <li><a href="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" id="toc-which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="nav-link" data-scroll-target="#which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">3.1</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</a></li>
+  <li><a href="#map-based-visualizations" id="toc-map-based-visualizations" class="nav-link" data-scroll-target="#map-based-visualizations"><span class="header-section-number">2.4.1</span> Map-based Visualizations</a></li>
   </ul></li>
-  <li><a href="#which-type-of-remote-work-offers-a-higher-salary" id="toc-which-type-of-remote-work-offers-a-higher-salary" class="nav-link" data-scroll-target="#which-type-of-remote-work-offers-a-higher-salary"><span class="header-section-number">4</span> Which type of remote work offers a higher salary?</a>
+  <li><a href="#logistic-regression-binary-classification-remote-vs-non-remote" id="toc-logistic-regression-binary-classification-remote-vs-non-remote" class="nav-link" data-scroll-target="#logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">2.5</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</a></li>
+  </ul></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">3</span> Linear Regression</a>
   <ul class="collapse">
-  <li><a href="#map-based-visualizations" id="toc-map-based-visualizations" class="nav-link" data-scroll-target="#map-based-visualizations"><span class="header-section-number">4.1</span> Map-based visualizations</a></li>
-  <li><a href="#logistic-regression-binary-classification-remote-vs-non-remote" id="toc-logistic-regression-binary-classification-remote-vs-non-remote" class="nav-link" data-scroll-target="#logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">4.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</a></li>
+  <li><a href="#residuals-histogram" id="toc-residuals-histogram" class="nav-link" data-scroll-target="#residuals-histogram"><span class="header-section-number">3.1</span> Residuals Histogram</a></li>
   </ul></li>
-  <li><a href="#modeling-requirements" id="toc-modeling-requirements" class="nav-link" data-scroll-target="#modeling-requirements"><span class="header-section-number">5</span> Modeling Requirements</a>
-  <ul class="collapse">
-  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">5.1</span> Linear Regression</a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -236,10 +234,10 @@ div.csl-indent {
 
 
 <p>This section presents our machine learning models to analyze geographic and remote work patterns in the 2024 U.S. job market. We apply both <strong>unsupervised</strong> and <strong>supervised</strong> learning methods to gain insights into how job locations and remote types impact salaries and job classifications.</p>
-<section id="unsupervised-learning-kmeans-clustering" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Unsupervised Learning: KMeans Clustering</h1>
+<section id="unsupervised-learning-k-means-clustering" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Unsupervised Learning: K-Means Clustering</h1>
 <p>To better understand remote work trends, we used KMeans clustering to group job postings based on three key features: <code>STATE_NAME</code>, <code>REMOTE_TYPE_NAME</code>, and <code>SOC_2021_4</code>. These variables capture geographic and job-type information, helping us explore whether certain kinds of work—remote, hybrid, or on-site—are more common in particular states or industries. The clustering results, visualized using PCA, reveal clear patterns related to both location and remote work preferences. These insights can be useful for job seekers trying to identify which types of roles or industries are more likely to support flexible work arrangements.</p>
-<div id="cac0b80c" class="cell" data-execution_count="1">
+<div id="a9285ae2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -247,7 +245,7 @@ div.csl-indent {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="50cf9a59" class="cell" data-execution_count="2">
+<div id="871555fd" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -307,10 +305,10 @@ div.csl-indent {
 </section>
 <section id="supervised-learning" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Supervised Learning</h1>
-<section id="classification-predict-remote-type" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="classification-predict-remote-type"><span class="header-section-number">2.1</span> Classification – Predict Remote Type</h2>
+<section id="confusion-matrix-classification-predict-remote-type" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="confusion-matrix-classification-predict-remote-type"><span class="header-section-number">2.1</span> Confusion Matrix Classification – Predict Remote Type</h2>
 <p>To understand what factors influence whether a job is remote, hybrid, or on-site, we trained a Random Forest Classifier using three features: <code>STATE_NAME</code> (location), <code>SOC_2021_4</code> (job category), and <code>MAX_YEARS_EXPERIENCE</code> (seniority level).The model’s performance is summarized in a confusion matrix, which shows how accurately it distinguishes between different types of remote work arrangements.</p>
-<div id="5e4eccd1" class="cell" data-execution_count="3">
+<div id="51ae68ca" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -372,11 +370,10 @@ div.csl-indent {
 </ul>
 <p>From a practical standpoint, this result emphasizes the importance of complete and standardized job metadata. For example, job seekers aiming for remote or hybrid roles may benefit from explicitly stating their preferences and ensuring that job listings or resumes clearly reflect remote work compatibility. Failure to do so may result in poor match rates by automated filtering systems trained on similarly imbalanced datasets.</p>
 </section>
-</section>
-<section id="regression-predict-salary" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Regression – Predict Salary</h1>
+<section id="random-forest-regression-predict-salary" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="random-forest-regression-predict-salary"><span class="header-section-number">2.2</span> Random Forest Regression – Predict Salary</h2>
 <p>We applied a Random Forest Regressor to estimate average salary using location, experience, remote type, and job category. The model captures complex patterns, highlighting how these factors shape compensation.</p>
-<div id="9b905ede" class="cell" data-execution_count="4">
+<div id="9c69c8a5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create AVERAGE_SALARY if not already in df</span></span>
@@ -433,17 +430,18 @@ div.csl-indent {
 </figure>
 </div>
 <p>The scatter plot illustrates the predictive performance of a Random Forest Regressor trained to estimate job salaries based on structured features such as job location (<code>STATE_NAME</code>), experience level (<code>MAX_YEARS_EXPERIENCE</code>), remote work type (<code>REMOTE_TYPE_NAME</code>), and job category (<code>SOC_2021_4</code>). Each point in the plot represents a job posting, where the x-axis shows the actual salary and the y-axis reflects the model’s predicted salary. The dashed red diagonal line denotes perfect agreement between predicted and actual values.</p>
-<p>The model achieves an <strong>R² score of approximately 0.82</strong>, suggesting that <strong>82% of the variance in salary outcomes</strong> is explained by the selected features, indicating strong overall model performance (<span class="citation" data-cites="Geron2019">Géron (<a href="#ref-Geron2019" role="doc-biblioref">2019</a>)</span>). The <strong>Mean Absolute Error (MAE)</strong> is approximately <strong>$9,843</strong>, meaning that, on average, the predicted salary deviates by around $9,800 from the actual value. The <strong>Root Mean Squared Error (RMSE)</strong> is approximately <strong>$13,070</strong>, providing a more sensitive measure of error magnitude, especially for extreme deviations.</p>
-<p>In a comparable configuration from an earlier test run, the model achieved an R² of approximately <strong>0.71</strong>, with slightly higher MAE and RMSE values ($9,500 and $14,200, respectively). This variation underscores the importance of tuning model parameters and ensuring adequate data coverage, particularly at the tails of the salary distribution.</p>
+<p>The model achieves an R² score of approximately 0.82, suggesting that 82% of the variance in salary outcomes is explained by the selected features, indicating strong overall model performance (<span class="citation" data-cites="Geron2019">Géron (<a href="#ref-Geron2019" role="doc-biblioref">2019</a>)</span>). The Mean Absolute Error (MAE) is approximately $9,843, meaning that, on average, the predicted salary deviates by around $9,800 from the actual value. The Root Mean Squared Error (RMSE) is approximately $13,070, providing a more sensitive measure of error magnitude, especially for extreme deviations.</p>
+<p>In a comparable configuration from an earlier test run, the model achieved an R² of approximately 0.71, with slightly higher MAE and RMSE values ($9,500 and $14,200, respectively). This variation underscores the importance of tuning model parameters and ensuring adequate data coverage, particularly at the tails of the salary distribution.</p>
 <p>The strongest model performance is observed in the middle salary range (approximately $60,000 to $150,000), where most predictions closely follow the diagonal line. Within this range, the tightest clustering appears between $80,000 and $120,000, indicating that the model captures the underlying compensation dynamics well for common professional roles.</p>
 <p>In contrast, model performance deteriorates at the higher salary levels (above $200,000). The model tends to underpredict these values by as much as $30,000 to $70,000. For example, a role with an actual salary of $300,000 may be predicted at $230,000 or lower. This is likely due to the scarcity of high-salary examples in the training data and the broader variability in how such roles are compensated—often involving unstructured components such as bonuses, equity, or negotiation-based adjustments (<span class="citation" data-cites="Kuhn2013">Kuhn &amp; Johnson (<a href="#ref-Kuhn2013" role="doc-biblioref">2013</a>)</span>).</p>
 <p>Additionally, a few overprediction outliers are observed in the $90,000 to $120,000 range. These may result from overlapping industry signals or inconsistent labeling in job descriptions that mislead the model’s pattern recognition.</p>
 <p>It is worth noting the difference between MAE and RMSE in interpreting model performance. While MAE provides a straightforward average error, RMSE places greater weight on larger deviations. In datasets with skewed distributions, like salary data, RMSE can sometimes verstate the significance of outlier errors (<span class="citation" data-cites="Willmott2005">Willmott &amp; Matsuura (<a href="#ref-Willmott2005" role="doc-biblioref">2005</a>)</span>). Therefore, both metrics should be considered jointly to form a balanced view of model accuracy.</p>
 <p>The model is well-suited for salary benchmarking and compensation forecasting across typical job types and common experience levels. However, it may underperform for executive-level, highly specialized, or startup-based roles, where pay structures diverge significantly from traditional patterns.</p>
 <p>From a user standpoint, this model can provide a useful reference point for evaluating compensation expectations by role, seniority, and location. However, for high-end positions, reliance solely on algorithmic predictions should be avoided. Human judgment, domain expertise, and external market benchmarks remain critical to interpreting salary potential in these cases.</p>
-<section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">3.1</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
-<div id="4211d12f" class="cell" data-execution_count="5">
+</section>
+<section id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="which-states-are-more-inclined-to-offer-remotehybridonsite-jobs"><span class="header-section-number">2.3</span> Which states are more inclined to offer Remote/Hybrid/Onsite jobs?</h2>
+<div id="fea6f074" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -476,11 +474,10 @@ div.csl-indent {
 <p>New York demonstrates a similar trend, with Remote and Hybrid roles comprising roughly 35% of its total postings. In contrast, states with more traditional industrial structures such as Ohio, Michigan, and Indiana show a dominant presence of on-site roles, where Remote and Hybrid positions account for less than 10% of total postings. This suggests that regional economic profiles—such as dominance in manufacturing vs.&nbsp;tech or services—play a significant role in shaping work flexibility (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="Hansen2023">Hansen et al. (<a href="#ref-Hansen2023" role="doc-biblioref">2023</a>)</span>).</p>
 <p>Additionally, states like Washington and Massachusetts, both recognized for their innovation ecosystems and high-tech clusters, exhibit a noticeably higher concentration of Remote job roles than the national average. This pattern supports ongoing evidence of geographic decentralization in tech employment, with flexible work models increasingly embedded in knowledge-driven sectors (<span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>).</p>
 </section>
-</section>
-<section id="which-type-of-remote-work-offers-a-higher-salary" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Which type of remote work offers a higher salary?</h1>
+<section id="which-type-of-remote-work-offers-a-higher-salary" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="which-type-of-remote-work-offers-a-higher-salary"><span class="header-section-number">2.4</span> Which type of remote work offers a higher salary?</h2>
 <p>We used a boxplot to compare salaries across remote types, helping job seekers understand potential income differences between remote, hybrid, and on-site roles.</p>
-<div id="17349c04" class="cell" data-execution_count="6">
+<div id="8bcd1729" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deal with salary list</span></span>
@@ -510,16 +507,16 @@ div.csl-indent {
 <p>However, the salary spread for Remote roles is also the widest, with outliers extending beyond $250,000, indicating greater volatility and variation in compensation. This could reflect the inclusion of both entry-level remote roles and elite, location-independent roles with premium pay.</p>
 <p>In contrast, On-site positions exhibit a narrower interquartile range (IQR), suggesting more standardized pay bands, possibly due to unionized roles, location-fixed salary bands, or industry norms (e.g., healthcare, manufacturing). Hybrid Remote positions fall in between, showing moderate median salary and variability.</p>
 <p>These trends support existing research suggesting that remote work offers both opportunity and inequality—while top-end salaries are more accessible, they also introduce greater variance and risk (<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="Zheng2024">Zheng et al. (<a href="#ref-Zheng2024" role="doc-biblioref">2024</a>)</span>). For job seekers, this emphasizes the importance of evaluating role specifics rather than assuming remote work always confers higher pay.</p>
-<div id="b2271a21" class="cell" data-execution_count="7">
+<div id="917ab9f5" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state.sort_values(<span class="st">'REMOTE_RATIO'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="map-based-visualizations" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="map-based-visualizations"><span class="header-section-number">4.1</span> Map-based visualizations</h2>
+<section id="map-based-visualizations" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="map-based-visualizations"><span class="header-section-number">2.4.1</span> Map-based Visualizations</h3>
 <p>We used a choropleth map to visually represent the percentage of remote jobs per state. This spatial analysis can guide job seekers toward states with more flexible work environments.</p>
-<div id="146d514c" class="cell" data-execution_count="8">
+<div id="e9dd9718" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -545,7 +542,7 @@ div.csl-indent {
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="e6620597" class="cell" data-execution_count="9">
+<div id="00529ced" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df[[<span class="st">'STATE_NAME'</span>, <span class="st">'REMOTE_TYPE_NAME'</span>]].dropna()</span>
@@ -559,7 +556,7 @@ div.csl-indent {
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>remote_ratio_by_state[<span class="st">'STATE_ABBR'</span>] <span class="op">=</span> remote_ratio_by_state[<span class="st">'STATE_NAME'</span>].<span class="bu">map</span>(state_abbrev_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="4bc94b39" class="cell" data-results="hide" data-execution_count="10">
+<div id="edadc277" class="cell" data-results="hide" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -599,12 +596,13 @@ div.csl-indent {
 <p>States with the highest proportions of remote jobs include Washington, Massachusetts, New York, and California. In these regions, remote job postings account for more than 30% of total job listings, with some states approaching the upper end of the range (35–36%). This concentration reflects the prevalence of industries that are more amenable to remote work, such as information technology, professional services, and consulting. These sectors typically require digital infrastructure rather than physical presence, making them well-suited for flexible work arrangements.</p>
 <p>Conversely, states with lower remote job shares are primarily located in the Midwest and South, including Alabama, Mississippi, Arkansas, and South Dakota, where remote job postings fall between 15% and 22%. These states tend to have a greater emphasis on manufacturing, construction, healthcare, and other labor-intensive occupations that typically require on-site work.</p>
 <p>A clear regional pattern emerges from the data, characterized by higher remote work proportions in coastal and urbanized states and lower shares in rural or industrial inland states. This geographic divide corresponds with broader socioeconomic factors such as educational attainment, industry composition, and technological infrastructure. The observed pattern is consistent with findings from Tan et al.&nbsp;(2023), who note the concentration of remote job opportunities in major metropolitan areas.</p>
-<p>These results highlight the importance of geographic context in understanding access to remote employment. As noted by Hansen et al.&nbsp;(2023) and Tahlyan et al.&nbsp;(2024) (<span class="citation" data-cites="Hansen2023">Hansen et al. (<a href="#ref-Hansen2023" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="Tahlyan2024">Tahlyan et al. (<a href="#ref-Tahlyan2024" role="doc-biblioref">2024</a>)</span>), remote work is not evenly distributed and is influenced by structural factors such as broadband availability, regional industry specialization, and urban-rural disparities. For job seekers aiming to pursue remote roles, these geographic disparities may have meaningful implications for career planning and relocation decisions.</p>
+<p>These results highlight the importance of geographic context in understanding access to remote employment. As noted by Hansen et al.&nbsp;(2023) and Tahlyan et al.&nbsp;(2024), remote work is not evenly distributed and is influenced by structural factors such as broadband availability, regional industry specialization, and urban-rural disparities. For job seekers aiming to pursue remote roles, these geographic disparities may have meaningful implications for career planning and relocation decisions.</p>
 </section>
-<section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">4.2</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
+</section>
+<section id="logistic-regression-binary-classification-remote-vs-non-remote" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="logistic-regression-binary-classification-remote-vs-non-remote"><span class="header-section-number">2.5</span> Logistic Regression: Binary Classification (Remote vs Non-Remote)</h2>
 <p>This section analyzes the confusion matrix and key metrics for a binary logistic regression model developed to classify whether a job posting is remote (Remote = 1) or non-remote (Remote = 0). The model was trained using structured features such as job location (<code>STATE_NAME</code>) and occupational category (<code>SOC_2021_4</code>).</p>
-<div id="1c35baea" class="cell" data-execution_count="11">
+<div id="a15282e0" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -669,7 +667,7 @@ div.csl-indent {
 <p>This means the model correctly classified 935 out of 938 non-remote jobs, but only 3 out of 244 remote jobs.</p>
 <p>Evaluation Metrics for the Remote Class (Positive Class)：</p>
 <ul>
-<li><p>Precision**: <code>0.50</code><br>
+<li><p>Precision: <code>0.50</code><br>
 The model correctly predicts a job as remote 50% of the time when it does so. While this may seem balanced, it reflects the extremely small number of remote jobs detected (only 6 predictions total: 3 TP + 3 FP).</p></li>
 <li><p>Recall: <code>0.012</code> (1.2%)<br>
 The model fails to detect the vast majority of actual remote roles, correctly identifying only 3 out of 244 true remote jobs. This extremely low recall highlights a major shortcoming.</p></li>
@@ -678,16 +676,14 @@ The harmonic mean of precision and recall is very low, confirming the model’s 
 </ul>
 <p>The model demonstrates excellent specificity for non-remote jobs (Class 0) but performs poorly on remote jobs (Class 1). This is a typical consequence of class imbalance, where the positive class (remote) is significantly underrepresented. As a result, the model defaults to predicting non-remote, failing to identify true remote roles due to both data imbalance and insufficient signal granularity.</p>
 <p>This outcome highlights a high false negative rate, which is particularly problematic for job seekers looking for remote opportunities. The model’s conservative bias systematically underestimates the presence of remote postings.</p>
-<p>From a practical perspective, this underscores the importance of clearly labeling remote/hybrid status in job postings. Without explicit signals, even structured models struggle to differentiate remote roles. This aligns with Tahlyan et al.&nbsp;(2024)(<span class="citation" data-cites="Tahlyan2024">Tahlyan et al. (<a href="#ref-Tahlyan2024" role="doc-biblioref">2024</a>)</span>), who warn against the dangers of labeling ambiguity and feature sparsity in remote job classification.</p>
+<p>From a practical perspective, this underscores the importance of clearly labeling remote/hybrid status in job postings. Without explicit signals, even structured models struggle to differentiate remote roles. This aligns with <span class="citation" data-cites="Tahlyan2024">Tahlyan et al. (<a href="#ref-Tahlyan2024" role="doc-biblioref">2024</a>)</span>, who warn against the dangers of labeling ambiguity and feature sparsity in remote job classification.</p>
 <p>Ultimately, addressing class imbalance, improving labeling consistency, and expanding feature richness are critical to making predictive models more inclusive and accurate for modern job market needs.</p>
 </section>
 </section>
-<section id="modeling-requirements" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Modeling Requirements</h1>
-<section id="linear-regression" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">5.1</span> Linear Regression</h2>
+<section id="linear-regression" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Linear Regression</h1>
 <p>We also used a linear regression model to predict average salary based on location, experience, and remote type. The actual vs.&nbsp;predicted plot and residuals histogram below show the model’s performance.</p>
-<div id="e81ad758" class="cell" data-execution_count="12">
+<div id="96bd1079" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
@@ -739,8 +735,10 @@ The harmonic mean of precision and recall is very low, confirming the model’s 
 </figure>
 </div>
 <p>The scatter plot compares actual salaries with predictions generated by a linear regression model. Most data points cluster around the ideal prediction line (red dashed), particularly within the $80,000–$130,000 range, indicating relatively accurate estimates in mid-salary bands. However, substantial deviations are observed at both extremes—especially above $200,000 or below $60,000—where prediction errors can exceed $50,000. These discrepancies highlight the model’s limitations in handling outliers and complex interactions among features such as remote work type, experience level, and occupation category.</p>
-<p>This aligns with findings by Tan et al.&nbsp;(2023) (<span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>), who note that compensation in tech roles—especially those offering flexible work arrangements—is often subject to high variability driven by nonlinear market dynamics.</p>
-<div id="67d19110" class="cell" data-execution_count="13">
+<p>This aligns with findings by Tan et al.&nbsp;(2023), who note that compensation in tech roles—especially those offering flexible work arrangements—is often subject to high variability driven by nonlinear market dynamics.</p>
+<section id="residuals-histogram" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="residuals-histogram"><span class="header-section-number">3.1</span> Residuals Histogram</h2>
+<div id="3ff34a5a" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Residuals histogram</span></span>
@@ -762,17 +760,17 @@ The harmonic mean of precision and recall is very low, confirming the model’s 
 </figure>
 </div>
 <p>The residual histogram reveals the distribution of prediction errors. While the shape approximates a normal distribution centered around zero—suggesting no consistent over- or underestimation—its wide spread is notable. Several residuals exceed ±$100,000, indicating high volatility in prediction accuracy. These large deviations are particularly common in high-skill or flexible roles that combine specialized expertise with remote work options (Hansen et al., 2023).</p>
-<p>This pattern supports Hsu and Tambe’s (2024)(<span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>) argument that remote and hybrid jobs exhibit greater salary elasticity, resulting in more complex compensation structures that simple linear models may struggle to capture effectively.</p>
+<p>This pattern supports Hsu &amp; Tambe (2024) argument that remote and hybrid jobs exhibit greater salary elasticity, resulting in more complex compensation structures that simple linear models may struggle to capture effectively.</p>
 <p>While linear regression is useful for preliminary trend identification and interpretability, it lacks the flexibility to model salary distributions influenced by nonlinear factors such as geographic variation, remote status, and experience-level interactions.</p>
 <p>To address this, the linear model should serve as a baseline, against which more sophisticated models—such as Random Forest or Gradient Boosting—can be benchmarked to quantify nonlinear performance gains.</p>
 </section>
 </section>
-<section id="summary" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="summary" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Summary</h1>
 <p>This machine learning analysis explored how job characteristics—such as location, remote work type, industry, and experience level—influence both remote job availability and salary outcomes within the 2024 U.S. labor market.</p>
 <p>Using unsupervised learning techniques such as Principal Component Analysis (PCA) and KMeans clustering, we identified clear groupings of job postings. These clusters reflect consistent geographic and occupational structures: high-skill, remote-eligible jobs are disproportionately concentrated in urban, innovation-driven states, while on-site roles remain prevalent in manufacturing-heavy and rural regions.</p>
-<p>Both Random Forest and Logistic Regression classifiers demonstrated strong performance in distinguishing between “Remote” and “Not Remote” roles. However, “Hybrid Remote” jobs proved more difficult to classify accurately, likely due to inconsistent employer labeling and overlapping feature profiles—an issue also observed by Tahlyan et al.&nbsp;(2024) (<span class="citation" data-cites="Tahlyan2024">Tahlyan et al. (<a href="#ref-Tahlyan2024" role="doc-biblioref">2024</a>)</span>).</p>
-<p>The Random Forest Regressor achieved solid performance in predicting salaries within the $90,000–$140,000 range, but systematically underpredicted compensation for higher-end roles exceeding $200,000. In contrast, linear models such as Generalized Linear Regression offered more interpretability but struggled to capture non-linear compensation structures. These limitations mirror findings from Tan et al.&nbsp;(2023) and Hsu and Tambe (2024) (<span class="citation" data-cites="Tan2023">Tan et al. (<a href="#ref-Tan2023" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="Hsu2024">Hsu &amp; Tambe (<a href="#ref-Hsu2024" role="doc-biblioref">2024</a>)</span>), who emphasize the complexity and variability of wages in remote-friendly, tech-intensive occupations.</p>
+<p>Both Random Forest and Logistic Regression classifiers demonstrated strong performance in distinguishing between “Remote” and “Not Remote” roles. However, “Hybrid Remote” jobs proved more difficult to classify accurately, likely due to inconsistent employer labeling and overlapping feature profiles—an issue also observed by Tahlyan et al.&nbsp;(2024).</p>
+<p>The Random Forest Regressor achieved solid performance in predicting salaries within the $90,000–$140,000 range, but systematically underpredicted compensation for higher-end roles exceeding $200,000. In contrast, linear models such as Generalized Linear Regression offered more interpretability but struggled to capture non-linear compensation structures. These limitations mirror findings from an et al.&nbsp;(2023) and Hsu and Tambe (2024), who emphasize the complexity and variability of wages in remote-friendly, tech-intensive occupations.</p>
 <p>Choropleth map visualizations revealed persistent geographic inequality in remote job distribution. States like California, New York, and Massachusetts exhibited higher proportions of remote postings, while many Southern and Midwestern states lagged behind. These patterns likely reflect differences in industrial composition, digital infrastructure, and remote-readiness (<span class="citation" data-cites="Hansen2023">Hansen et al. (<a href="#ref-Hansen2023" role="doc-biblioref">2023</a>)</span>).</p>
 <p>Our analysis suggests several practical implications for individuals navigating today’s digitally mediated labor market:</p>
 <ul>
